@@ -95,6 +95,18 @@
   :ensure t
   :pin melpa-stable)
 
+(use-package neotree
+  :ensure t
+  :pin melpa-stable)
+
+(use-package web-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package tide
+  :ensure t
+  :pin melpa-stable)
+
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -105,10 +117,11 @@
  '(nyan-mode t)
  '(package-selected-packages
    (quote
-    (git-gutter glsl-mode auto-complete typescript-mode nyan-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package))))
+    (tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode nyan-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package)))
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:inherit nil :stipple nil :background "#FFFFFF" :foreground "#333333" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 128 :width normal :foundry "adobe" :family "Source Code Pro")))))
+ '(default ((t (:inherit nil :stipple nil :background "#FFFFFF" :foreground "#333333" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 70 :width normal :foundry "outline" :family "Source Code Pro")))))
