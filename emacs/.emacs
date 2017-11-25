@@ -44,17 +44,17 @@
 (use-package solarized-theme
   :ensure t
   :pin melpa-stable)
-
+;; scala ide like features
 (use-package ensime
   :ensure t
   :pin melpa)
-
+;; scala build tool
 (use-package sbt-mode
   :pin melpa)
-
+;; scala mode
 (use-package scala-mode
   :pin melpa)
-
+;; haskell ide like features
 (use-package intero
   :ensure t
   :pin melpa-stable)
@@ -62,7 +62,7 @@
 (use-package json-mode
   :ensure t
   :pin melpa-stable)
-
+;; JavaScript
 (use-package js2-mode
   :ensure t
   :pin melpa-stable)
@@ -90,11 +90,11 @@
 (use-package magit
   :ensure t
   :pin melpa-stable)
-
+;; displays changes in line column
 (use-package git-gutter
   :ensure t
   :pin melpa-stable)
-
+;; nerd-tree like explorer
 (use-package neotree
   :ensure t
   :pin melpa-stable)
@@ -121,7 +121,7 @@
     ("8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" default)))
  '(package-selected-packages
    (quote
-    (tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode nyan-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package)))
+    (tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package)))
  '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
