@@ -60,6 +60,12 @@
 
 (use-package json-mode
   :ensure t
+  :mode "\\.json$"
+  :pin melpa-stable)
+
+(use-package yaml-mode
+  :ensure t
+  :mode "\\.yml$"
   :pin melpa-stable)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -122,7 +128,7 @@
   :pin melpa-stable)
 
 ;; completion
-(use-package auto-complete
+(use-package company
   :ensure t
   :pin melpa-stable)
 
