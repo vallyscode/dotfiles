@@ -225,25 +225,25 @@
   :pin melpa)
 
 ;; atom one dark theme
-(use-package atom-one-dark-theme
-  :ensure t
-  :pin melpa-stable)
+;;(use-package atom-one-dark-theme
+;;  :ensure t
+;;  :pin melpa-stable)
 
 ;; heroku theme
-(use-package heroku-theme
-  :ensure t
-  :pin melpa)
+;;(use-package heroku-theme
+;;  :ensure t
+;;  :pin melpa)
 
 ;; mode line
-(use-package spaceline
-  :ensure t
-  :demand t
-  :init
-  (setq powerline-default-separator 'arrow)
-  :config
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme)
-  (spaceline-helm-mode))
+;;(use-package spaceline
+;;  :ensure t
+;;  :demand t
+;;  :init
+;;  (setq powerline-default-separator 'wave)
+;;  :config
+;;  (require 'spaceline-config)
+;;  (spaceline-emacs-theme)
+;;  (spaceline-helm-mode))
 
 ;; set theme
 (load-theme 'leuven t)
