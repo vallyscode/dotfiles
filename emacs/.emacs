@@ -2,6 +2,7 @@
 (setq
  inhibit-startup-screen t
  initial-scratch-message ""
+ inhibit-splash-screen t
  create-lockfiles nil
  make-backup-files nil
  column-number-mode t
@@ -9,25 +10,44 @@
  show-paren-delay 0.5
  use-package-always-ensure t
  ns-pop-up-frames nil
- sentence-end-double-space nil
- large-file-warning-threshold (* 15 1024 1024))
+ sentence-end-double-space nil)
 
+;; set garbage collection threshold to 500MB
+(setq gc-cons-threshold (* 500 1024 1024))
 
+;; disable toolbar & scrollbar
+(tool-bar-mode -1)
+(scroll-bar-mode -1)
+(tooltip-mode -1)
+
+;; set cursor shape to be vertical line of 2px width
+(setq-default cursor-type '(bar . 2))
+
+;; disable cursor blink
+(blink-cursor-mode -1)
+
+;; utf-8
+(prefer-coding-system 'utf-8)
+(setq-default buffer-file-coding-system 'utf-8-auto-unix)
+
+;; large file warning
+(setq large-file-warning-threshold (* 15 1024 1024))
+
+;; ediff defaults
+(setq ediff-window-setup-function 'ediff-setup-windows-plain
+      ediff-split-window-function 'split-window-horizontally)
+
+;; pdf reading
+(setq doc-view-continuous t)
 
 ;; buffer local variables
 (setq-default
  indent-tabs-mode nil
  tab-width 4
- c-basic-offset 4
- cursor-type '(bar . 1)
- buffer-file-coding-system 'utf-8-auto-unix)
+ c-basic-offset 4)
 
 ;; modes
 (electric-indent-mode 0)
-
-;; utf-8
-(prefer-coding-system 'utf-8)
-
 
 ;; global keybindings
 (global-unset-key (kbd "C-z"))
@@ -51,8 +71,6 @@
 ;; set common exec path
 (add-to-list 'exec-path "/usr/local/bin")
 
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; haskell ide like features
 (use-package intero
   :ensure t
@@ -68,7 +86,6 @@
   :mode "\\.yml$"
   :pin melpa-stable)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; scala ide like features
 (use-package ensime
   :ensure t
@@ -82,7 +99,6 @@
 (use-package scala-mode
   :pin melpa)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; JavaScript
 (use-package js2-mode
   :ensure t
@@ -92,7 +108,6 @@
   :ensure t
   :pin melpa-stable)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; TypeScript
 (use-package typescript-mode
   :ensure t
@@ -102,7 +117,6 @@
   :ensure t
   :pin melpa-stable)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; less/css
 (use-package less-css-mode
   :ensure t
@@ -135,6 +149,7 @@
 ;; markdown
 (use-package markdown-mode
   :ensure t
+  :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
 
 ;; vim emulation
@@ -255,14 +270,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
  '(intero-global-mode t nil (intero))
- '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (tern yaml-mode heroku-theme atom-one-dark-theme leuven-theme helm command-log-mode all-the-icons ace-jump-mode bm evil tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package)))
- '(scroll-bar-mode nil)
- '(tool-bar-mode nil))
+    (tern yaml-mode heroku-theme atom-one-dark-theme leuven-theme helm command-log-mode all-the-icons ace-jump-mode bm evil tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
