@@ -74,6 +74,8 @@
 ;; haskell ide like features
 (use-package intero
   :ensure t
+  :config
+  (intero-global-mode 1)
   :pin melpa-stable)
 
 (use-package json-mode
@@ -182,23 +184,11 @@
   :config
   (global-undo-tree-mode 1))
 
-;; project management
-(use-package projectile
-  :ensure t
-  :bind* (("M-m SPC d"   . projectile-find-file)
-          ("M-m SPC D"   . projectile-switch-project)
-          ("M-m SPC TAB" . projectile-find-other-file))
-  :init
-  (setq projectile-file-exists-remote-cache-expire (* 10 60))
-  :diminish projectile-mode
-  :config
-  (projectile-global-mode))
-
 ;; dir comparison
 (use-package ztree
   :ensure t
-  :bind* (("M-m g v" . ztree-dir)
-          ("M-m g V" . ztree-diff))
+  :bind* (("M-m z v" . ztree-dir)
+          ("M-m z V" . ztree-diff))
   :init
   (setq ztree-dir-move-focus t))
 
@@ -208,6 +198,13 @@
   :bind (("C-c =" . bm-toggle)
          ("C-c [" . bm-previous)
          ("C-c ]" . bm-next))
+  :pin melpa-stable)
+
+;; folding
+(use-package vimish-fold
+  :ensure t
+  :commands (vimish-fold-toggle
+             vimish-fold)
   :pin melpa-stable)
 
 ;; window management
@@ -223,6 +220,18 @@
   (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
   :pin melpa-stable)
 
+;; project management
+(use-package projectile
+  :ensure t
+  :bind* (("M-m SPC d"   . projectile-find-file)
+          ("M-m SPC D"   . projectile-switch-project)
+          ("M-m SPC TAB" . projectile-find-other-file))
+  :init
+  (setq projectile-file-exists-remote-cache-expire (* 10 60))
+  :diminish projectile-mode
+  :config
+  (projectile-global-mode))
+
 ;; complete and narrowing selections
 (use-package helm
   :ensure t
@@ -234,6 +243,13 @@
   (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m
   ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
   (helm-mode 1)
+  :pin melpa-stable)
+
+(use-package helm-projectile
+  :ensure t
+  :bind* (("M-m SPC p" . helm-projectile))
+  :init
+  (setq projectile-completion-systtem 'helm)
   :pin melpa-stable)
 
 ;; rest client
@@ -273,7 +289,6 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(intero-global-mode t nil (intero))
  '(package-selected-packages
    (quote
     (tern yaml-mode heroku-theme atom-one-dark-theme leuven-theme helm command-log-mode all-the-icons ace-jump-mode bm evil tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package))))
