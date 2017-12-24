@@ -234,10 +234,11 @@
   :pin melpa)
 
 ;;;;;;;;;;;; themes ;;;;;;;;;;;;;;;;
+
 ;; leuven, great light theme
-(use-package leuven-theme
-  :ensure t
-  :pin melpa)
+;;(use-package leuven-theme
+;;  :ensure t
+;;  :pin melpa)
 
 ;; atom one dark theme
 ;;(use-package atom-one-dark-theme
@@ -249,19 +250,13 @@
 ;;  :ensure t
 ;;  :pin melpa)
 
-;; mode line
-;;(use-package spaceline
-;;  :ensure t
-;;  :demand t
-;;  :init
-;;  (setq powerline-default-separator 'wave)
-;;  :config
-;;  (require 'spaceline-config)
-;;  (spaceline-emacs-theme)
-;;  (spaceline-helm-mode))
+;; solarized
+(use-package solarized-theme
+  :ensure t
+  :pin melpa-stable)
 
 ;; set theme
-(load-theme 'leuven t)
+(load-theme 'solarized-light t)
 
 
 
