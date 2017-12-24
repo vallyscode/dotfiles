@@ -102,6 +102,7 @@
 ;; JavaScript
 (use-package js2-mode
   :ensure t
+  :mode ("\\.js$" . js2-mode)
   :pin melpa-stable)
 
 (use-package jsx-mode
@@ -124,19 +125,25 @@
 
 (use-package web-mode
   :ensure t
+  :mode ("\\.html$" . web-mode)
   :pin melpa-stable)
 
 ;; git support
 (use-package magit
   :ensure t
-  :config
-  (global-set-key (kbd "C-c m") 'magit-status)
+  :bind* (("M-m g s" . magit-status)
+          ("M-m g b" . magit-blame)
+          ("M-m g B" . magit-blame-quit)
+          ("M-m g l" . magit-log-all))
   :pin melpa-stable)
 
 ;; key binding display
 (use-package which-key
   :ensure t
+  :defer t
   :diminish which-key-mode
+  :init
+  (setq which-key-sort-order 'which-key-key-order-alpha)
   :config 
   (which-key-mode)
   :pin melpa-stable)
@@ -183,6 +190,7 @@
           ("M-m SPC TAB" . projectile-find-other-file))
   :init
   (setq projectile-file-exists-remote-cache-expire (* 10 60))
+  :diminish projectile-mode
   :config
   (projectile-global-mode))
 
