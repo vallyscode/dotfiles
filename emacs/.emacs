@@ -164,6 +164,8 @@
 ;; vim emulation
 (use-package evil
   :ensure t
+  :config
+  (evil-mode 1)
   :pin melpa-stable)
 
 ;; nerd-tree like explorer
