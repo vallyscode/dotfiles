@@ -1,23 +1,44 @@
 ;; global variables
 (setq
- inhibit-startup-screen t
- initial-scratch-message ""
- inhibit-splash-screen t
  create-lockfiles nil
  make-backup-files nil
- column-number-mode t
  scroll-error-top-bottom t
  show-paren-delay 0.5
  use-package-always-ensure t
  ns-pop-up-frames nil
  sentence-end-double-space nil)
 
+;; hilight current line
+(global-hl-line-mode)
+
+;; disable the menu bar
+(menu-bar-mode 0)
+
+;; turn on visible bell
+(setq visible-bell t)
+
+;; no startup screen
+(setq inhibit-startup-screen t)
+
+;; no scratch message
+(setq initial-scratch-message "")
+
+;; no splash screen
+(setq inhibit-splash-screen t)
+
+;; show column nuber in mode-line
+(setq column-number-mode t)
+
 ;; set garbage collection threshold to 500MB
 (setq gc-cons-threshold (* 500 1024 1024))
 
-;; disable toolbar & scrollbar
+;; no tool bar
 (tool-bar-mode -1)
+
+;; no scroll bar
 (scroll-bar-mode -1)
+
+;; no tooltips
 (tooltip-mode -1)
 
 ;; set cursor shape to be vertical line of 2px width
@@ -45,6 +66,11 @@
  indent-tabs-mode nil
  tab-width 4
  c-basic-offset 4)
+
+;; add left and right margin
+(setq-default
+ left-margin-width 1
+ right-margin-width 1)
 
 ;; modes
 (electric-indent-mode 0)
@@ -76,7 +102,7 @@
   :ensure t
   :config
   (intero-global-mode 1)
-  :pin melpa-stable)
+  :pin melpa)
 
 (use-package json-mode
   :ensure t
@@ -91,14 +117,13 @@
 ;; scala ide like features
 (use-package ensime
   :ensure t
-  :pin melpa)
-
-;; scala build tool
-(use-package sbt-mode
-  :pin melpa)
-
-;; scala mode
-(use-package scala-mode
+  :config
+  (use-package scala-mode
+    :ensure t
+    :pin melpa)
+  (use-package sbt-mode
+    :ensure t
+    :pin melpa)
   :pin melpa)
 
 ;; JavaScript
@@ -111,13 +136,13 @@
   :ensure t
   :pin melpa-stable)
 
-;; TypeScript
-(use-package typescript-mode
-  :ensure t
-  :pin melpa-stable)
-
+;; typescript ide
 (use-package tide
   :ensure t
+  :config
+  (use-package typescript-mode
+    :ensure t
+    :pin melpa-stable)
   :pin melpa-stable)
 
 ;; less/css
@@ -153,6 +178,7 @@
 ;; completion
 (use-package company
   :ensure t
+  :diminish C
   :pin melpa-stable)
 
 ;; markdown
@@ -166,6 +192,19 @@
   :ensure t
   :config
   (evil-mode 1)
+  (use-package evil-leader
+    :ensure t
+    :config
+    (global-evil-leader-mode)
+    :pin melpa-stable)
+  (use-package evil-surround
+    :ensure t
+    :config
+    (global-evil-surround-mode)
+    :pin melpa-stable)
+  (use-package evil-nerd-commenter
+    :ensure t
+    :pin melpa-stable)
   :pin melpa-stable)
 
 ;; nerd-tree like explorer
@@ -173,7 +212,9 @@
   :ensure t
   :bind* (("M-m SPC n". neotree-toggle))
   :init
-  (setq neo-smart-open t)
+  (setq
+   neo-smart-open t
+   neo-theme 'arrow)
   :pin melpa-stable)
 
 ;; undo
@@ -200,6 +241,13 @@
   :bind (("C-c =" . bm-toggle)
          ("C-c [" . bm-previous)
          ("C-c ]" . bm-next))
+  :pin melpa-stable)
+
+;; colored delimiters
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   :pin melpa-stable)
 
 ;; folding
@@ -259,6 +307,18 @@
   :ensure t
   :pin melpa)
 
+;; modeline from spaceemacs
+(use-package spaceline
+  :ensure t
+  :demand t
+  :init
+  (setq powerline-default-separator 'utf-8)
+  :config
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  :pin melpa-stable)
+
 ;;;;;;;;;;;; themes ;;;;;;;;;;;;;;;;
 
 ;; leuven, great light theme
@@ -267,9 +327,9 @@
 ;;  :pin melpa)
 
 ;; atom one dark theme
-;;(use-package atom-one-dark-theme
-;;  :ensure t
-;;  :pin melpa-stable)
+(use-package atom-one-dark-theme
+  :ensure t
+  :pin melpa-stable)
 
 ;; heroku theme
 ;;(use-package heroku-theme
@@ -277,26 +337,15 @@
 ;;  :pin melpa)
 
 ;; solarized
-(use-package solarized-theme
-  :ensure t
-  :pin melpa-stable)
+;;(use-package solarized-theme
+;;  :ensure t
+;;  :config
+;;  (load-theme 'solarized-light t)
+;;  :pin melpa-stable)
 
-;; set theme
-(load-theme 'solarized-light t)
-
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (tern yaml-mode heroku-theme atom-one-dark-theme leuven-theme helm command-log-mode all-the-icons ace-jump-mode bm evil tidy tide web-mode neotree git-gutter glsl-mode auto-complete typescript-mode less-css-mode jsx-mode js2-mode json-mode intero scala-mode use-package))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;(use-package spacemacs-theme
+;;  :ensure t
+;;  :init
+;;  (load-theme 'spacemacs-dark t)
+;;  (setq spacemacs-theme-org-agenda-height nil)
+;;  (setq spacemacs-theme-org-height nil))
