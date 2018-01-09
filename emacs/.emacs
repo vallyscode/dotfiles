@@ -147,6 +147,12 @@
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
 
+(use-package neotree
+  :ensure t
+  :config
+  (setq neo-theme 'arrow)
+  :pin melpa-stable)
+
 (use-package evil
   :ensure t
   :config
@@ -155,6 +161,10 @@
     :config
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
+      "hh" 'bm-toggle
+      "jj" 'bm-next
+      "kk" 'bm-previous
+      "n" 'neotree-toggle
       "e" 'find-file
       "b" 'switch-to-buffer
       "k" 'kill-buffer
