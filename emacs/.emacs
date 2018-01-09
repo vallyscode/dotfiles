@@ -109,7 +109,6 @@
     :pin melpa-stable)
   :pin melpa-stable)
 
-;; less/css
 (use-package less-css-mode
   :ensure t
   :pin melpa-stable)
@@ -119,7 +118,6 @@
   :mode ("\\.html$" . web-mode)
   :pin melpa-stable)
 
-;; git support
 (use-package magit
   :ensure t
   :bind* (("M-m g s" . magit-status)
@@ -128,7 +126,6 @@
           ("M-m g l" . magit-log-all))
   :pin melpa-stable)
 
-;; key binding display
 (use-package which-key
   :ensure t
   :init
@@ -156,8 +153,27 @@
   (use-package evil-leader
     :ensure t
     :config
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+      "e" 'find-file
+      "b" 'switch-to-buffer
+      "k" 'kill-buffer
+      "g" 'grep
+      "ci" 'evilnc-comment-or-uncomment-lines
+      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "cc" 'evilnc-copy-and-comment-lines
+      "cp" 'evilnc-comment-or-uncomment-paragraphs
+      "cr" 'comment-or-uncomment-region
+      "cv" 'evilnc-toggle-invert-comment-line-by-line
+      "."  'evilnc-copy-and-comment-operator
+      "\\" 'evilnc-comment-operator ; if you prefer backslash key
+      )
     (global-evil-leader-mode)
     :pin melpa-stable)
+  ;; (use-package evil-magit
+  ;;   :ensure t
+  ;;   :pin melpa-stable)
   (use-package evil-surround
     :ensure t
    :config
@@ -260,9 +276,22 @@
 
 ;;;;;;;;;;;; themes ;;;;;;;;;;;;;;;;
 
-;;(use-package leuven-theme
-;;  :ensure t
-;;  :pin melpa)
+(use-package leuven-theme
+ :ensure t
+ :config
+ (load-theme 'leuven t)
+ :pin melpa)
+
+;; (use-package ample-theme
+;;   :ensure t
+;;   :init
+;;   (progn (load-theme 'ample t t)
+;;          (load-theme 'ample-flat t t)
+;;          (load-theme 'ample-light t t)
+;;          (enable-theme 'ample-flat))
+;;   :config
+;;   (enable-theme 'ample-light)
+;;   :pin melpa)
 
 ;; (use-package atom-one-dark-theme
 ;;   :ensure t
@@ -278,9 +307,8 @@
 ;;  (load-theme 'solarized-light t)
 ;;  :pin melpa-stable)
 
-(use-package zenburn-theme
-  :ensure t
-  :config
-  (load-theme 'zenburn t)
-  :pin melpa-stable)
-
+;; (use-package zenburn-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'zenburn t)
+;;   :pin melpa-stable)
