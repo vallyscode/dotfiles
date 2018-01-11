@@ -60,12 +60,20 @@
 
 ;; set common exec path
 (add-to-list 'exec-path "/usr/local/bin")
+;; stack bin
+(add-to-list 'exec-path "/Users/valeriy/.local/bin")
 
-;; haskell ide like features
 (use-package intero
   :ensure t
   :config
   (intero-global-mode 1)
+  (use-package hindent
+    :ensure t
+    :init
+    (setq hindent-reformat-buffer-on-save t)
+    :config
+    (add-hook 'haskell-mode-hook #'hindent-mode)
+    :pin melpa-stable)
   :pin melpa)
 
 (use-package json-mode
@@ -78,7 +86,11 @@
   :mode "\\.yml$"
   :pin melpa-stable)
 
-;; scala ide like features
+(use-package markdown-mode
+  :ensure t
+  :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
+  :pin melpa-stable)
+
 (use-package ensime
   :ensure t
   :config
@@ -90,17 +102,15 @@
     :pin melpa)
   :pin melpa)
 
-;; JavaScript
 (use-package js2-mode
   :ensure t
   :mode ("\\.js$" . js2-mode)
+  :config
+  (use-package jsx-mode
+    :ensure t
+    :pin melpa-stable)
   :pin melpa-stable)
 
-(use-package jsx-mode
-  :ensure t
-  :pin melpa-stable)
-
-;; typescript ide
 (use-package tide
   :ensure t
   :config
@@ -134,17 +144,10 @@
   (which-key-mode)
   :pin melpa-stable)
 
-;; completion
 (use-package company
   :ensure t
   :config
   (add-hook 'prog-mode-hook 'company-mode)
-  :pin melpa-stable)
-
-;; markdown
-(use-package markdown-mode
-  :ensure t
-  :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
 
 (use-package neotree
@@ -161,14 +164,16 @@
     :config
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "hh" 'bm-toggle
-      "jj" 'bm-next
-      "kk" 'bm-previous
+      "bb" 'bm-toggle
+      "j" 'bm-next
+      "k" 'bm-previous
       "n" 'neotree-toggle
-      "e" 'find-file
-      "b" 'switch-to-buffer
+      "f" 'find-file
+      "bs" 'switch-to-buffer
       "k" 'kill-buffer
       "g" 'grep
+      "li" 'linum-mode
+      "lr" 'linum-relative-toggle
       "ci" 'evilnc-comment-or-uncomment-lines
       "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
       "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
@@ -181,9 +186,6 @@
       )
     (global-evil-leader-mode)
     :pin melpa-stable)
-  ;; (use-package evil-magit
-  ;;   :ensure t
-  ;;   :pin melpa-stable)
   (use-package evil-surround
     :ensure t
    :config
@@ -223,6 +225,13 @@
   :bind (("C-c =" . bm-toggle)
          ("C-c [" . bm-previous)
          ("C-c ]" . bm-next))
+  :pin melpa-stable)
+
+(use-package linum-relative
+  :ensure t
+  :config
+  ;; (linum-on)
+  ;; (linum-relative-on)
   :pin melpa-stable)
 
 (use-package rainbow-delimiters
@@ -285,6 +294,10 @@
   :pin melpa)
 
 ;;;;;;;;;;;; themes ;;;;;;;;;;;;;;;;
+ ;; '(bm-face ((t (:background "orange1" :foreground "White"))))
+ ;; '(bm-fringe-face ((t (:background "orange1" :foreground "White"))))
+ ;; '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White"))))
+ ;; '(bm-persistent-face ((t (:background "blue1" :foreground "White"))))
 
 (use-package leuven-theme
  :ensure t
@@ -322,3 +335,20 @@
 ;;   :config
 ;;   (load-theme 'zenburn t)
 ;;   :pin melpa-stable)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (hindent ztree zenburn-theme yaml-mode which-key web-mode vimish-fold use-package tide spacemacs-theme spaceline solarized-theme smart-mode-line restclient rainbow-delimiters neotree markdown-mode leuven-theme jsx-mode json-mode js2-mode intero helm-projectile evil-tutor evil-surround evil-nerd-commenter evil-magit evil-leader ensime bm atom-one-dark-theme ample-theme all-the-icons airline-themes ace-window ace-jump-mode))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(bm-face ((t (:background "orange1" :foreground "White"))))
+ '(bm-fringe-face ((t (:background "orange1" :foreground "White"))))
+ '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White"))))
+ '(bm-persistent-face ((t (:background "blue1" :foreground "White")))))
