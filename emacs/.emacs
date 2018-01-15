@@ -31,7 +31,7 @@
 (electric-indent-mode 0) ;; disable auto-indent
 (electric-pair-mode 1) ;; insert closing parens auomatically
 (global-hl-line-mode 1) ;; hilight current line
-(menu-bar-mode 0) ;; no menu bar
+(menu-bar-mode -1) ;; no menu bar
 (tool-bar-mode -1) ;; no tool bar
 (scroll-bar-mode -1) ;; no scroll bar
 (tooltip-mode -1) ;; no tooltips
@@ -164,12 +164,12 @@
     :config
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "bb" 'bm-toggle
+      "h" 'bm-toggle
       "j" 'bm-next
-      "k" 'bm-previous
+      "i" 'bm-previous
       "n" 'neotree-toggle
       "f" 'find-file
-      "bs" 'switch-to-buffer
+      "b" 'switch-to-buffer
       "k" 'kill-buffer
       "g" 'grep
       "li" 'linum-mode
@@ -240,12 +240,6 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   :pin melpa-stable)
 
-(use-package vimish-fold
-  :ensure t
-  :commands (vimish-fold-toggle
-             vimish-fold)
-  :pin melpa-stable)
-
 ;; window management
 (use-package ace-window
   :ensure t
@@ -280,13 +274,12 @@
   (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m
   ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
   (helm-mode 1)
-  :pin melpa-stable)
-
-(use-package helm-projectile
-  :ensure t
-  :bind* (("M-m SPC p" . helm-projectile))
-  :init
-  (setq projectile-completion-systtem 'helm)
+  (use-package helm-projectile
+    :ensure t
+    :bind* (("M-m SPC p" . helm-projectile))
+    :init
+    (setq projectile-completion-systtem 'helm)
+    :pin melpa-stable)
   :pin melpa-stable)
 
 (use-package restclient
@@ -294,60 +287,24 @@
   :pin melpa)
 
 ;;;;;;;;;;;; themes ;;;;;;;;;;;;;;;;
- ;; '(bm-face ((t (:background "orange1" :foreground "White"))))
- ;; '(bm-fringe-face ((t (:background "orange1" :foreground "White"))))
- ;; '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White"))))
- ;; '(bm-persistent-face ((t (:background "blue1" :foreground "White"))))
 
-(use-package leuven-theme
- :ensure t
- :config
- (load-theme 'leuven t)
- :pin melpa)
-
-;; (use-package ample-theme
-;;   :ensure t
-;;   :init
-;;   (progn (load-theme 'ample t t)
-;;          (load-theme 'ample-flat t t)
-;;          (load-theme 'ample-light t t)
-;;          (enable-theme 'ample-flat))
-;;   :config
-;;   (enable-theme 'ample-light)
-;;   :pin melpa)
+;; (use-package leuven-theme
+;;  :ensure t
+;;  :config
+;;  (load-theme 'leuven t)
+;;  :pin melpa)
 
 ;; (use-package atom-one-dark-theme
 ;;   :ensure t
 ;;   :pin melpa-stable)
 
-;;(use-package heroku-theme
-;;  :ensure t
-;;  :pin melpa)
+(use-package solarized-theme
+ :ensure t
+ :config
+ (load-theme 'solarized-light t)
+ :pin melpa-stable)
 
-;;(use-package solarized-theme
-;;  :ensure t
-;;  :config
-;;  (load-theme 'solarized-light t)
-;;  :pin melpa-stable)
-
-;; (use-package zenburn-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'zenburn t)
-;;   :pin melpa-stable)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (hindent ztree zenburn-theme yaml-mode which-key web-mode vimish-fold use-package tide spacemacs-theme spaceline solarized-theme smart-mode-line restclient rainbow-delimiters neotree markdown-mode leuven-theme jsx-mode json-mode js2-mode intero helm-projectile evil-tutor evil-surround evil-nerd-commenter evil-magit evil-leader ensime bm atom-one-dark-theme ample-theme all-the-icons airline-themes ace-window ace-jump-mode))))
 (custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
  '(bm-face ((t (:background "orange1" :foreground "White"))))
  '(bm-fringe-face ((t (:background "orange1" :foreground "White"))))
  '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White"))))
