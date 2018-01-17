@@ -150,6 +150,12 @@
   (add-hook 'prog-mode-hook 'company-mode)
   :pin melpa-stable)
 
+(use-package yasnippet
+  :ensure t
+  :config
+  (yas-global-mode 1)
+  :pin melpa-stable)
+
 (use-package neotree
   :ensure t
   :config
@@ -164,7 +170,7 @@
     :config
     (evil-leader/set-leader "<SPC>")
     (evil-leader/set-key
-      "h" 'bm-toggle
+      "bm" 'bm-toggle
       "j" 'bm-next
       "i" 'bm-previous
       "n" 'neotree-toggle
@@ -172,6 +178,10 @@
       "b" 'switch-to-buffer
       "k" 'kill-buffer
       "g" 'grep
+      "ho" 'helm-occur
+      "hr" 'helm-register
+      "ht" 'helm-top
+      "hp" 'helm-projectile
       "li" 'linum-mode
       "lr" 'linum-relative-toggle
       "ci" 'evilnc-comment-or-uncomment-lines
@@ -272,8 +282,9 @@
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m
+  ;;(global-set-key (kbd "C-x h o") 'helm-occur) ;; simillar to occur
   ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
-  (helm-mode 1)
+(helm-mode 1)
   (use-package helm-projectile
     :ensure t
     :bind* (("M-m SPC p" . helm-projectile))
@@ -305,7 +316,7 @@
  :pin melpa-stable)
 
 (custom-set-faces
- '(bm-face ((t (:background "orange1" :foreground "White"))))
- '(bm-fringe-face ((t (:background "orange1" :foreground "White"))))
- '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White"))))
- '(bm-persistent-face ((t (:background "blue1" :foreground "White")))))
+ '(bm-face ((t (:background "orange1" :foreground "White" :overline nil))))
+ '(bm-fringe-face ((t (:background "orange1" :foreground "White" :overline nil))))
+ '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White" :overline nil))))
+ '(bm-persistent-face ((t (:background "blue1" :foreground "White" :overline nil)))))
