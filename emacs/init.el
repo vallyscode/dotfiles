@@ -143,14 +143,6 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   :pin melpa-stable)
 
-(use-package magit
-  :ensure t
-  :bind* (("M-m g s" . magit-status)
-          ("M-m g b" . magit-blame)
-          ("M-m g B" . magit-blame-quit)
-          ("M-m g l" . magit-log-all))
-  :pin melpa-stable)
-
 (use-package undo-tree
   :ensure t
   :diminish undo-tree-mode
@@ -161,6 +153,14 @@
   (global-undo-tree-mode 1)
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-visualizer-diff t)
+  :pin melpa)
+
+(use-package magit
+  :ensure t
+  :bind* (("M-m g s" . magit-status)
+          ("M-m g b" . magit-blame)
+          ("M-m g B" . magit-blame-quit)
+          ("M-m g l" . magit-log-all))
   :pin melpa-stable)
 
 (use-package evil
@@ -328,24 +328,3 @@
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
 
-
-
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(bm-face ((t (:background "orange1" :foreground "White" :overline nil))))
- '(bm-fringe-face ((t (:background "orange1" :foreground "White" :overline nil))))
- '(bm-fringe-persistent-face ((t (:background "blue1" :foreground "White" :overline nil))))
- '(bm-persistent-face ((t (:background "blue1" :foreground "White" :overline nil)))))
-
-
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   (quote
-    (helm-bm ztree zenburn-theme yaml-mode which-key web-mode vimish-fold use-package tide spacemacs-theme spaceline solarized-theme smart-mode-line restclient rainbow-delimiters neotree markdown-mode linum-relative leuven-theme jsx-mode json-mode js2-mode intero hindent helm-projectile evil-tutor evil-surround evil-nerd-commenter evil-magit evil-leader ensime bm atom-one-dark-theme ample-theme all-the-icons airline-themes ace-window ace-jump-mode))))
