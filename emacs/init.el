@@ -19,7 +19,7 @@
 
 (setq sentence-end-double-space nil)
 
-(setq cursor-type '(bar .2)) ;; vertical line 2px width
+;; (setq cursor-type '(bar .2)) ;; vertical line 2px width
 
 (setq large-file-warning-threshold (* 15 1024 1024)) ;;large file warning 15MB
 
@@ -60,18 +60,32 @@
 (if (file-exists-p "~/.emacs.secrets")
     (load-file "~/.emacs.secrets"))
 
+;; ---------------------------------------
+
 (defun my/insert-timestamp()
   "Insert a full ISO 8601 timestamp."
   (interactive)
   (insert (format-time-string "%Y-%m-%dT%T%z")))
 
+(defun my/linum-setup ()
+  "Use relative mode for normal state and absolute for insert."
+  (when (eq evil-state 'normal)
+    (linum-relative-on))
+  (add-hook 'evil-insert-state-exit-hook #'linum-relative-on)
+  (add-hook 'evil-insert-state-entry-hook (lambda ()
+                                            (linum-relative-off)
+                                            (linum-mode)
+                                            )))
+(add-hook 'prog-mode-hook #'my/linum-setup)
 
-
+;; -----------------------------------------
 
 ;; common exec path
 (add-to-list 'exec-path "/usr/local/bin")
-;; stack bin
+;; stack bin mac
 (add-to-list 'exec-path "/Users/valeriy/.local/bin")
+;; stack bin linux
+(add-to-list 'exec-path "/home/vagrant/.local/bin")
 
 
 
@@ -132,9 +146,6 @@
 
 (use-package linum-relative
   :ensure t
-  :config
-  ;; (linum-on)
-  ;; (linum-relative-on)
   :pin melpa-stable)
 
 (use-package rainbow-delimiters
@@ -179,6 +190,8 @@
       "md" 'bookmark-delete
       "mr" 'bookmark-rename
       "ml" 'helm-bookmarks
+      "mb" 'magit-blame
+      "mB" 'magit-blame-quit
       "ho" 'helm-occur
       "hr" 'helm-register
       "ht" 'helm-top
@@ -201,11 +214,6 @@
       )
     (global-evil-leader-mode)
     :pin melpa-stable)
-  (use-package evil-surround
-    :ensure t
-   :config
-   (global-evil-surround-mode)
-   :pin melpa-stable)
   (use-package evil-nerd-commenter
    :ensure t
    :pin melpa-stable)
@@ -327,4 +335,3 @@
   :ensure t
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
-
