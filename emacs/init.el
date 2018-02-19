@@ -19,7 +19,7 @@
 
 (setq sentence-end-double-space nil)
 
-;; (setq cursor-type '(bar .2)) ;; vertical line 2px width
+;; (setq cursor-type '(bar . 2)) ;; vertical line 2px width
 
 (setq large-file-warning-threshold (* 15 1024 1024)) ;;large file warning 15MB
 
@@ -35,7 +35,6 @@
 (show-paren-mode t)
 
 (display-time-mode 1)
-;;(setq display-time-format "%1:%M%p")
 
 (setq-default fill-column 80) ;;linewrapping after 80
 (setq-default indent-tabs-mode nil) ;;do not use tabs for indentation
@@ -60,6 +59,13 @@
 (if (file-exists-p "~/.emacs.secrets")
     (load-file "~/.emacs.secrets"))
 
+;; set default font
+;; "TerminusTTF NF-14"
+;; "SourceCodePro Nerd Font Mono"
+(when (member "SourceCodePro Nerd Font Mono" (font-family-list))
+  (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono-12"))
+
+;;(set-default-font "TerminusTTF NF-9")
 ;; ---------------------------------------
 
 (defun my/insert-timestamp()
@@ -134,6 +140,7 @@
 
 (use-package company
   :ensure t
+  :diminish " ⓒ"
   :config
   (add-hook 'prog-mode-hook 'company-mode)
   :pin melpa-stable)
