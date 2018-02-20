@@ -63,12 +63,12 @@
 ;; "TerminusTTF NF-14"
 ;; "SourceCodePro Nerd Font Mono"
 (when (member "SourceCodePro Nerd Font Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono-12"))
+  (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono-10"))
 
 ;;(set-default-font "TerminusTTF NF-9")
 ;; ---------------------------------------
 
-(defun my/insert-timestamp()
+(defun my/insert-timestamp ()
   "Insert a full ISO 8601 timestamp."
   (interactive)
   (insert (format-time-string "%Y-%m-%dT%T%z")))
@@ -83,6 +83,11 @@
                                             (linum-mode)
                                             )))
 (add-hook 'prog-mode-hook #'my/linum-setup)
+
+(defun my/delete-trailing-whitespace ()
+  "Delete trailing whitespaces safely when yafolding used."
+  (yafolding-show-all)
+  (delete-trailing-whitespace))
 
 ;; -----------------------------------------
 
@@ -120,8 +125,22 @@
 ;;  (load-theme 'leuven t)
 ;;  :pin melpa)
 
-;; (use-package atom-one-dark-theme
+;;(use-package atom-one-dark-theme
+;;  :ensure t
+;;  :config
+;;  (load-theme 'atom-one-dark t)
+;;  :pin melpa-stable)
+
+;; (use-package zenburn-theme
 ;;   :ensure t
+;;   :config
+;;   (load-theme 'zenburn t)
+;;   :pin melpa-stable)
+
+;; (use-package monokai-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'monokai t)
 ;;   :pin melpa-stable)
 
 (use-package solarized-theme
@@ -129,6 +148,24 @@
  :config
  (load-theme 'solarized-light t)
  :pin melpa-stable)
+
+(use-package spaceline
+  :ensure t
+  :init
+  (require 'spaceline-config)
+  (spaceline-spacemacs-theme)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
+  (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
+  (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
+  (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
+  (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
+  (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
+  (custom-set-faces
+ '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+ '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
+  (spaceline-helm-mode)
+  :pin melpa-stable)
 
 (use-package which-key
   :ensure t
@@ -149,6 +186,13 @@
   :ensure t
   :config
   (yas-global-mode 1)
+  :pin melpa-stable)
+
+(use-package yafolding
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook
+            (lambda () (yafolding-mode)))
   :pin melpa-stable)
 
 (use-package linum-relative
