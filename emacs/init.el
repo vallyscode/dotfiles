@@ -161,11 +161,15 @@
   (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
   (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
-  (custom-set-faces
- '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
- '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
+  (custom-set-faces 
+   '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+   '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
   (spaceline-helm-mode)
-  (setq powerline-default-separator 'utf-8)
+  (setq-default
+   powerline-height 20
+   powerline-default-separator 'utf-8
+   spaceline-minor-modes-separator " "
+   )
   :pin melpa-stable)
 
 (use-package which-key
@@ -178,7 +182,6 @@
 
 (use-package company
   :ensure t
-  :diminish " ⓒ"
   :config
   (add-hook 'prog-mode-hook 'company-mode)
   :pin melpa-stable)
@@ -237,13 +240,17 @@
       "f" 'find-file
       "b" 'switch-to-buffer
       "k" 'kill-buffer
-      "g" 'grep
+      "gg" 'grep
+      "hfe" 'yafolding-toggle-element
+      "hfa" 'yafolding-show-all
       "ms" 'bookmark-set
       "md" 'bookmark-delete
       "mr" 'bookmark-rename
       "ml" 'helm-bookmarks
-      "mb" 'magit-blame
-      "mB" 'magit-blame-quit
+      "gs" 'magit-status
+      "gb" 'magit-blame
+      "gB" 'magit-blame-quit
+      "gl" 'magit-log
       "ho" 'helm-occur
       "hr" 'helm-register
       "ht" 'helm-top
