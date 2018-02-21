@@ -165,6 +165,7 @@
  '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
  '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
   (spaceline-helm-mode)
+  (setq powerline-default-separator 'utf-8)
   :pin melpa-stable)
 
 (use-package which-key
