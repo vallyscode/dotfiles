@@ -60,12 +60,9 @@
     (load-file "~/.emacs.secrets"))
 
 ;; set default font
-;; "TerminusTTF NF-14"
-;; "SourceCodePro Nerd Font Mono"
 (when (member "SourceCodePro Nerd Font Mono" (font-family-list))
   (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono-10"))
 
-;;(set-default-font "TerminusTTF NF-9")
 ;; ---------------------------------------
 
 (defun my/insert-timestamp ()
@@ -147,6 +144,9 @@
  :ensure t
  :config
  (load-theme 'solarized-light t)
+   (custom-set-faces 
+   '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+   '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
  :pin melpa-stable)
 
 (use-package spaceline
@@ -161,15 +161,11 @@
   (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
   (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
-  (custom-set-faces 
-   '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
-   '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
   (spaceline-helm-mode)
   (setq-default
    powerline-height 20
    powerline-default-separator 'utf-8
-   spaceline-minor-modes-separator " "
-   )
+   spaceline-minor-modes-separator " ")
   :pin melpa-stable)
 
 (use-package which-key
@@ -241,8 +237,6 @@
       "b" 'switch-to-buffer
       "k" 'kill-buffer
       "gg" 'grep
-      "hfe" 'yafolding-toggle-element
-      "hfa" 'yafolding-show-all
       "ms" 'bookmark-set
       "md" 'bookmark-delete
       "mr" 'bookmark-rename
@@ -281,6 +275,11 @@
    :pin melpa-stable)
   (evil-mode 1)
   (evilnc-default-hotkeys)
+  ;; (define-key evil-normal-state-map (kbd "zf") #'yafolding-toggle-element)
+  ;; (define-key evil-visual-state-map (kbd "y f") 'vimish-fold) 
+  ;; (define-key evil-normal-state-map (kbd "y d") 'vimish-fold-delete) 
+  ;; (define-key evil-normal-state-map (kbd "y j") 'vimish-fold-next-fold) 
+  ;; (define-key evil-normal-state-map (kbd "y k") 'vimish-fold-previous-fold)
   :pin melpa-stable)
 
 ;; window management
@@ -336,8 +335,8 @@
   (intero-global-mode 1)
   (use-package hindent
     :ensure t
-    :init
-    (setq hindent-reformat-buffer-on-save t)
+    ;; :init
+    ;; (setq hindent-reformat-buffer-on-save t)
     :config
     (add-hook 'haskell-mode-hook #'hindent-mode)
     :pin melpa-stable)
@@ -394,3 +393,17 @@
   :ensure t
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(leuven-theme yaml-mode yafolding which-key web-mode use-package tide spaceline solarized-theme restclient rainbow-delimiters markdown-mode magit linum-relative jsx-mode json-mode js2-mode intero hindent helm-projectile evil-tutor evil-nerd-commenter evil-leader ensime ace-window ace-jump-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+ '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
