@@ -1,10 +1,10 @@
-(setq gc-cons-threshold (* 500 1024 1024)) ;;GC threshold to 500MB
+(setq gc-cons-threshold (* 50 1024 1024)) ;;GC threshold to 50MB
 
 (setq vc-make-backup-files t) ;;backup files covered by version control
 
 (setq
  backup-by-copying t
- delete-old-versions t 
+ delete-old-versions t
  kept-new-versions 6
  kept-old-versions 2
  version-control t ;;numeric backup versions
@@ -12,6 +12,8 @@
 )
 
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+
+(setq use-package-verbose t)
 
 (setq inhibit-startup-screen t) ;;no startup screen
 (setq initial-scratch-message "") ;;no scratch message
@@ -34,7 +36,11 @@
 (setq show-paren-style 'expression)
 (show-paren-mode t)
 
-(display-time-mode 1)
+;; always delete and copy recursively
+(setq dired-recursive-deletes 'always)
+(setq dired-recursive-copies 'always)
+
+(display-time-mode t)
 
 (setq-default fill-column 80) ;;linewrapping after 80
 (setq-default indent-tabs-mode nil) ;;do not use tabs for indentation
@@ -43,6 +49,9 @@
 
 (setq-default buffer-file-coding-system 'utf-8-auto-unix)
 (prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
 
 (global-linum-mode t) ;;show line numbers everywhere
 (column-number-mode t) ;;show column nuber in modeline
@@ -50,9 +59,11 @@
 (tool-bar-mode -1) ;;no tool bar
 (menu-bar-mode -1) ;;no menu bar
 (blink-cursor-mode -1) ;;no cursor blinking
-(global-hl-line-mode 1) ;; hilight current line
-(electric-pair-mode 1) ;;insert closing paren automatically
-(electric-indent-mode 0) ;;disable auto-indent
+(global-hl-line-mode t) ;; hilight current line
+(electric-pair-mode t) ;;insert closing paren automatically
+(electric-indent-mode t) ;;disable auto-indent
+;; smart tab behavior - indent or complete
+(setq tab-always-indent 'complete)
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; y | n instead of yes | no
 
@@ -64,22 +75,6 @@
   (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono-10"))
 
 ;; ---------------------------------------
-
-(defun my/insert-timestamp ()
-  "Insert a full ISO 8601 timestamp."
-  (interactive)
-  (insert (format-time-string "%Y-%m-%dT%T%z")))
-
-(defun my/linum-setup ()
-  "Use relative mode for normal state and absolute for insert."
-  (when (eq evil-state 'normal)
-    (linum-relative-on))
-  (add-hook 'evil-insert-state-exit-hook #'linum-relative-on)
-  (add-hook 'evil-insert-state-entry-hook (lambda ()
-                                            (linum-relative-off)
-                                            (linum-mode)
-                                            )))
-(add-hook 'prog-mode-hook #'my/linum-setup)
 
 (defun my/delete-trailing-whitespace ()
   "Delete trailing whitespaces safely when yafolding used."
@@ -116,12 +111,6 @@
 
 
 
-;; (use-package leuven-theme
-;;  :ensure t
-;;  :config
-;;  (load-theme 'leuven t)
-;;  :pin melpa)
-
 ;;(use-package atom-one-dark-theme
 ;;  :ensure t
 ;;  :config
@@ -144,8 +133,11 @@
  :ensure t
  :config
  (load-theme 'solarized-light t)
-   (custom-set-faces 
-   '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+   (custom-set-faces
+    '(mode-line
+      ((t
+        (
+         :background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
    '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
  :pin melpa-stable)
 
@@ -172,14 +164,15 @@
   :ensure t
   :init
   (setq which-key-sort-order 'which-key-key-order-alpha)
-  :config 
-  (which-key-mode)
+  :config
+  (which-key-mode t)
   :pin melpa-stable)
 
 (use-package company
   :ensure t
   :config
-  (add-hook 'prog-mode-hook 'company-mode)
+  ;; (add-hook 'prog-mode-hook 'company-mode)
+  (global-company-mode)
   :pin melpa-stable)
 
 (use-package yasnippet
@@ -188,21 +181,41 @@
   (yas-global-mode 1)
   :pin melpa-stable)
 
-(use-package yafolding
+(use-package goto-chg
   :ensure t
-  :config
-  (add-hook 'prog-mode-hook
-            (lambda () (yafolding-mode)))
+  :commands goto-last-change
   :pin melpa-stable)
 
-(use-package linum-relative
+(use-package popup-imenu
   :ensure t
   :pin melpa-stable)
+
+(use-package whitespace
+  :ensure t
+  :init
+  (dolist (hook '(prog-mode-hook text-mode-hook))
+    (add-hook hook #'whitespace-mode))
+  (add-hook 'before-save-hook #'whitespace-cleanup)
+  :config
+  (setq whitespace-line-column 80) ;; limit line length
+  (setq whitespace-style '(face tabs empty trailing lines-tail)))
+
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
 
 (use-package rainbow-delimiters
   :ensure t
   :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  ;; (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  :pin melpa-stable)
+
+(use-package highlight-symbol
+  :ensure t
+  :commands highlight-symbol
+  :bind ("s-h" . highlight-symbol)
   :pin melpa-stable)
 
 (use-package undo-tree
@@ -276,23 +289,10 @@
   (evil-mode 1)
   (evilnc-default-hotkeys)
   ;; (define-key evil-normal-state-map (kbd "zf") #'yafolding-toggle-element)
-  ;; (define-key evil-visual-state-map (kbd "y f") 'vimish-fold) 
-  ;; (define-key evil-normal-state-map (kbd "y d") 'vimish-fold-delete) 
-  ;; (define-key evil-normal-state-map (kbd "y j") 'vimish-fold-next-fold) 
+  ;; (define-key evil-visual-state-map (kbd "y f") 'vimish-fold)
+  ;; (define-key evil-normal-state-map (kbd "y d") 'vimish-fold-delete)
+  ;; (define-key evil-normal-state-map (kbd "y j") 'vimish-fold-next-fold)
   ;; (define-key evil-normal-state-map (kbd "y k") 'vimish-fold-previous-fold)
-  :pin melpa-stable)
-
-;; window management
-(use-package ace-window
-  :ensure t
-  :config
-  (global-set-key (kbd "C-c o") 'ace-window)
-  :pin melpa-stable)
-
-(use-package ace-jump-mode
-  :ensure t
-  :config
-  (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
   :pin melpa-stable)
 
 (use-package projectile
@@ -309,7 +309,7 @@
 (use-package helm
   :ensure t
   :diminish helm-mode
-  :config 
+  :config
   (require 'helm-config)
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
@@ -393,17 +393,3 @@
   :ensure t
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(leuven-theme yaml-mode yafolding which-key web-mode use-package tide spaceline solarized-theme restclient rainbow-delimiters markdown-mode magit linum-relative jsx-mode json-mode js2-mode intero hindent helm-projectile evil-tutor evil-nerd-commenter evil-leader ensime ace-window ace-jump-mode)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
- '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
