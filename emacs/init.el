@@ -1,3 +1,4 @@
+(setq garbage-collection-message t)
 (setq gc-cons-threshold (* 50 1024 1024)) ;;GC threshold to 50MB
 
 (setq vc-make-backup-files t) ;;backup files covered by version control
@@ -179,15 +180,12 @@
   :ensure t
   :config
   (yas-global-mode 1)
+  (yas-reload-all)
   :pin melpa-stable)
 
 (use-package goto-chg
   :ensure t
   :commands goto-last-change
-  :pin melpa-stable)
-
-(use-package popup-imenu
-  :ensure t
   :pin melpa-stable)
 
 (use-package whitespace
@@ -208,13 +206,12 @@
 (use-package rainbow-delimiters
   :ensure t
   :config
-  ;; (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  ;; (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   :pin melpa-stable)
 
 (use-package highlight-symbol
   :ensure t
-  :commands highlight-symbol
   :bind ("s-h" . highlight-symbol)
   :pin melpa-stable)
 
@@ -234,8 +231,7 @@
   :ensure t
   :bind* (("M-m g s" . magit-status)
           ("M-m g b" . magit-blame)
-          ("M-m g B" . magit-blame-quit)
-          ("M-m g l" . magit-log-all))
+          ("M-m g B" . magit-blame-quit))
   :pin melpa-stable)
 
 (use-package evil
@@ -278,15 +274,12 @@
       "."  'evilnc-copy-and-comment-operator
       "\\" 'evilnc-comment-operator ; if you prefer backslash key
       )
-    (global-evil-leader-mode)
+    (global-evil-leader-mode t)
     :pin melpa-stable)
   (use-package evil-nerd-commenter
    :ensure t
    :pin melpa-stable)
-  (use-package evil-tutor
-   :ensure t
-   :pin melpa-stable)
-  (evil-mode 1)
+  (evil-mode t)
   (evilnc-default-hotkeys)
   ;; (define-key evil-normal-state-map (kbd "zf") #'yafolding-toggle-element)
   ;; (define-key evil-visual-state-map (kbd "y f") 'vimish-fold)
@@ -304,7 +297,7 @@
   (setq projectile-file-exists-remote-cache-expire (* 10 60))
   :diminish projectile-mode
   :config
-  (projectile-global-mode))
+  (projectile-global-mode t))
 
 (use-package helm
   :ensure t
@@ -327,31 +320,38 @@
 
 (use-package restclient
   :ensure t
+  :defer t
   :pin melpa)
 
-(use-package intero
+(use-package haskell-mode
   :ensure t
+  :mode ("\\.hs$" . haskell-mode)
   :config
-  (intero-global-mode 1)
-  (use-package hindent
+  (use-package intero
     :ensure t
-    ;; :init
-    ;; (setq hindent-reformat-buffer-on-save t)
     :config
-    (add-hook 'haskell-mode-hook #'hindent-mode)
-    :pin melpa-stable)
+    ;; (intero-global-mode 1)
+    (use-package hindent
+        :ensure t
+        :config
+        (add-hook 'haskell-mode-hook #'hindent-mode)
+        :pin melpa-stable)
+    :pin melpa)
+  :pin melpa-stable)
+
+(use-package scala-mode
+  :ensure t
+  :mode ("\\.scala$" . scala-mode)
+  :config
+  (use-package ensime
+    :ensure t
+    :config
+    (use-package sbt-mode
+      :ensure t
+      :pin melpa)
+    :pin melpa)
   :pin melpa)
 
-(use-package ensime
-  :ensure t
-  :config
-  (use-package scala-mode
-    :ensure t
-    :pin melpa)
-  (use-package sbt-mode
-    :ensure t
-    :pin melpa)
-  :pin melpa)
 
 (use-package web-mode
   :ensure t
@@ -367,16 +367,20 @@
     :pin melpa-stable)
   :pin melpa-stable)
 
-(use-package tide
+(use-package typescript-mode
   :ensure t
+  :mode (("\\.ts$" . typescript-mode)
+         ("\\.tsx$" . typescript-mode))
   :config
-  (use-package typescript-mode
+  (use-package tide
     :ensure t
     :pin melpa-stable)
   :pin melpa-stable)
 
+
 (use-package less-css-mode
   :ensure t
+  :mode ("\\.css\\'" "\\.less\\'")
   :pin melpa-stable)
 
 (use-package json-mode
