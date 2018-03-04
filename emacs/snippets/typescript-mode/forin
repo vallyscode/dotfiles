@@ -1,0 +1,6 @@
+# name : forin
+# key : forin
+# --
+for(let ${1:item} in ${2:items}) {
+    $0
+}

@@ -22,8 +22,6 @@
 
 (setq sentence-end-double-space nil)
 
-;; (setq cursor-type '(bar . 2)) ;; vertical line 2px width
-
 (setq large-file-warning-threshold (* 15 1024 1024)) ;;large file warning 15MB
 
 (setq ring-bell-function 'ignore)
@@ -54,7 +52,8 @@
 (set-terminal-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
 
-(global-linum-mode t) ;;show line numbers everywhere
+;; (global-linum-mode t) ;;show line numbers everywhere
+(line-number-mode t) ;;show line number in modeline
 (column-number-mode t) ;;show column nuber in modeline
 (scroll-bar-mode -1) ;;no scroll bar
 (tool-bar-mode -1) ;;no tool bar
@@ -63,8 +62,8 @@
 (global-hl-line-mode t) ;; hilight current line
 (electric-pair-mode t) ;;insert closing paren automatically
 (electric-indent-mode t) ;;disable auto-indent
-;; smart tab behavior - indent or complete
-(setq tab-always-indent 'complete)
+
+(setq tab-always-indent 'complete) ;;smart tab behavior - indent or complete
 
 (fset 'yes-or-no-p 'y-or-n-p) ;; y | n instead of yes | no
 
@@ -74,15 +73,6 @@
 ;; set default font
 (when (member "SourceCodePro Nerd Font Mono" (font-family-list))
   (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono-10"))
-
-;; ---------------------------------------
-
-(defun my/delete-trailing-whitespace ()
-  "Delete trailing whitespaces safely when yafolding used."
-  (yafolding-show-all)
-  (delete-trailing-whitespace))
-
-;; -----------------------------------------
 
 ;; common exec path
 (add-to-list 'exec-path "/usr/local/bin")
@@ -108,9 +98,6 @@
   (package-install 'use-package))
 
 (require 'use-package)
-
-
-
 
 ;;(use-package atom-one-dark-theme
 ;;  :ensure t
@@ -158,6 +145,7 @@
   (setq-default
    powerline-height 20
    powerline-default-separator 'utf-8
+   powerline-gui-use-vcs-glyph t
    spaceline-minor-modes-separator " ")
   :pin melpa-stable)
 
@@ -172,14 +160,14 @@
 (use-package company
   :ensure t
   :config
-  ;; (add-hook 'prog-mode-hook 'company-mode)
-  (global-company-mode)
+  ;; (add-hook 'prog-mode-hook #'company-mode)
+  (global-company-mode t)
   :pin melpa-stable)
 
 (use-package yasnippet
   :ensure t
   :config
-  (yas-global-mode 1)
+  (yas-global-mode t)
   (yas-reload-all)
   :pin melpa-stable)
 
@@ -207,7 +195,6 @@
   :ensure t
   :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  ;; (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
   :pin melpa-stable)
 
 (use-package highlight-symbol
@@ -222,7 +209,7 @@
           ("M-m r" . undo-tree-redo)
           ("M-m U" . undo-tree-visualize))
   :config
-  (global-undo-tree-mode 1)
+  (global-undo-tree-mode t)
   (setq undo-tree-visualizer-timestamps t)
   (setq undo-tree-visualizer-diff t)
   :pin melpa)
@@ -330,7 +317,8 @@
   (use-package intero
     :ensure t
     :config
-    ;; (intero-global-mode 1)
+    ;; (intero-global-mode t)
+    (add-hook 'haskell-mode-hook #'intero-mode)
     (use-package hindent
         :ensure t
         :config
@@ -351,7 +339,6 @@
       :pin melpa)
     :pin melpa)
   :pin melpa)
-
 
 (use-package web-mode
   :ensure t
@@ -376,7 +363,6 @@
     :ensure t
     :pin melpa-stable)
   :pin melpa-stable)
-
 
 (use-package less-css-mode
   :ensure t
