@@ -1,0 +1,4 @@
+# name : property comment
+# key : *@pr
+# --
+* @property {${type}} ${name} - $0

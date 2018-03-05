@@ -1,0 +1,6 @@
+# name : multiline comment
+# key : /**
+# --
+/**
+ * $0
+ */

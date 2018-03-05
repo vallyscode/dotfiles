@@ -1,0 +1,4 @@
+# name : constant
+# key : const
+# --
+const ${name}: ${type} = $0

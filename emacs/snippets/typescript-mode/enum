@@ -1,0 +1,6 @@
+# name : enum
+# key : enum
+# --
+enum ${name} {
+     $0
+}

@@ -1,0 +1,4 @@
+# name : return comment
+# key : *@r
+# --
+* @return {${type}} - $0

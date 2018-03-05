@@ -1,0 +1,6 @@
+# name : interface
+# key : int
+# --
+interface ${name} {
+    $0
+}
