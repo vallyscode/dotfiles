@@ -1,0 +1,12 @@
+# name : it in describe
+# key : it
+# --
+it('${description}' () => {
+    // GIVEN
+    $0
+
+    // WHEN
+
+    // THEN
+
+});

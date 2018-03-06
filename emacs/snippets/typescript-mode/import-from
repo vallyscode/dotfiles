@@ -1,0 +1,4 @@
+# name : import from
+# key : impf
+# --
+import {$0} from "${package}";

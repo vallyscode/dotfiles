@@ -117,6 +117,10 @@
 ;;   (load-theme 'monokai t)
 ;;   :pin melpa-stable)
 
+(use-package all-the-icons
+  :ensure t
+  :pin melpa-stable)
+
 (use-package solarized-theme
  :ensure t
  :config
@@ -149,6 +153,13 @@
    spaceline-minor-modes-separator " ")
   :pin melpa-stable)
 
+(use-package neotree
+  :ensure t
+  :config
+  (setq neo-theme 'arrow)
+  (global-set-key [f8] 'neotree-toggle)
+  :pin melpa-stable)
+
 (use-package which-key
   :ensure t
   :init
@@ -167,6 +178,7 @@
 (use-package yasnippet
   :ensure t
   :config
+  ()
   (yas-global-mode t)
   (yas-reload-all)
   :pin melpa-stable)
@@ -232,6 +244,8 @@
       "f" 'find-file
       "b" 'switch-to-buffer
       "k" 'kill-buffer
+      "t" 'neotree-toggle
+      "yi" 'yas-insert-snippet
       "gg" 'grep
       "ms" 'bookmark-set
       "md" 'bookmark-delete
@@ -296,7 +310,7 @@
   (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m, C-x r b
   ;;(global-set-key (kbd "C-x h o") 'helm-occur) ;; simillar to occur
   ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
-(helm-mode 1)
+  (helm-mode 1)
   (use-package helm-projectile
     :ensure t
     :bind* (("M-m SPC p" . helm-projectile))

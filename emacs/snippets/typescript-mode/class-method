@@ -1,0 +1,6 @@
+# name : class method
+# key : met
+# --
+${name}(${arg: ${type}}):${void} {
+    $0
+}

@@ -1,0 +1,6 @@
+# name : class constructor
+# key : cons
+# --
+constructor(${x: ${type}}) {
+    $0
+}

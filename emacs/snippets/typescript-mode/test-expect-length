@@ -1,0 +1,4 @@
+# name : expect length
+# key : expl
+# --
+expect(${object}).to.have.lengthOf($0);

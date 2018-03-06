@@ -1,0 +1,4 @@
+# name : expect
+# key : expeq
+# --
+expect(${object}).to.equal($0);

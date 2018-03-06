@@ -1,0 +1,6 @@
+# name : describe
+# key : desc
+# --
+describe('${description}' () => {
+    $0
+});

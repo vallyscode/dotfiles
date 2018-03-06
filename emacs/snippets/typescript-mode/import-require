@@ -1,0 +1,4 @@
+# name : import require
+# key : impr
+# --
+import {$0} = require("${package}");
