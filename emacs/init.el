@@ -9,8 +9,7 @@
  kept-new-versions 6
  kept-old-versions 2
  version-control t ;;numeric backup versions
- backup-directory-alist '(("." . "~/.emacs.d/backups")) ;; place for backups
-)
+ backup-directory-alist '(("." . "~/.emacs.d/backups")))
 
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 
@@ -47,10 +46,12 @@
 (setq-default c-basic-offset 4) ;;offset used by + & -
 
 (setq-default buffer-file-coding-system 'utf-8-auto-unix)
-(prefer-coding-system 'utf-8)
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
+(setq locale-coding-system 'utf-8)
+(set-selection-coding-system 'utf-8)
 (set-keyboard-coding-system 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(prefer-coding-system 'utf-8)
 
 ;; (global-linum-mode t) ;;show line numbers everywhere
 (line-number-mode t) ;;show line number in modeline
@@ -80,8 +81,6 @@
 (add-to-list 'exec-path "/Users/valeriy/.local/bin")
 ;; stack bin linux
 (add-to-list 'exec-path "/home/vagrant/.local/bin")
-
-
 
 ;; The package manager
 (require 'package)
