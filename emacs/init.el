@@ -98,23 +98,6 @@
 
 (require 'use-package)
 
-;;(use-package atom-one-dark-theme
-;;  :ensure t
-;;  :config
-;;  (load-theme 'atom-one-dark t)
-;;  :pin melpa-stable)
-
-;; (use-package zenburn-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'zenburn t)
-;;   :pin melpa-stable)
-
-;; (use-package monokai-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'monokai t)
-;;   :pin melpa-stable)
 
 (use-package all-the-icons
   :ensure t
@@ -124,13 +107,65 @@
  :ensure t
  :config
  (load-theme 'solarized-light t)
-   (custom-set-faces
-    '(mode-line
-      ((t
-        (
-         :background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
-   '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
+ (custom-set-faces
+    '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+    '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
  :pin melpa-stable)
+
+(use-package evil
+  :ensure t
+  :config
+  (use-package evil-leader
+    :ensure t
+    :config
+    (evil-leader/set-leader "<SPC>")
+    (evil-leader/set-key
+      "f" 'find-file
+      "b" 'switch-to-buffer
+      "k" 'kill-buffer
+      "yi" 'yas-insert-snippet
+      "gg" 'grep
+      "ms" 'bookmark-set
+      "md" 'bookmark-delete
+      "mr" 'bookmark-rename
+      "ml" 'helm-bookmarks
+      "gs" 'magit-status
+      "gb" 'magit-blame
+      "gB" 'magit-blame-quit
+      "gl" 'magit-log
+      "ho" 'helm-occur
+      "hr" 'helm-register
+      "ht" 'helm-top
+      "hp" 'helm-projectile
+      "hm" 'helm-mini
+      "hb" 'helm-buffers-list
+      "hk" 'helm-show-kill-ring
+      "hy" 'helm-yas-complete
+      "li" 'linum-mode
+      "lr" 'linum-relative-toggle
+      "ci" 'evilnc-comment-or-uncomment-lines
+      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "cc" 'evilnc-copy-and-comment-lines
+      "cp" 'evilnc-comment-or-uncomment-paragraphs
+      "cr" 'comment-or-uncomment-region
+      "cv" 'evilnc-toggle-invert-comment-line-by-line
+      "."  'evilnc-copy-and-comment-operator
+      "\\" 'evilnc-comment-operator ; if you prefer backslash key
+      )
+    (global-evil-leader-mode t)
+    :pin melpa-stable)
+  (use-package evil-nerd-commenter
+   :ensure t
+   :pin melpa-stable)
+  (evil-mode t)
+  (evilnc-default-hotkeys)
+  ;; (define-key evil-normal-state-map (kbd "zf") #'yafolding-toggle-element)
+  ;; (define-key evil-visual-state-map (kbd "y f") 'vimish-fold)
+  ;; (define-key evil-normal-state-map (kbd "y d") 'vimish-fold-delete)
+  ;; (define-key evil-normal-state-map (kbd "y j") 'vimish-fold-next-fold)
+  ;; (define-key evil-normal-state-map (kbd "y k") 'vimish-fold-previous-fold)
+  :pin melpa-stable)
 
 (use-package spaceline
   :ensure t
@@ -152,11 +187,30 @@
    spaceline-minor-modes-separator " ")
   :pin melpa-stable)
 
+
+;; buffer local key bindings
+;; (evil-local-set-key 'normal key def)
+;; is the same as
+;; (define-key evil-normal-state-local-map key def)
 (use-package neotree
   :ensure t
-  :config
+  :init
   (setq neo-theme 'arrow)
-  (global-set-key [f8] 'neotree-toggle)
+  :config
+  (evil-leader/set-key
+    "t" 'neotree-toggle)
+  (add-hook 'neotree-mode-hook
+    (lambda ()
+        (evil-local-set-key 'motion (kbd "q") 'neotree-hide)
+        (evil-local-set-key 'motion (kbd "I") 'neotree-hidden-file-toggle)
+        (evil-local-set-key 'motion (kbd "z") 'neotree-stretch-toggle)
+        (evil-local-set-key 'motion (kbd "RET") 'neotree-enter)
+        (evil-local-set-key 'motion (kbd "g") 'neotree-refresh)
+        (evil-local-set-key 'motion (kbd "c") 'neotree-create-node)
+        (evil-local-set-key 'motion (kbd "d") 'neotree-delete-node)
+        (evil-local-set-key 'motion (kbd "r") 'neotree-rename-node)
+        (evil-local-set-key 'motion (kbd "s") 'neotree-enter-vertical-split)
+        (evil-local-set-key 'motion (kbd "S") 'neotree-enter-horizontal-split)))
   :pin melpa-stable)
 
 (use-package which-key
@@ -170,14 +224,12 @@
 (use-package company
   :ensure t
   :config
-  ;; (add-hook 'prog-mode-hook #'company-mode)
-  (global-company-mode t)
+  (add-hook 'prog-mode-hook #'company-mode)
   :pin melpa-stable)
 
 (use-package yasnippet
   :ensure t
   :config
-  ()
   (yas-global-mode t)
   (yas-reload-all)
   :pin melpa-stable)
@@ -232,62 +284,6 @@
           ("M-m g B" . magit-blame-quit))
   :pin melpa-stable)
 
-(use-package evil
-  :ensure t
-  :config
-  (use-package evil-leader
-    :ensure t
-    :config
-    (evil-leader/set-leader "<SPC>")
-    (evil-leader/set-key
-      "f" 'find-file
-      "b" 'switch-to-buffer
-      "k" 'kill-buffer
-      "t" 'neotree-toggle
-      "yi" 'yas-insert-snippet
-      "gg" 'grep
-      "ms" 'bookmark-set
-      "md" 'bookmark-delete
-      "mr" 'bookmark-rename
-      "ml" 'helm-bookmarks
-      "gs" 'magit-status
-      "gb" 'magit-blame
-      "gB" 'magit-blame-quit
-      "gl" 'magit-log
-      "ho" 'helm-occur
-      "hr" 'helm-register
-      "ht" 'helm-top
-      "hp" 'helm-projectile
-      "hm" 'helm-mini
-      "hb" 'helm-buffers-list
-      "hk" 'helm-show-kill-ring
-      "hy" 'helm-yas-complete
-      "li" 'linum-mode
-      "lr" 'linum-relative-toggle
-      "ci" 'evilnc-comment-or-uncomment-lines
-      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
-      "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
-      "cc" 'evilnc-copy-and-comment-lines
-      "cp" 'evilnc-comment-or-uncomment-paragraphs
-      "cr" 'comment-or-uncomment-region
-      "cv" 'evilnc-toggle-invert-comment-line-by-line
-      "."  'evilnc-copy-and-comment-operator
-      "\\" 'evilnc-comment-operator ; if you prefer backslash key
-      )
-    (global-evil-leader-mode t)
-    :pin melpa-stable)
-  (use-package evil-nerd-commenter
-   :ensure t
-   :pin melpa-stable)
-  (evil-mode t)
-  (evilnc-default-hotkeys)
-  ;; (define-key evil-normal-state-map (kbd "zf") #'yafolding-toggle-element)
-  ;; (define-key evil-visual-state-map (kbd "y f") 'vimish-fold)
-  ;; (define-key evil-normal-state-map (kbd "y d") 'vimish-fold-delete)
-  ;; (define-key evil-normal-state-map (kbd "y j") 'vimish-fold-next-fold)
-  ;; (define-key evil-normal-state-map (kbd "y k") 'vimish-fold-previous-fold)
-  :pin melpa-stable)
-
 (use-package projectile
   :ensure t
   :bind* (("M-m SPC d"   . projectile-find-file)
@@ -318,11 +314,6 @@
     :pin melpa-stable)
   :pin melpa-stable)
 
-(use-package restclient
-  :ensure t
-  :defer t
-  :pin melpa)
-
 (use-package haskell-mode
   :ensure t
   :mode ("\\.hs$" . haskell-mode)
@@ -330,7 +321,6 @@
   (use-package intero
     :ensure t
     :config
-    ;; (intero-global-mode t)
     (add-hook 'haskell-mode-hook #'intero-mode)
     (use-package hindent
         :ensure t
