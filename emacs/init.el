@@ -197,7 +197,7 @@
 (use-package neotree
   :ensure t
   :init
-  (setq neo-theme 'arrow)
+  (setq neo-theme 'ascii)
   :config
   (evil-leader/set-key
     "t" 'neotree-toggle)
