@@ -398,3 +398,7 @@
   :ensure t
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
+
+(use-package org
+  :init
+  (setq org-log-done t))
