@@ -1,0 +1,6 @@
+* Secure remote password (SRP)
+  Amazon cognito built in authentication flow with ChallangeName for validation
+  of username and password.
+* Multi-Factor Authentication (MFA) Settings
+** SMS Text Message MFA
+** TOTP Software Token MFA
