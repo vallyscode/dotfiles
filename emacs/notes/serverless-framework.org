@@ -1,0 +1,39 @@
+* Serverless policies requirements
+  - AmazonS3FullAccess for storing the deployment packages
+  - Full access to CloudFormation (there is no AmazonCloudFormationFullAccess so
+    wee need to create a custom policy for that, in policy generator)
+  - IAMFullAccess serverless will need to access the lambda with invocation role
+    during deployment process
+  - AwsLambdaFullAccess so that serverless will be able to manage services(lambdas)
+  - CloudWatchLogsFullAccess for logs access
+
+* Serverless create aws credentials
+  serverless config credentials --provider aws --key <key> --secret <secret> --region <region>
+
+* Create new service
+  serverless create --template aws-nodejs --path my-service
+
+* Deploy service
+  serverless deploy -v
+
+* Deploy function
+  serverless deploy function -f hello
+
+* Invoke the function
+** Invoke without an input
+   serverless invoke -f hello -l
+** Invoke with input, input is a map
+   serverless invoke -f hello --data '{"key": "value"}' -l
+
+* Show service metrics
+  serverless metrics
+  serverlsee metrics -f hello # metrics for specified function
+
+* Show service information
+  serverless info
+
+* Service logs
+  serverless logs -f hello -t
+
+* Remove service
+  serverless remove

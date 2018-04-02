@@ -101,15 +101,21 @@
 (require 'use-package)
 
 
-(use-package all-the-icons
-  :ensure t
-  :pin melpa-stable)
+;; (use-package all-the-icons
+;;   :ensure t
+;;   :pin melpa-stable)
 
-(use-package monokai-theme
-  :ensure t
-  :config
-  (load-theme 'monokai t)
-  :pin melpa-stable)
+;; (use-package leuven-theme
+;;   :config
+;;   (load-theme 'leuven t))
+
+(load-theme 'leuven t)
+
+;; (use-package monokai-theme
+;;   :ensure t
+;;   :config
+;;   (load-theme 'monokai t)
+;;   :pin melpa-stable)
 
 ;; (use-package solarized-theme
 ;;  :ensure t
@@ -173,26 +179,26 @@
   (global-evil-leader-mode t)
   :pin melpa-stable)
 
-(use-package spaceline
-  :ensure t
-  :after (evil)
-  :init
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme)
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
-  (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
-  (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
-  (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
-  (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
-  (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
-  (spaceline-helm-mode)
-  (setq-default
-   powerline-height 20
-   powerline-default-separator 'utf-8
-   powerline-gui-use-vcs-glyph t
-   spaceline-minor-modes-separator " ")
-  :pin melpa-stable)
+;; (use-package spaceline
+;;   :ensure t
+;;   :after (evil)
+;;   :init
+;;   (require 'spaceline-config)
+;;   (spaceline-spacemacs-theme)
+;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+;;   (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
+;;   (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
+;;   (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
+;;   (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
+;;   (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
+;;   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
+;;   (spaceline-helm-mode)
+;;   (setq-default
+;;    powerline-height 20
+;;    powerline-default-separator 'utf-8
+;;    powerline-gui-use-vcs-glyph t
+;;    spaceline-minor-modes-separator " ")
+;;   :pin melpa-stable)
 
 (use-package neotree
   :ensure t
@@ -402,3 +408,8 @@
 (use-package org
   :init
   (setq org-log-done t))
+
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
