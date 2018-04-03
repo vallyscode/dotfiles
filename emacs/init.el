@@ -1,4 +1,4 @@
-(setq garbage-collection-message t)
+(setq garbage-collection-messages t)
 (setq gc-cons-threshold (* 50 1024 1024)) ;;GC threshold to 50MB
 
 (setq vc-make-backup-files t) ;;backup files covered by version control
@@ -100,31 +100,7 @@
 
 (require 'use-package)
 
-
-;; (use-package all-the-icons
-;;   :ensure t
-;;   :pin melpa-stable)
-
-;; (use-package leuven-theme
-;;   :config
-;;   (load-theme 'leuven t))
-
 (load-theme 'leuven t)
-
-;; (use-package monokai-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'monokai t)
-;;   :pin melpa-stable)
-
-;; (use-package solarized-theme
-;;  :ensure t
-;;  :config
-;;  (load-theme 'solarized-light t)
-;;  (custom-set-faces
-;;     '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
-;;     '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
-;;  :pin melpa-stable)
 
 (use-package evil
   :ensure t
@@ -133,11 +109,6 @@
   :config
   (evil-mode t)
   (evilnc-default-hotkeys)
-  :pin melpa-stable)
-
-(use-package evil-nerd-commenter
-  :ensure t
-  :after (evil)
   :pin melpa-stable)
 
 (use-package evil-leader
@@ -154,18 +125,16 @@
     "md" 'bookmark-delete
     "mr" 'bookmark-rename
     "ml" 'helm-bookmarks
-    "gs" 'magit-status
-    "gb" 'magit-blame
-    "gB" 'magit-blame-quit
-    "gl" 'magit-log
-    "ho" 'helm-occur
-    "hr" 'helm-register
-    "ht" 'helm-top
-    "hp" 'helm-projectile
-    "hm" 'helm-mini
-    "hb" 'helm-buffers-list
-    "hk" 'helm-show-kill-ring
     "li" 'linum-mode
+    )
+  (global-evil-leader-mode t)
+  :pin melpa-stable)
+
+(use-package evil-nerd-commenter
+  :ensure t
+  :after (evil)
+  :config
+  (evil-leader/set-key
     "ci" 'evilnc-comment-or-uncomment-lines
     "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
     "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
@@ -176,7 +145,6 @@
     "."  'evilnc-copy-and-comment-operator
     "\\" 'evilnc-comment-operator ; if you prefer backslash key
     )
-  (global-evil-leader-mode t)
   :pin melpa-stable)
 
 ;; (use-package spaceline
@@ -291,10 +259,14 @@
 
 (use-package magit
   :ensure t
-  :commands (magit-status magit-blame magit-blame-quit)
-  ;; :bind* (("M-m g s" . magit-status)
-  ;;         ("M-m g b" . magit-blame)
-  ;;         ("M-m g B" . magit-blame-quit))
+  :commands (magit-status magit-blame magit-blame-quit magit-log)
+  :config
+  (evil-leader/set-key
+    "gs" 'magit-status
+    "gb" 'magit-blame
+    "gB" 'magit-blame-quit
+    "gl" 'magit-log
+    )
   :pin melpa-stable)
 
 (use-package projectile
@@ -316,9 +288,14 @@
   (global-set-key (kbd "M-x") 'helm-M-x)
   (global-set-key (kbd "C-x b") 'helm-buffers-list)
   (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m, C-x r b
-  ;;(global-set-key (kbd "C-x h o") 'helm-occur) ;; simillar to occur
-  ;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
   (helm-mode 1)
+  (evil-leader/set-key
+    "ho" 'helm-occur
+    "hr" 'helm-register
+    "ht" 'helm-top
+    "hm" 'helm-mini
+    "hb" 'helm-buffers-list
+    "hk" 'helm-show-kill-ring)
   :pin melpa-stable)
 
 (use-package helm-projectile
@@ -327,6 +304,10 @@
   :bind* (("M-m SPC p" . helm-projectile))
   :init
   (setq projectile-completion-systtem 'helm)
+  :config
+  (evil-leader/set-key
+    "pf" 'helm-projectile-find-file
+    "pp" 'helm-projectile)
   :pin melpa-stable)
 
 (use-package haskell-mode
@@ -348,14 +329,6 @@
   :config
   (add-hook 'haskell-mode-hook #'hindent-mode)
   :pin melpa-stable)
-
-(use-package ensime
-    :ensure t
-    :pin melpa)
-
-(use-package sbt-mode
-  :ensure t
-  :pin melpa)
 
 (use-package web-mode
   :ensure t
