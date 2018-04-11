@@ -91,11 +91,10 @@
   :init
   (setq org-log-done t))
 
- (use-package org-bullets
-   :ensure t
-   :config
-   (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
-
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
 #+END_SRC
 * Secret
 #+BEGIN_SRC emacs-lisp
@@ -122,7 +121,6 @@
 * Theme
 ** Light themes
   #+BEGIN_SRC emacs-lisp
-
   ;; Fontify the whole line for headings (with a background color).
   (setq org-fontify-whole-heading-line t)
 
@@ -157,12 +155,10 @@
   ;; :pin melpa-stable)
 
   (load-theme 'leuven t)
-
   #+END_SRC
 
 ** Dark themes
    #+BEGIN_SRC emacs-lisp
-
    ;; (use-package monokai-theme
    ;;   :ensure t
    ;;   :config
@@ -180,7 +176,6 @@
    ;;   :config
    ;;   (load-theme 'dracula t)
    ;;   :pin melpa)
-
    #+END_SRC
 
 * Evil
@@ -208,8 +203,7 @@
     "md" 'bookmark-delete
     "mr" 'bookmark-rename
     "ml" 'helm-bookmarks
-    "li" 'linum-mode
-    )
+    "li" 'linum-mode)
   (global-evil-leader-mode t)
   :pin melpa-stable)
 
@@ -232,7 +226,6 @@
 #+END_SRC
 * Spaceline
 #+BEGIN_SRC emacs-lisp
-
 ;; (use-package spaceline
 ;;   :ensure t
 ;;   :after (evil)
@@ -253,7 +246,6 @@
 ;;    powerline-gui-use-vcs-glyph t
 ;;    spaceline-minor-modes-separator " ")
 ;;   :pin melpa-stable)
-
 #+END_SRC
 * Neo tree
 #+BEGIN_SRC emacs-lisp
@@ -365,13 +357,12 @@
 (use-package magit
   :ensure t
   :commands (magit-status magit-blame magit-blame-quit magit-log)
-  :config
+  :init
   (evil-leader/set-key
     "gs" 'magit-status
     "gb" 'magit-blame
     "gB" 'magit-blame-quit
-    "gl" 'magit-log
-    )
+    "gl" 'magit-log)
   :pin melpa-stable)
 #+END_SRC
 * Projectile
