@@ -91,10 +91,11 @@
   :init
   (setq org-log-done t))
 
-(use-package org-bullets
-  :ensure t
-  :config
-  (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
+ (use-package org-bullets
+   :ensure t
+   :config
+   (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
+
 #+END_SRC
 * Secret
 #+BEGIN_SRC emacs-lisp
@@ -119,27 +120,69 @@
 (add-to-list 'exec-path "/home/vagrant/.nvm/versions/node/v6.13.0/bin")
 #+END_SRC
 * Theme
-#+BEGIN_SRC emacs-lisp
-;; (load-theme 'leuven t)
-;; (use-package monokai-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'monokai t)
-;;   :pin melpa-stable)
-;; (use-package zenburn-theme
-;;   :ensure t
-;;   :config
-;;   (load-theme 'zenburn t)
-;;   :pin melpa-stable)
-(use-package solarized-theme
- :ensure t
- :config
- (load-theme 'solarized-light t)
- (custom-set-faces
-    '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
-    '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
- :pin melpa-stable)
-#+END_SRC
+** Light themes
+  #+BEGIN_SRC emacs-lisp
+
+  ;; Fontify the whole line for headings (with a background color).
+  (setq org-fontify-whole-heading-line t)
+
+  ;; ***
+  ;; (use-package tommyh-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'tommyh t)
+  ;;   :pin melpa)
+
+  ;; **
+  ;; (use-package tango-plus-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'tango-plus t)
+  ;;   :pin melpa)
+
+  ;; ***
+  ;; (use-package greymatters-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'greymatters t)
+  ;;   :pin melpa)
+
+  ;; (use-package solarized-theme
+  ;; :ensure t
+  ;; :config
+  ;; (load-theme 'solarized-light t)
+  ;; (custom-set-faces
+  ;;     '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+  ;;     '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
+  ;; :pin melpa-stable)
+
+  (load-theme 'leuven t)
+
+  #+END_SRC
+
+** Dark themes
+   #+BEGIN_SRC emacs-lisp
+
+   ;; (use-package monokai-theme
+   ;;   :ensure t
+   ;;   :config
+   ;;   (load-theme 'monokai t)
+   ;;   :pin melpa-stable)
+
+   ;; (use-package zenburn-theme
+   ;;   :ensure t
+   ;;   :config
+   ;;   (load-theme 'zenburn t)
+   ;;   :pin melpa-stable)
+
+   ;; (use-package dracula-theme
+   ;;   :ensure t
+   ;;   :config
+   ;;   (load-theme 'dracula t)
+   ;;   :pin melpa)
+
+   #+END_SRC
+
 * Evil
 #+BEGIN_SRC emacs-lisp
 (use-package evil
@@ -189,26 +232,28 @@
 #+END_SRC
 * Spaceline
 #+BEGIN_SRC emacs-lisp
-(use-package spaceline
-  :ensure t
-  :after (evil)
-  :init
-  (require 'spaceline-config)
-  (spaceline-spacemacs-theme)
-  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-  (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
-  (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
-  (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
-  (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
-  (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
-  (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
-  (spaceline-helm-mode)
-  (setq-default
-   powerline-height 20
-   powerline-default-separator 'utf-8
-   powerline-gui-use-vcs-glyph t
-   spaceline-minor-modes-separator " ")
-  :pin melpa-stable)
+
+;; (use-package spaceline
+;;   :ensure t
+;;   :after (evil)
+;;   :init
+;;   (require 'spaceline-config)
+;;   (spaceline-spacemacs-theme)
+;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+;;   (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
+;;   (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
+;;   (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
+;;   (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
+;;   (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
+;;   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
+;;   (spaceline-helm-mode)
+;;   (setq-default
+;;    powerline-height 20
+;;    powerline-default-separator 'utf-8
+;;    powerline-gui-use-vcs-glyph t
+;;    spaceline-minor-modes-separator " ")
+;;   :pin melpa-stable)
+
 #+END_SRC
 * Neo tree
 #+BEGIN_SRC emacs-lisp
