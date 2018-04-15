@@ -67,3 +67,12 @@
 
    A Monoid is a single object category(comes from Greek mono - single)
 * Kleisli Categories
+* Isomorphism
+  Isomorphism - is an invertible morphism, or a pair of morphisms
+  where one is an invers of the other.
+  We understand the invers in terms of composition and identity:
+  morphism g is the inverse of morphism f if their composition is
+  identity morphism.
+  Example:
+  f . g = id
+  g . f = id

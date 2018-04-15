@@ -1,4 +1,4 @@
 # name : import from
 # key : impf
 # --
-import {$0} from "${package}";
+import $2 from "$1";$0
