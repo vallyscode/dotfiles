@@ -20,50 +20,36 @@
 #+BEGIN_SRC emacs-lisp
 (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
 #+END_SRC
-
 * Report about loading and customizing packages
 #+BEGIN_SRC emacs-lisp
 (setq use-package-verbose t)
 #+END_SRC
 
-* Remove inital screen
-#+BEGIN_SRC emacs-lisp
-(setq inhibit-startup-screen t) ;;no startup screen
-(setq initial-scratch-message "") ;;no scratch message
-(setq inhibit-splash-screen t) ;;no splash screen
+* Interface setting
+** No startup screen
+#+BEGIN_SRC emacd-lisp
+(setq inhibit-startup-screen t)
 #+END_SRC
-
-* Other
+** No scratch message
 #+BEGIN_SRC emacs-lisp
-(setq sentence-end-double-space nil)
-
-(setq large-file-warning-threshold (* 15 1024 1024)) ;;large file warning 15MB
-
+(setq initial-scratch-message "")
+#+END_SRC
+** No splash screen
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-splash-screen t)
+#+END_SRC
+** No menubar, toolbar and scrollbar
+#+BEGIN_SRC emacs-lisp
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(menu-bar-mode -1)
+#+END_SRC
+** No visual notifications
+ #+BEGIN_SRC emacs-lisp
 (setq ring-bell-function 'ignore)
-(setq visible-bell t)
-
-(setq resize-mini-windows t)
-(setq max-mini-window-height 0.33)
-
-(setq blink-matching-paren nil)
-(setq show-paren-delay 0)
-(setq show-paren-style 'expression)
-(show-paren-mode t)
-
-;; always delete and copy recursively
-(setq dired-recursive-deletes 'always)
-(setq dired-recursive-copies 'always)
-
-(display-time-mode t)
-
-;; hide show mode. keys: use za to toggle visibility, zc (close), zm (close all), zr (open all).
-(add-hook 'prog-mode-hook (lambda () (hs-minor-mode t)))
-
-(setq-default fill-column 80) ;;linewrapping after 80
-(setq-default indent-tabs-mode nil) ;;do not use tabs for indentation
-(setq-default tab-width 2) ;;use 2 spaces instead of tab
-(setq-default c-basic-offset 4) ;;offset used by + & -
-
+#+END_SRC
+** Set utf-8
+#+BEGIN_SRC emacs-lisp
 (setq-default buffer-file-coding-system 'utf-8-auto-unix)
 (setq locale-coding-system 'utf-8)
 (set-selection-coding-system 'utf-8)
@@ -71,24 +57,169 @@
 (set-terminal-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (prefer-coding-system 'utf-8)
+#+END_SRC
+** Highlight current line, but not for terminal
+#+BEGIN_SRC emacs-lisp
+(when window-system
+      (add-hook 'prog-mode-hook 'hl-line-mode))
+#+END_SRC
+** Pretty symbols
+#+BEGIN_SRC emacs-lisp
+(when window-system
+      (use-package pretty-mode
+      :ensure t
+      :config
+      (global-pretty-mode t)))
+#+END_SRC
+** Cursor position
+   I like to see the position of cursor in modeline
+*** Sow line number in modeline
+#+BEGIN_SRC emacs-lisp
+(line-number-mode t)
+#+END_SRC
+*** Show column number in modeline
+#+BEGIN_SRC emacs-lisp
+(column-number-mode t)
+#+END_SRC
+*** Show line number everywhere
+#+BEGIN_SRC emacs-lisp
+;; (global-linum-mode t)
+#+END_SRC
+** Cursor blink
+   I do not like cursor to blink
+    #+BEGIN_SRC emacs-lisp
+    (blink-cursor-mode -1)
+    #+END_SRC
+** Show line numbers
+   It is handy to see a line numbers. Easy to move/remove blocks of code.
+*** Normal line numbers in the fringe
+#+BEGIN_SRC emacs-lisp
+(add-hook 'prog-mode-hook 'linum-mode)
+#+END_SRC
+*** Relative line numbers
+#+BEGIN_SRC emacs-lisp
+;; (use-package linum-relative
+;;   :ensure t
+;;   :config
+;;     (setq linum-relative-current-symbol "")
+;;     (add-hook 'prog-mode-hook 'linum-relative-mode))
+#+END_SRC
+** Display time
+*** Set time format
+#+BEGIN_SRC emacs-lisp
+(setq display-time-24hr-format t)
+(setq display-time-format "%H:%M - %d %B %Y")
+#+END_SRC
+*** Enable time mode
+#+BEGIN_SRC emacs-lisp
+(display-time-mode t)
+#+END_SRC
+** Scrolling nicer
+#+BEGIN_SRC emacs-lisp
+(setq scroll-conservatively 100)
+#+END_SRC
+** Show paren
+   Shows block defined by parens pair
+*** Delay for paren coloring
+    Set delay to zero, show as fast as possible.
+    #+BEGIN_SRC emacs-lisp
+    (setq show-paren-delay 0)
+    #+END_SRC
+*** Paren coloring style
+    I like the entire expression to be colored.
+    #+BEGIN_SRC emacs-lisp
+    (setq show-paren-style 'expression)
+    #+END_SRC
+*** Blink
+    Matching paren will also blink
+    #+BEGIN_SRC emacs-lisp
+    (setq blink-matching-paren nil)
+    #+END_SRC
+*** Enable show paren mode
+    #+BEGIN_SRC emacs-lisp
+    (show-paren-mode t)
+    #+END_SRC
+** Large file warning
+   Display warning when file > 15MB
+   #+BEGIN_SRC emacs-lisp
+   (setq large-file-warning-threshold (* 15 1024 1024))
+   #+END_SRC
+* Functionality
+** Change verbose yes or no to y or n
+#+BEGIN_SRC emacs-lisp
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+** The terminal
+*** Ansi term
+#+BEGIN_SRC emacs-lisp
+(defvar my-term-shell "/bin/bash")
+(defadvice ansi-term (before force-bash)
+  (interactive (list my-term-shell)))
+(ad-activate 'ansi-term)
+(global-set-key (kbd "<s-return>") 'ansi-term)
+#+END_SRC
+** Move inside camel cased strings
+   Emacs treats came cased strings like single word by default.
+   I do not like it.
+    #+BEGIN_SRC emacs-lisp
+    (global-subword-mode t)
+    #+END_SRC
+** Electric
+*** Auto insert closing paren
+#+BEGIN_SRC emacs-lisp
+(electric-pair-mode t)
+#+END_SRC
+*** Auto indent
+#+BEGIN_SRC emacs-lisp
+(electric-indent-mode t)
+#+END_SRC
+** Indent
+*** Disable indent via tab
+    Use spaces instead of tabs.
+    #+BEGIN_SRC emacs-lisp
+    (setq-default indent-tabs-mode nil) ;;do not use tabs for indentation
+    #+END_SRC
+*** Tab width
+    Use 2 spaces instead of tab
+    #+BEGIN_SRC emacs-lisp
+    (setq-default tab-width 2) ;;use 2 spaces instead of tab
+    #+END_SRC
+*** Smart tab
+    Indent or complete
+    #+BEGIN_SRC emacs-lisp
+    (setq tab-always-indent 'complete)
+    #+END_SRC
+* Dired
+** Always delete and copy recursively
+    #+BEGIN_SRC emacs-lisp
+    (setq dired-recursive-deletes 'always)
+    (setq dired-recursive-copies 'always)
+    #+END_SRC
 
-;; (global-linum-mode t) ;;show line numbers everywhere
-(line-number-mode t) ;;show line number in modeline
-(column-number-mode t) ;;show column nuber in modeline
-(scroll-bar-mode -1) ;;no scroll bar
-(tool-bar-mode -1) ;;no tool bar
-(menu-bar-mode -1) ;;no menu bar
-(blink-cursor-mode -1) ;;no cursor blinking
-(global-hl-line-mode t) ;; hilight current line
-(electric-pair-mode t) ;;insert closing paren automatically
-(electric-indent-mode t) ;;disable auto-indent
+* Hideshow
+  Hide show mode.
+  za - toggle
+  zc - close
+  zo - open
+  zm - close all
+  zr - open all
+    #+BEGIN_SRC emacs-lisp
+    (add-hook 'prog-mode-hook (lambda () (hs-minor-mode t)))
+    #+END_SRC
 
-(setq tab-always-indent 'complete) ;;smart tab behavior - indent or complete
+* Other
+#+BEGIN_SRC emacs-lisp
+(setq sentence-end-double-space nil)
+(setq visible-bell t)
 
-(fset 'yes-or-no-p 'y-or-n-p) ;; y | n instead of yes | no
+(setq resize-mini-windows t)
+(setq max-mini-window-height 0.33)
+
+(setq-default fill-column 80) ;;linewrapping after 80
+(setq-default c-basic-offset 4) ;;offset used by + & -
 #+END_SRC
 
-* Org
+* Org mode
 #+BEGIN_SRC emacs-lisp
 (use-package org
   :init
@@ -179,8 +310,65 @@
    ;;   :config
    ;;   (load-theme 'dracula t)
    ;;   :pin melpa)
+;; (use-package zerodark-theme
+;;   :ensure t
+;;   :init
+;;     (load-theme 'zerodark t))
    #+END_SRC
 
+* Beacon
+  Highlight cursor after switching buffer
+#+BEGIN_SRC emacs-lisp
+(use-package beacon
+  :ensure t
+  :config
+    (beacon-mode t))
+#+END_SRC
+* Rainbow
+  When emacs encoumters a hex color, it will auto highlight it
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-mode
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-mode))
+#+END_SRC
+* Rainbow delimiters
+  Display each level of parens with different color
+#+BEGIN_SRC emacs-lisp
+(use-package rainbow-delimiters
+  :ensure t
+  :config
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  :pin melpa-stable)
+#+END_SRC
+* Highlight symbol
+  Highlight selected symbol, different color for each.
+#+BEGIN_SRC emacs-lisp
+(use-package highlight-symbol
+  :ensure t
+  :config
+  (evil-leader/set-key
+    "hl" 'highlight-symbol)
+  :pin melpa-stable)
+#+END_SRC
+* Popup kill-ring
+** Set max kill-ring entries
+   Default value is 60, I require a bit more sometime.
+#+BEGIN_SRC emacs-lisp
+(setq kill-ring-max 100)
+#+END_SRC
+** Enamble popup-kill-ring
+  #+BEGIN_SRC emacs-lisp
+(use-package popup-kill-ring
+  :ensure t
+  :bind ("M-y" . popup-kill-ring))
+  #+END_SRC
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+(use-package flycheck
+  :ensure t
+  :pin melpa-stable)
+#+END_SRC
 * Evil
 #+BEGIN_SRC emacs-lisp
 (use-package evil
@@ -249,6 +437,16 @@
 ;;    powerline-gui-use-vcs-glyph t
 ;;    spaceline-minor-modes-separator " ")
 ;;   :pin melpa-stable)
+(use-package spaceline
+  :ensure t
+  :config
+  (require 'spaceline-config)
+    (setq spaceline-buffer-encoding-abbrev-p nil)
+    (setq spaceline-line-column-p nil)
+    (setq spaceline-line-p nil)
+    ;; (setq powerline-default-separator (quote arrow))
+    (spaceline-spacemacs-theme))
+(setq powerline-default-separator nil)
 #+END_SRC
 * Neo tree
 #+BEGIN_SRC emacs-lisp
@@ -283,15 +481,24 @@
   (which-key-mode t)
   :pin melpa-stable)
 #+END_SRC
-* Completion
+* Company
+  Delay 0 to make it appear fast, after typing 2 chars.
 #+BEGIN_SRC emacs-lisp
 (use-package company
   :ensure t
   :config
+  (setq company-idle-delay 0)
+  (setq company-minimum-prefix-length 3)
   (add-hook 'prog-mode-hook #'company-mode)
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous)
+  (define-key company-active-map (kbd "SPC") #'company-abort)
   :pin melpa-stable)
 #+END_SRC
-* Snippets
+* Yasnippet
+  Awesome snippets plugin, supports event elisp code to be executed.
 #+BEGIN_SRC emacs-lisp
 (use-package yasnippet
   :ensure t
@@ -321,26 +528,6 @@
   (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail)))
 #+END_SRC
-* Highlight
-#+BEGIN_SRC emacs-lisp
-(use-package rainbow-mode
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-mode))
-
-(use-package rainbow-delimiters
-  :ensure t
-  :config
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  :pin melpa-stable)
-
-(use-package highlight-symbol
-  :ensure t
-  :config
-  (evil-leader/set-key
-    "hl" 'highlight-symbol)
-  :pin melpa-stable)
-#+END_SRC
 * Undo tree
 #+BEGIN_SRC emacs-lisp
 (use-package undo-tree
@@ -369,6 +556,8 @@
   :pin melpa-stable)
 #+END_SRC
 * Projectile
+  Good project manager
+** Enable globally
 #+BEGIN_SRC emacs-lisp
 (use-package projectile
   :ensure t
@@ -411,12 +600,6 @@
   (evil-leader/set-key
     "pf" 'helm-projectile-find-file
     "pp" 'helm-projectile)
-  :pin melpa-stable)
-#+END_SRC
-* Flycheck
-#+BEGIN_SRC emacs-lisp
-(use-package flycheck
-  :ensure t
   :pin melpa-stable)
 #+END_SRC
 * Haskell

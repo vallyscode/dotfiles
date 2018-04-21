@@ -1,3 +1,4 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; The package manager
 (require 'package)
 (setq
@@ -9,11 +10,16 @@
 
 (package-initialize)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (not package-archive-contents)
   (package-refresh-contents)
   (package-install 'use-package))
 
 (require 'use-package)
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'org)
-(org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
+(when (file-readable-p "~/.emacs.d/myinit.org")
+  (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org")))
+
+ ;; (require 'org)
+ ;; (org-babel-load-file (expand-file-name "~/.emacs.d/myinit.org"))
