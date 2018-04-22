@@ -67,6 +67,21 @@
 
    A Monoid is a single object category(comes from Greek mono - single)
 * Kleisli Categories
+  Morphisms from type A to type B are functions that go from A to derived from B
+  using the particular embellishment. Each Kleisly category define its own way
+  of composing such morphism, as well as the identity morphisms with respect to
+  that composition.
+* Writer Category
+  Our morphisms are functions from arbitrary type to some Writer.
+  #+BEGIN_SRC haskell
+  type Writer a = (a, String)
+
+  a -> Writer a
+  #+END_SRC
+  Composition can be declared as infix operator >=>
+  #+BEGIN_SRC haskell
+  (>=>) :: (a -> Writer b) -> (b -> Writer c) -> (a -> Writer c)
+  #+END_SRC
 * Isomorphism
   Isomorphism - is an invertible morphism, or a pair of morphisms
   where one is an invers of the other.
