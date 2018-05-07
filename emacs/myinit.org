@@ -278,7 +278,7 @@
 #+BEGIN_SRC emacs-lisp
 ;; set default font
 (when (member "SourceCodePro Nerd Font Mono" (font-family-list))
-  (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono" :height 110))
+  (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono" :height 130))
 #+END_SRC
 
 * Exec path
@@ -476,36 +476,31 @@
 
 * Spaceline
 #+BEGIN_SRC emacs-lisp
-;; (use-package spaceline
-;;   :ensure t
-;;   :after (evil)
-;;   :init
-;;   (require 'spaceline-config)
-;;   (spaceline-spacemacs-theme)
-;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
-;;   (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
-;;   (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
-;;   (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
-;;   (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
-;;   (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
-;;   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
-;;   (spaceline-helm-mode)
-;;   (setq-default
-;;    powerline-height 20
-;;    powerline-default-separator 'utf-8
-;;    powerline-gui-use-vcs-glyph t
-;;    spaceline-minor-modes-separator " ")
-;;   :pin melpa-stable)
-(use-package spaceline
+
+  (use-package spaceline
   :ensure t
-  :config
+  :after (evil)
+  :init
+  ;; (setq powerline-image-apple-rgb t)
+  (setq powerline-default-separator 'utf-8)
   (require 'spaceline-config)
-    (setq spaceline-buffer-encoding-abbrev-p nil)
-    (setq spaceline-line-column-p nil)
-    (setq spaceline-line-p nil)
-    ;; (setq powerline-default-separator (quote arrow))
-    (spaceline-spacemacs-theme))
-(setq powerline-default-separator nil)
+  (spaceline-spacemacs-theme)
+  (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+  (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
+  (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
+  (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
+  (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
+  (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
+  (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
+  (spaceline-helm-mode)
+  (setq-default
+  powerline-height 20
+  powerline-gui-use-vcs-glyph t
+  spaceline-minor-modes-separator " ")
+  ;; :config
+  ;; (setq powerline-default-separator 'wave)
+  :pin melpa-stable)
+
 #+END_SRC
 
 * Neo tree
@@ -550,7 +545,8 @@
     (use-package company
         :ensure t
         :config
-        (setq company-idle-delay 0)
+        (setq company-idle-delay 0.3)
+        (setq company-show-numbers t)
         (setq company-minimum-prefix-length 3)
         (add-hook 'prog-mode-hook #'company-mode)
         (define-key company-active-map (kbd "M-n") nil)
