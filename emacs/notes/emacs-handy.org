@@ -1,0 +1,2 @@
+* In org mode, to format src code
+C-c ' - to enter special mode and then format code
