@@ -91,3 +91,11 @@
   Example:
   f . g = id
   g . f = id
+* Functors
+ Functor is a mapping between categories.
+ Given two categories C and D, functor maps objects in C to objects in D - it is a function on objects.
+ If 'a' is an object in C, we will write it in D as F a. A functor also maps morphisms - it is a function on morphisms.
+ Example:
+ f :: a -> b
+ the image of f in D will be
+ F f :: F a -> F b
