@@ -1,0 +1,697 @@
+* GC tuning
+** Display message after GC
+ #+BEGIN_SRC emacs-lisp
+   (setq garbage-collection-messages t)
+ #+END_SRC
+** Set GC threshold to 50MB
+#+BEGIN_SRC emacs-lisp
+  (setq gc-cons-threshold (* 50 1024 1024))
+#+END_SRC
+* Backup
+** Backup files covered by version control
+   #+BEGIN_SRC emacs-lisp
+   (setq vc-make-backup-files t)
+   #+END_SRC
+** Backup by copying
+   #+BEGIN_SRC emacs-lisp
+     (setq backup-by-copying t)
+   #+END_SRC
+** Delete old versions
+   #+BEGIN_SRC emacs-lisp
+     (setq delete-old-versions t)
+   #+END_SRC
+** Keep new versions
+   #+BEGIN_SRC emacs-lisp
+     (setq kept-new-versions 6)
+   #+END_SRC
+** Keep old versions
+   #+BEGIN_SRC emacs-lisp
+     (setq kept-old-versions 3)
+   #+END_SRC
+** Numeric backup versions
+   #+BEGIN_SRC emacs-lisp
+     (setq version-control t)
+   #+END_SRC
+** Backup directory
+   #+BEGIN_SRC emacs-lisp
+     (setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
+   #+END_SRC
+* Auto-save
+** Auto save directory
+   #+BEGIN_SRC emacs-lisp
+     (setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+   #+END_SRC
+* Package loading
+** Report about package loading and customizing packages
+   #+BEGIN_SRC emacs-lisp
+     (setq use-package-verbose t)
+   #+END_SRC
+* Customize
+** No startup screen
+   #+BEGIN_SRC emacs-lisp
+     (setq inhibit-startup-screen t)
+   #+END_SRC
+** No scratch message
+   #+BEGIN_SRC emacs-lisp
+     (setq initial-scratch-message "")
+   #+END_SRC
+** No splash screen
+   #+BEGIN_SRC emacs-lisp
+     (setq inhibit-splash-screen t)
+   #+END_SRC
+** No scroll/menu/tool for graphical mode
+   #+BEGIN_SRC emacs-lisp
+     (when window-system
+       (menu-bar-mode -1)
+       (scroll-bar-mode -1)
+       (tool-bar-mode -1)
+       (tooltip-mode -1))
+   #+END_SRC
+** No visual notifications
+   #+BEGIN_SRC emacs-lisp
+     (setq ring-bell-function 'ignore)
+   #+END_SRC
+** Set utf-8
+   #+BEGIN_SRC emacs-lisp
+     (setq-default buffer-file-coding-system 'utf-8-auto-unix)
+     (setq locale-coding-system 'utf-8)
+     (set-selection-coding-system 'utf-8)
+     (set-keyboard-coding-system 'utf-8)
+     (set-terminal-coding-system 'utf-8)
+     (set-default-coding-systems 'utf-8)
+     (prefer-coding-system 'utf-8)
+   #+END_SRC
+** Highlight current line
+   #+BEGIN_SRC emacs-lisp
+     (when window-system
+       (add-hook 'prog-mode-hook 'hl-line-mode))
+   #+END_SRC
+** Show line number in mode line
+   #+BEGIN_SRC emacs-lisp
+     (line-number-mode t)
+   #+END_SRC
+** Show line numbers in fringe
+   #+BEGIN_SRC emacs-lisp
+     (add-hook 'prog-mode-hook 'linum-mode)
+   #+END_SRC
+** Show column number in mode line
+   #+BEGIN_SRC emacs-lisp
+     (column-number-mode t)
+   #+END_SRC
+** Cursor blink
+   #+BEGIN_SRC emacs-lisp
+     (blink-cursor-mode -1)
+   #+END_SRC
+** Display time in mode line
+*** Set time format
+    #+BEGIN_SRC emacs-lisp
+      (setq display-time-24hr-format t)
+      (setq display-time-format "%H:%M - %d %B %Y")
+    #+END_SRC
+*** Enable time mode
+    #+BEGIN_SRC emacs-lisp
+      (display-time-mode t)
+    #+END_SRC
+** Scrolling
+   #+BEGIN_SRC emacs-lisp
+     (setq scroll-conservatively 100)
+   #+END_SRC
+** Show parens
+*** Delay for paren coloring
+    #+BEGIN_SRC emacs-lisp
+      (setq show-paren-delay 0)
+    #+END_SRC
+*** Coloring style
+    #+BEGIN_SRC emacs-lisp
+      (setq show-paren-style 'expression)
+    #+END_SRC
+*** Blink for matching parens
+    #+BEGIN_SRC emacs-lisp
+      (setq blink-matching-paren nil)
+    #+END_SRC
+*** Enable show paren mode
+    #+BEGIN_SRC emacs-lisp
+      (show-paren-mode t)
+    #+END_SRC
+** Auto insert closing paren
+   #+BEGIN_SRC emacs-lisp
+     (electric-pair-mode t)
+   #+END_SRC
+** Large file warnings
+   Display warning when file size > 15MB
+   #+BEGIN_SRC emacs-lisp
+     (setq large-file-warning-threshold (* 15 1024 1024))
+   #+END_SRC
+** Change verbose yes-or-no to y-or-n
+   #+BEGIN_SRC emacs-lisp
+     (fset 'yes-or-no-p 'y-or-n-p)
+   #+END_SRC
+** Auto indent
+   #+BEGIN_SRC emacs-lisp
+     (electric-indent-mode t)
+   #+END_SRC
+** Indent via spaces
+   #+BEGIN_SRC emacs-lisp
+     (setq-default indent-tabs-mode nil)
+   #+END_SRC
+** Tab width (number of spaces used for one tab)
+   #+BEGIN_SRC emacs-lisp
+     (setq-default tab-width 2)
+   #+END_SRC
+** Smart tab
+   #+BEGIN_SRC emacs-lisp
+     (setq tab-always-indent 'complete)
+   #+END_SRC
+** Dired recursive delete and copy
+   #+BEGIN_SRC emacs-lisp
+     (setq dired-recursive-deletes 'always)
+     (setq dired-recursive-copies 'always)
+   #+END_SRC
+** Linewrapping
+   #+BEGIN_SRC emacs-lisp
+     (setq-default fill-column 80) ;;linewrapping after 80
+   #+END_SRC
+** Resize mini windows
+#+BEGIN_SRC emacs-lisp
+  (setq resize-mini-windows t)
+  (setq max-mini-window-height 0.33)
+#+END_SRC
+** Sentence end
+#+BEGIN_SRC emacs-lisp
+  (setq sentence-end-double-space nil)
+#+END_SRC
+** Offset
+#+BEGIN_SRC emacs-lisp
+  (setq-default c-basic-offset 4) ;;offset used by + & -
+#+END_SRC
+** Font
+   #+BEGIN_SRC emacs-lisp
+     (when (member "SourceCodePro Nerd Font Mono" (font-family-list))
+       (set-face-attribute 'default nil :font "SourceCodePro Nerd Font Mono" :height 110))
+   #+END_SRC
+* Secret
+  #+BEGIN_SRC emacs-lisp
+    (if (file-exists-p "~/.emacs.secrets")
+        (load-file "~/.emacs.secrets"))
+  #+END_SRC
+* Exec path
+#+BEGIN_SRC emacs-lisp
+  ;; common exec path
+  (add-to-list 'exec-path "/usr/local/bin")
+  ;; stack bin mac
+  (add-to-list 'exec-path "/Users/valeriy/.local/bin")
+  ;; stack bin linux
+  (add-to-list 'exec-path "/home/vagrant/.local/bin")
+  ;; nvm node location
+  (add-to-list 'exec-path "/home/vagrant/.nvm/versions/node/v6.13.0/bin")
+  ;; another nvm node
+  (add-to-list 'exec-path "/home/vagrant/.nvm/versions/node/v8.11.2/bin")
+#+END_SRC
+* Packages
+** Theme
+    #+BEGIN_SRC emacs-lisp
+      ;; Fontify the whole line for headings (with a background color).
+      (setq org-fontify-whole-heading-line t)
+    #+END_SRC
+*** default
+    #+BEGIN_SRC emacs-lisp
+      ;; (load-theme 'leuven t)
+    #+END_SRC
+*** solarized
+    #+BEGIN_SRC emacs-lisp
+      ;; (use-package solarized-theme
+      ;; :ensure t
+      ;; :config
+      ;; (load-theme 'solarized-light t)
+      ;; (custom-set-faces
+      ;;     '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
+      ;;     '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
+      ;; :pin melpa-stable)
+    #+END_SRC
+*** doneburn (sunburn)
+    #+BEGIN_SRC emacs-lisp
+      (use-package doneburn-theme
+        :ensure t
+        :config (load-theme 'doneburn 'no-confirm))
+    #+END_SRC
+** Evil
+*** Evil mode (VIM)
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil
+       	:ensure t
+       	:init
+       	(setq evil-shift-width 2)
+       	;; (setq evil-emacs-state-cursor '("red" box)
+       	;;       evil-normal-state-cursor '("green" box)
+       	;;       evil-visual-state-cursor '("orange" box)
+       	;;       evil-insert-state-cursor '("red" box)
+       	;;       evil-replace-state-cursor '("red" box)
+       	;;       evil-operator-state-cursor '("red" box))
+       	:config
+       	(evil-mode t)
+       	;; (evilnc-default-hotkeys)
+       	:pin melpa-stable)
+
+    #+END_SRC
+*** Evil leader
+    #+BEGIN_SRC emacs-lisp
+      (use-package evil-leader
+       	:ensure t
+       	:after (evil)
+       	:config
+       	(evil-leader/set-leader "<SPC>")
+       	(evil-leader/set-key
+          "f" 'find-file
+          "b" 'switch-to-buffer
+          "k" 'kill-buffer
+          "gg" 'grep
+          "ms" 'bookmark-set
+          "md" 'bookmark-delete
+          "mr" 'bookmark-rename
+          "ml" 'helm-bookmarks
+          "li" 'linum-mode)
+       	(global-evil-leader-mode t)
+       	:pin melpa-stable)
+    #+END_SRC
+** Nerd commenter
+#+BEGIN_SRC emacs-lisp
+  (use-package evil-nerd-commenter
+    :ensure t
+    :after (evil)
+    :config
+    (evil-leader/set-key
+      "ci" 'evilnc-comment-or-uncomment-lines
+      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+      "cc" 'evilnc-copy-and-comment-lines
+      "cp" 'evilnc-comment-or-uncomment-paragraphs
+      "cr" 'comment-or-uncomment-region
+      "cv" 'evilnc-toggle-invert-comment-line-by-line
+      "."  'evilnc-copy-and-comment-operator
+      "\\" 'evilnc-comment-operator ; if you prefer backslash key
+      )
+    :pin melpa-stable)
+#+END_SRC
+** Delight
+#+BEGIN_SRC emacs-lisp
+  (use-package delight
+    :ensure t)
+#+END_SRC
+** Diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t)
+#+END_SRC
+** Org
+   #+BEGIN_SRC emacs-lisp
+     (use-package org
+       :delight org-mode "Ø"
+       :init
+       (setq org-startup-indented t)
+       (setq org-log-done t))
+   #+END_SRC
+** Org bullets
+   #+BEGIN_SRC emacs-lisp
+     (use-package org-bullets
+       :ensure t
+       :config
+       (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
+   #+END_SRC
+** Rainbow
+   When emacs encoumters a hex color, it will auto highlight it
+   #+BEGIN_SRC emacs-lisp
+     (use-package rainbow-mode
+       :ensure t
+       :diminish rainbow-mode
+       :config
+       (add-hook 'prog-mode-hook #'rainbow-mode))
+   #+END_SRC
+** Rainbow delimiters
+   Display each level of parens with different color
+   #+BEGIN_SRC emacs-lisp
+     (use-package rainbow-delimiters
+       :ensure t
+       :config
+       (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+       :pin melpa-stable)
+   #+END_SRC
+** Highlight symbol
+   Highlight selected symbol, different color for each.
+   #+BEGIN_SRC emacs-lisp
+     (use-package highlight-symbol
+       :ensure t
+       :config
+       (evil-leader/set-key
+         "hl" 'highlight-symbol)
+       :pin melpa-stable)
+   #+END_SRC
+** Hide show
+   Hide show mode.
+   za - toggle
+   zc - close
+   zo - open
+   zm - close all
+   zr - open all
+   #+BEGIN_SRC emacs-lisp
+     (use-package hs-minor-mode
+       :diminish hs-minor-mode)
+     (add-hook 'prog-mode-hook (lambda () (hs-minor-mode t)))
+   #+END_SRC
+** Popup kill ring
+*** Set kill ring size
+    #+BEGIN_SRC emacs-lisp
+      (setq kill-ring-max 100)
+    #+END_SRC
+*** See removed text in popup
+    #+BEGIN_SRC emacs-lisp
+      (use-package popup-kill-ring
+        :ensure t
+        :bind ("M-y" . popup-kill-ring))
+    #+END_SRC
+** Which key
+   #+BEGIN_SRC emacs-lisp
+     (use-package which-key
+       :ensure t
+       :diminish which-key-mode
+       :init
+       (setq which-key-sort-order 'which-key-key-order-alpha)
+       :config
+       (which-key-mode t)
+       :pin melpa-stable)
+   #+END_SRC
+** Flycheck
+   #+BEGIN_SRC emacs-lisp
+     (use-package flycheck
+       :ensure t
+       :pin melpa-stable)
+   #+END_SRC
+** Company
+   #+BEGIN_SRC emacs-lisp
+     (use-package company
+       :ensure t
+       :config
+       (setq company-idle-delay 0.3)
+       (setq company-show-numbers t)
+       (setq company-minimum-prefix-length 2)
+       (add-hook 'prog-mode-hook #'company-mode)
+       (define-key company-active-map (kbd "M-n") nil)
+       (define-key company-active-map (kbd "M-p") nil)
+       (define-key company-active-map (kbd "C-n") #'company-select-next)
+       (define-key company-active-map (kbd "C-p") #'company-select-previous)
+       (define-key company-active-map (kbd "SPC") #'company-abort)
+       :pin melpa-stable)
+   #+END_SRC
+** Yasnippet
+   #+BEGIN_SRC emacs-lisp
+     (use-package yasnippet
+       :ensure t
+       :diminish (yas-minor-mode . " Ⓨ")
+       :config
+       (yas-global-mode t)
+       (yas-reload-all)
+       (evil-leader/set-key
+         "yi" 'yas-insert-snippet)
+       :pin melpa-stable)
+   #+END_SRC
+** Undo tree
+   #+BEGIN_SRC emacs-lisp
+     (use-package undo-tree
+       :ensure t
+       :diminish undo-tree-mode
+       :bind* (("M-m u" . undo-tree-undo)
+               ("M-m r" . undo-tree-redo)
+               ("M-m U" . undo-tree-visualize))
+       :config
+       (global-undo-tree-mode t)
+       (setq undo-tree-visualizer-timestamps t)
+       (setq undo-tree-visualizer-diff t)
+       :pin melpa)
+   #+END_SRC
+** Whitespace
+   #+BEGIN_SRC emacs-lisp
+     (use-package whitespace
+       :ensure t
+       :diminish (whitespace-mode . "ⓦ")
+       :init
+       (dolist (hook '(prog-mode-hook text-mode-hook))
+         (add-hook hook #'whitespace-mode))
+       (add-hook 'before-save-hook #'whitespace-cleanup)
+       :config
+       (setq whitespace-line-column 80) ;; limit line length
+       (setq whitespace-style '(face tabs empty trailing lines-tail)))
+   #+END_SRC
+** Magit
+   #+BEGIN_SRC emacs-lisp
+     (use-package magit
+       :ensure t
+       :commands (magit-status magit-blame magit-blame-quit magit-log)
+       :init
+       (evil-leader/set-key
+         "gs" 'magit-status
+         "gb" 'magit-blame
+         "gB" 'magit-blame-quit
+         "gl" 'magit-log)
+       :pin melpa-stable)
+   #+END_SRC
+** Projectile
+   #+BEGIN_SRC emacs-lisp
+     (use-package projectile
+       :ensure t
+       :diminish projectile-mode
+       :bind* (("M-m SPC d"   . projectile-find-file)
+               ("M-m SPC D"   . projectile-switch-project)
+               ("M-m SPC TAB" . projectile-find-other-file))
+       :init
+       (setq projectile-file-exists-remote-cache-expire (* 10 60))
+       :config
+       (projectile-global-mode t))
+   #+END_SRC
+** Helm
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm
+       :ensure t
+       :diminish helm-mode
+       :config
+       (require 'helm-config)
+       (global-set-key (kbd "M-x") 'helm-M-x)
+       (global-set-key (kbd "C-x b") 'helm-buffers-list)
+       (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m, C-x r b
+       (helm-mode 1)
+       (evil-leader/set-key
+         "ho" 'helm-occur
+         "hr" 'helm-register
+         "ht" 'helm-top
+         "hm" 'helm-mini
+         "hb" 'helm-buffers-list
+         "hk" 'helm-show-kill-ring)
+       :pin melpa-stable)
+   #+END_SRC
+** Helm projectile
+   #+BEGIN_SRC emacs-lisp
+     (use-package helm-projectile
+       :ensure t
+       :after (projectile helm)
+       :bind* (("M-m SPC p" . helm-projectile))
+       :init
+       (setq projectile-completion-systtem 'helm)
+       :config
+       (evil-leader/set-key
+         "pf" 'helm-projectile-find-file
+         "pp" 'helm-projectile)
+       :pin melpa-stable)
+   #+END_SRC
+** Neotree
+   #+BEGIN_SRC emacs-lisp
+     (use-package neotree
+       :ensure t
+       :init
+       (setq neo-theme 'ascii)
+       :config
+       (evil-leader/set-key
+         "t" 'neotree-toggle)
+       (add-hook 'neotree-mode-hook
+                 (lambda ()
+                   (evil-local-set-key 'normal (kbd "q") 'neotree-hide)
+                   (evil-local-set-key 'normal (kbd "I") 'neotree-hidden-file-toggle)
+                   (evil-local-set-key 'normal (kbd "z") 'neotree-stretch-toggle)
+                   (evil-local-set-key 'normal (kbd "RET") 'neotree-enter)
+                   (evil-local-set-key 'normal (kbd "g") 'neotree-refresh)
+                   (evil-local-set-key 'normal (kbd "c") 'neotree-create-node)
+                   (evil-local-set-key 'normal (kbd "d") 'neotree-delete-node)
+                   (evil-local-set-key 'normal (kbd "r") 'neotree-rename-node)
+                   (evil-local-set-key 'normal (kbd "s") 'neotree-enter-vertical-split)
+                   (evil-local-set-key 'normal (kbd "S") 'neotree-enter-horizontal-split)))
+       :pin melpa-stable)
+   #+END_SRC
+** Spaceline
+   #+BEGIN_SRC emacs-lisp
+     ;; (use-package spaceline
+     ;;   :ensure t
+     ;;   :after (evil)
+     ;;   :init
+     ;;   ;; (setq powerline-image-apple-rgb t)
+     ;;   (setq powerline-default-separator 'utf-8)
+     ;;   (require 'spaceline-config)
+     ;;   (spaceline-spacemacs-theme)
+     ;;   (setq spaceline-highlight-face-func 'spaceline-highlight-face-evil-state)
+     ;;   (set-face-attribute 'spaceline-evil-emacs nil :background "#be84ff")
+     ;;   (set-face-attribute 'spaceline-evil-insert nil :background "#5fd7ff")
+     ;;   (set-face-attribute 'spaceline-evil-motion nil :background "#ae81ff")
+     ;;   (set-face-attribute 'spaceline-evil-normal nil :background "#a6e22e")
+     ;;   (set-face-attribute 'spaceline-evil-replace nil :background "#f92672")
+     ;;   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
+     ;;   (spaceline-helm-mode)
+     ;;   (setq-default
+     ;;   powerline-height 20
+     ;;   powerline-gui-use-vcs-glyph t
+     ;;   spaceline-minor-modes-separator " ")
+     ;;   ;; :config
+     ;;   ;; (setq powerline-default-separator 'wave)
+     ;;   :pin melpa-stable)
+   #+END_SRC
+** Pretty
+   #+BEGIN_SRC emacs-lisp
+     ;; (when window-system
+     ;;     (use-package pretty-mode
+     ;;     :ensure t
+     ;;     :config
+     ;;     (global-pretty-mode t)))
+   #+END_SRC
+** Linum relative
+   #+BEGIN_SRC emacs-lisp
+     ;; (use-package linum-relative
+     ;;   :ensure t
+     ;;   :config
+     ;;     (setq linum-relative-current-symbol "")
+     ;;     (add-hook 'prog-mode-hook 'linum-relative-mode))
+   #+END_SRC
+** JSON
+   #+BEGIN_SRC emacs-lisp
+     (use-package json-mode
+       :ensure t
+       :mode "\\.json$"
+       :pin melpa-stable)
+   #+END_SRC
+** YAML
+   #+BEGIN_SRC emacs-lisp
+     (use-package yaml-mode
+       :ensure t
+       :mode "\\.yml$"
+       :pin melpa-stable)
+   #+END_SRC
+** Markdown
+   #+BEGIN_SRC emacs-lisp
+     (use-package markdown-mode
+       :ensure t
+       :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
+       :pin melpa-stable)
+   #+END_SRC
+** LESS & CSS
+   #+BEGIN_SRC emacs-lisp
+     (use-package less-css-mode
+       :ensure t
+       :mode ("\\.css\\'" "\\.less\\'")
+       :pin melpa-stable)
+   #+END_SRC
+** Web
+   #+BEGIN_SRC emacs-lisp
+     (use-package web-mode
+       :ensure t
+       :mode ("\\.html$" . web-mode)
+       :pin melpa-stable)
+   #+END_SRC
+** TypeScript
+   #+BEGIN_SRC emacs-lisp
+     (use-package tide
+       :ensure t
+       :pin melpa-stable)
+
+     (defun setup-tide-mode ()
+       (interactive)
+       (tide-setup)
+       (flycheck-mode +1)
+       (setq flycheck-check-syntax-automatically '(save mode-enabled))
+       (eldoc-mode +1)
+       (tide-hl-identifier-mode +1)
+       ;; company is an optional dependency. You have to
+       ;; install it separately via package-install
+       ;; `M-x package-install [ret] company`
+       (company-mode +1))
+
+     ;; aligns annotation to the right hand side
+     (setq company-tooltip-align-annotations t)
+
+     ;; formats the buffer before saving
+     (add-hook 'before-save-hook 'tide-format-before-save)
+
+     (add-hook 'typescript-mode-hook #'setup-tide-mode)
+   #+END_SRC
+** JavaScript
+   #+BEGIN_SRC emacs-lisp
+     (use-package js2-mode
+       :ensure t
+       :mode ("\\.js$" . js2-mode)
+       :config
+       :pin melpa-stable)
+   #+END_SRC
+** JSX
+   #+BEGIN_SRC emacs-lisp
+     (use-package jsx-mode
+       :ensure t
+       :after (js2-mode)
+       :pin melpa-stable)
+   #+END_SRC
+** Haskell
+   #+BEGIN_SRC emacs-lisp
+     (use-package haskell-mode
+       :ensure t
+       :mode ("\\.hs$" . haskell-mode)
+       :config
+       :pin melpa-stable)
+   #+END_SRC
+** Intero
+   #+BEGIN_SRC emacs-lisp
+     (use-package intero
+       :ensure t
+       :after (haskell-mode)
+       :config
+       (add-hook 'haskell-mode-hook #'intero-mode)
+       :pin melpa)
+   #+END_SRC
+** hindent
+   #+BEGIN_SRC emacs-lisp
+     (use-package hindent
+       :ensure t
+       :after (intero)
+       :config
+       (add-hook 'haskell-mode-hook #'hindent-mode)
+       :pin melpa-stable)
+   #+END_SRC
+** Groovy
+   #+BEGIN_SRC emacs-lisp
+     (use-package groovy-mode
+       :ensure t
+       :pin melpa-stable)
+   #+END_SRC
+** Emacs lisp
+#+BEGIN_SRC emacs-lisp
+  (use-package elisp-mode
+    :ensure nil
+    :delight emacs-lisp-mode "ξ")
+#+END_SRC
+** Eldoc
+#+BEGIN_SRC emacs-lisp
+  (use-package eldoc
+    :diminish "ⓓ")
+  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+#+END_SRC
+** Local scripts
+   #+BEGIN_SRC emacs-lisp
+     (use-package lsp
+       :load-path "~/.emacs.d/lisp/")
+     (require 'lsp)
+
+     (use-package emacs-java-mode
+       :load-path "~/.emacs.d/lisp")
+     (require 'emacs-java-mode)
+   #+END_SRC

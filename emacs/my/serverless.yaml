@@ -1,0 +1,13 @@
+functions:
+  preSignUp:
+    handler: preSignUp.handler
+    events:
+      - cognitoUserPool:
+          pool: MyUserPool
+          trigger: PreSignUp
+  customMessage:
+    handler: customMessage.handler
+    events:
+      - cognitoUserPool:
+          pool: MyUserPool
+          trigger: CustomMessage
