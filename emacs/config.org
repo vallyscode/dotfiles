@@ -92,7 +92,9 @@
    #+END_SRC
 ** Show line numbers in fringe
    #+BEGIN_SRC emacs-lisp
-     (add-hook 'prog-mode-hook 'linum-mode)
+     ;; (add-hook 'prog-mode-hook 'linum-mode)
+     ;; This is a new native implementation
+     (add-hook 'prog-mode-hook 'display-line-numbers-mode)
    #+END_SRC
 ** Show column number in mode line
    #+BEGIN_SRC emacs-lisp
@@ -295,7 +297,8 @@
 ** Delight
 #+BEGIN_SRC emacs-lisp
   (use-package delight
-    :ensure t)
+    :ensure t
+    :delight lisp-interaction-mode "ξ")
 #+END_SRC
 ** Diminish
 #+BEGIN_SRC emacs-lisp
@@ -309,6 +312,10 @@
        :init
        (setq org-startup-indented t)
        (setq org-log-done t))
+
+     (use-package org-indent
+       :config
+       (add-hook 'org-mode-hook (lambda () (diminish 'org-indent-mode " ι"))))
    #+END_SRC
 ** Org bullets
    #+BEGIN_SRC emacs-lisp
@@ -353,10 +360,10 @@
    zm - close all
    zr - open all
    #+BEGIN_SRC emacs-lisp
-     (use-package hs-minor-mode
-       :diminish hs-minor-mode)
-     (add-hook 'prog-mode-hook (lambda () (hs-minor-mode t)))
-   #+END_SRC
+     (use-package hideshow
+       :diminish (hs-minor-mode . " μ"))
+     (add-hook 'prog-mode-hook 'hs-minor-mode)
+   #+End_SRC
 ** Popup kill ring
 *** Set kill ring size
     #+BEGIN_SRC emacs-lisp
@@ -383,12 +390,14 @@
    #+BEGIN_SRC emacs-lisp
      (use-package flycheck
        :ensure t
+       :diminish " φ"
        :pin melpa-stable)
    #+END_SRC
 ** Company
    #+BEGIN_SRC emacs-lisp
      (use-package company
        :ensure t
+       :diminish " α"
        :config
        (setq company-idle-delay 0.3)
        (setq company-show-numbers t)
@@ -405,7 +414,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package yasnippet
        :ensure t
-       :diminish (yas-minor-mode . " Ⓨ")
+       :diminish (yas-minor-mode . " γ")
        :config
        (yas-global-mode t)
        (yas-reload-all)
@@ -417,7 +426,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package undo-tree
        :ensure t
-       :diminish undo-tree-mode
+       :diminish (undo-tree-mode . " ζ")
        :bind* (("M-m u" . undo-tree-undo)
                ("M-m r" . undo-tree-redo)
                ("M-m U" . undo-tree-visualize))
@@ -431,7 +440,7 @@
    #+BEGIN_SRC emacs-lisp
      (use-package whitespace
        :ensure t
-       :diminish (whitespace-mode . "ⓦ")
+       :diminish (whitespace-mode . " ω")
        :init
        (dolist (hook '(prog-mode-hook text-mode-hook))
          (add-hook hook #'whitespace-mode))
@@ -654,6 +663,7 @@
      (use-package intero
        :ensure t
        :after (haskell-mode)
+       :diminish " λ"
        :config
        (add-hook 'haskell-mode-hook #'intero-mode)
        :pin melpa)
@@ -682,7 +692,7 @@
 ** Eldoc
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
-    :diminish "ⓓ")
+    :diminish " δ")
   (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
 #+END_SRC
 ** Local scripts
@@ -691,7 +701,8 @@
        :load-path "~/.emacs.d/lisp/")
      (require 'lsp)
 
-     (use-package emacs-java-mode
-       :load-path "~/.emacs.d/lisp")
-     (require 'emacs-java-mode)
+     ;; (use-package emacs-java-mode
+     ;;   :diminish " η"
+     ;;   :load-path "~/.emacs.d/lisp")
+     ;; (require 'emacs-java-mode)
    #+END_SRC
