@@ -1,39 +1,39 @@
 * Listing docker images
-  docker image ls
-  docker image ls -a # list all images on this machine
+docker image ls
+docker image ls -a # list all images on this machine
 * Removing docker image
-  docker image rm <image id> # remove image from machine
-  docker image rm $(docker image ls -a -q) # remove all images from machine
+docker image rm <image id> # remove image from machine
+docker image rm $(docker image ls -a -q) # remove all images from machine
 * Listing docker containers
-  docker container ls --all # list all containers including those not running
-  docker container ls # list all running containers
+docker container ls --all # list all containers including those not running
+docker container ls # list all running containers
 * List docker CLI commands
-  docker
-  docker container --help
+docker
+docker container --help
 * Displaying docker  version and info
-  docker --version
-  docker version
-  docker info
+docker --version
+docker version
+docker info
 * Executing docker image
-  docker run hello-world
+docker run hello-world
 * Build docker image
-  docker build -t imagename .
+docker build -t imagename .
 * Run docker comtaimer
-  docker run -p 4000:80 imagename # mapping port 4000 to 80
-  docker run -d -p 4000:80 imagename # run in detached mode
+docker run -p 4000:80 imagename # mapping port 4000 to 80
+docker run -d -p 4000:80 imagename # run in detached mode
 * Stop docker container
-  docker container stop <hash> # graceful stop
-  docker container kill <hash> # force shutdown
+docker container stop <hash> # graceful stop
+docker container kill <hash> # force shutdown
 * Removing docker container
-  docker container rm <hash> # remove container from machine
-  docker container rm $(docker image ls -a -q) # remove all containers
+docker container rm <hash> # remove container from machine
+docker container rm $(docker image ls -a -q) # remove all containers
 * Login to docker account
-  docker login
+docker login
 * Tag image for apload to register
-  docker tag <image> username/repository:tag
+docker tag <image> username/repository:tag
 * Upload tagged image to repository
-  docker push username/repository:tag
+docker push username/repository:tag
 * Run image from a registry
-  docker run username/repository:tag
+docker run username/repository:tag
 * Starting and logging in container
-  docker run -it amazonlinux:latest /bin/bash
+docker run -it amazonlinux:latest /bin/bash

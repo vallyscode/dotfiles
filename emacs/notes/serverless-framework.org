@@ -8,32 +8,32 @@
   - CloudWatchLogsFullAccess for logs access
 
 * Serverless create aws credentials
-  serverless config credentials --provider aws --key <key> --secret <secret> --region <region>
+serverless config credentials --provider aws --key <key> --secret <secret> --region <region>
 
 * Create new service
-  serverless create --template aws-nodejs --path my-service
+serverless create --template aws-nodejs --path my-service
 
 * Deploy service
-  serverless deploy -v
+serverless deploy -v
 
 * Deploy function
-  serverless deploy function -f hello
+serverless deploy function -f hello
 
 * Invoke the function
 ** Invoke without an input
-   serverless invoke -f hello -l
+serverless invoke -f hello -l
 ** Invoke with input, input is a map
-   serverless invoke -f hello --data '{"key": "value"}' -l
+serverless invoke -f hello --data '{"key": "value"}' -l
 
 * Show service metrics
-  serverless metrics
-  serverlsee metrics -f hello # metrics for specified function
+serverless metrics
+serverlsee metrics -f hello # metrics for specified function
 
 * Show service information
-  serverless info
+serverless info
 
 * Service logs
-  serverless logs -f hello -t
+serverless logs -f hello -t
 
 * Remove service
-  serverless remove
+serverless remove
