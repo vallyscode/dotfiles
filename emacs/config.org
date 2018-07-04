@@ -204,10 +204,8 @@
   (add-to-list 'exec-path "/Users/valeriy/.local/bin")
   ;; stack bin linux
   (add-to-list 'exec-path "/home/vagrant/.local/bin")
-  ;; nvm node location
-  (add-to-list 'exec-path "/home/vagrant/.nvm/versions/node/v6.13.0/bin")
-  ;; another nvm node
-  (add-to-list 'exec-path "/home/vagrant/.nvm/versions/node/v8.11.2/bin")
+  ;; try relative path
+  (add-to-list 'exec-path "~/.nvm/versions/node/v8.11.3/bin")
 #+END_SRC
 * Packages
 ** Theme
@@ -701,8 +699,7 @@
        :load-path "~/.emacs.d/lisp/")
      (require 'lsp)
 
-     ;; (use-package emacs-java-mode
-     ;;   :diminish " η"
-     ;;   :load-path "~/.emacs.d/lisp")
-     ;; (require 'emacs-java-mode)
+     (use-package espresso-mode
+       :load-path "~/.emacs.d/lisp")
+     (require 'espresso-mode)
    #+END_SRC
