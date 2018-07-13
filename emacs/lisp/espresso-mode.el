@@ -13,7 +13,7 @@
 
 (require 'lsp)
 
-;; (defun photon-java-version()
+;; (defun espresso-java-version()
 ;;   "Get Java version available in current environment."
 ;;   (interactive)
 ;;   (start-process "java-version" "*java-version*" "java" "--version")
@@ -37,8 +37,8 @@
 ;; Customization
 ;;
 
-(setq espresso-lsp-jdt-dir "espresso-download/")
-(setq espresso-lsp-server-command
+(setq lsp-jdt-dir "espresso-download/")
+(setq lsp-server-command
       '("java"
         "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=1044"
         "-Declipse.application=org.eclipse.jdt.ls.core.id1"
@@ -66,24 +66,24 @@
 (defun espresso-get-config-dir()
   "Return configuration directory name for current system."
   (interactive)
-  (let ((cfg (cond ((string= system-type photon--windows) "config_win")
-                   ((string= system-type photon--linux) "config_linux")
-                   ((string= system-type photon--osx) "config_mac"))))
+  (let ((cfg (cond ((string= system-type espresso--windows) "config_win")
+                   ((string= system-type espresso--linux) "config_linux")
+                   ((string= system-type espresso--osx) "config_mac"))))
     cfg))
 
 (defun espresso-test-server()
   "Test function."
   (interactive)
-  (boson-start-server))
+  (lsp-start-server))
 
 ;;;###autoload
 (define-minor-mode espresso-mode
   "Java client for language server."
   :lighter " E"
   :keymap (let ((map (make-sparse-keymap)))
-            (define-key map (kbd "C-c f") 'photon-test-server)
-            (define-key map (kbd "C-c d") 'boson-download-test)
-            (define-key map (kbd "C-c k") 'boson-stop-server)
+            (define-key map (kbd "C-c f") 'espresso-test-server)
+            (define-key map (kbd "C-c d") 'lsp-download-test)
+            (define-key map (kbd "C-c k") 'lsp-stop-server)
             map)
   (make-local-variable 'say-count))
 

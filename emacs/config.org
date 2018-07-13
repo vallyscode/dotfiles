@@ -702,4 +702,20 @@
      (use-package espresso-mode
        :load-path "~/.emacs.d/lisp")
      (require 'espresso-mode)
+
+     (use-package lsp-mode
+       :load-path "~/workspace/elisp-plugins/lsp-mode")
+     (require 'lsp-mode)
+
+     (use-package dash-functional
+       :ensure t)
+     (use-package lsp-ui
+       :load-path "~/workspace/elisp-plugins/lsp-ui")
+
+     (use-package lsp-java
+       :load-path "~/workspace/elisp-plugins/lsp-java")
+
+     (add-hook 'java-mode-hook #'lsp-java-enable)
+     ;; set the projects that are going to be imported into the workspace.
+     (setq lsp-java--workspace-folders (list "/home/user/workspace/elisp-plugins/testproj"))
    #+END_SRC
