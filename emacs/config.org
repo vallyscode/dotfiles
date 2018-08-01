@@ -219,20 +219,20 @@
     #+END_SRC
 *** solarized
     #+BEGIN_SRC emacs-lisp
-      ;; (use-package solarized-theme
-      ;; :ensure t
-      ;; :config
-      ;; (load-theme 'solarized-light t)
+      (use-package solarized-theme
+      :ensure t
+      :config
+      (load-theme 'solarized-light t)
       ;; (custom-set-faces
       ;;     '(mode-line ((t (:background "#eee8d5" :foreground "#657b83" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil))))
       ;;     '(mode-line-inactive ((t (:background "#fdf6e3" :foreground "#93a1a1" :box (:line-width 1 :color "#eee8d5" :style unspecified) :overline nil :underline nil)))))
-      ;; :pin melpa-stable)
+      :pin melpa-stable)
     #+END_SRC
 *** doneburn (sunburn)
     #+BEGIN_SRC emacs-lisp
-      (use-package doneburn-theme
-        :ensure t
-        :config (load-theme 'doneburn 'no-confirm))
+      ;; (use-package doneburn-theme
+      ;;   :ensure t
+      ;;   :config (load-theme 'doneburn 'no-confirm))
     #+END_SRC
 ** Evil
 *** Evil mode (VIM)
@@ -695,27 +695,34 @@
 #+END_SRC
 ** Local scripts
    #+BEGIN_SRC emacs-lisp
-     (use-package lsp
-       :load-path "~/.emacs.d/lisp/")
-     (require 'lsp)
+     ;; (use-package lsp
+     ;;   :load-path "~/.emacs.d/lisp/")
+     ;; (require 'lsp)
 
-     (use-package espresso-mode
-       :load-path "~/.emacs.d/lisp")
-     (require 'espresso-mode)
+     ;; (use-package espresso-mode
+     ;;   :load-path "~/.emacs.d/lisp")
+     ;; (require 'espresso-mode)
+
+     (use-package octopus
+       :load-path "~/workspace/projects/elisp/octopus")
+     (require 'octopus)
+     (use-package espresso
+       :load-path "~/workspace/projects/elisp/espresso")
+     (require 'espresso)
 
      (use-package lsp-mode
-       :load-path "~/workspace/elisp-plugins/lsp-mode")
+       :load-path "~/workspace/projects/elisp/lsp-mode")
      (require 'lsp-mode)
 
      (use-package dash-functional
        :ensure t)
      (use-package lsp-ui
-       :load-path "~/workspace/elisp-plugins/lsp-ui")
+       :load-path "~/workspace/projects/elisp/lsp-ui")
 
      (use-package lsp-java
-       :load-path "~/workspace/elisp-plugins/lsp-java")
+       :load-path "~/workspace/projects/elisp/lsp-java")
 
      (add-hook 'java-mode-hook #'lsp-java-enable)
      ;; set the projects that are going to be imported into the workspace.
-     (setq lsp-java--workspace-folders (list "/home/user/workspace/elisp-plugins/testproj"))
+     (setq lsp-java--workspace-folders (list "~/workspace/projects/java/sample"))
    #+END_SRC
