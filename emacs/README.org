@@ -1,0 +1,29 @@
+* Nerd fonts
+URL: https://nerdfonts.com/#downloads
+* Installation
+** Linux
+Can be placed in:
+- /usr/share/fonts
+- /usr/local/share/fonts
+- ~/.local/share/fonts/
+- ~/.fonts
+** OSX
+https://support.apple.com/en-us/HT201722
+https://support.apple.com/en-us/HT201749
+Can be placed in:
+- /Library/Fonts/
+- ~/Library/Fonts/
+** After placing fonts
+fc-cache -f -v
+
+Usafull commands:
+fc-list – lists fonts
+fc-match -s helvetica – show an ordered list of fonts matching a certain name or pattern
+fc-cache -fv – rebuilds cached list of fonts (in ~/.config/fontconfig, older caches may also be in ~/.fontconfig)
+
+Example:
+vagrant@devbox:~/.fonts$ fc-match -s Terminus | grep Terminus
+Terminus (TTF) Nerd Font Complete Mono Windows Compatible.ttf: "TerminusTTF NF" "Medium"
+** URL
+https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CodeNewRoman
+https://github.com/ryanoasis/nerd-fonts/tree/master/patched-fonts/CodeNewRoman/complete

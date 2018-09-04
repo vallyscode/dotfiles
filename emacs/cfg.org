@@ -182,9 +182,10 @@ Lone wrapping after 70
 #+END_SRC
 ** Font
    #+BEGIN_SRC emacs-lisp
-     (when (member "Monaco" (font-family-list))
-       ;; (set-face-attribute 'default nil :font "Monaco" :height 110)
-       (set-face-attribute 'default nil :font "Monaco-11"))
+     (when (member "CodeNewRoman Nerd Font" (font-family-list))
+       ;; (set-face-attribute 'default nil :font "CodeNewRoman Nerd Font-11")
+       (set-face-attribute 'default nil :font "CodeNewRoman Nerd Font" :height 113)
+       )
    #+END_SRC
 ** Theme
 Default
@@ -572,11 +573,9 @@ Git support
   ;;   (set-face-attribute 'spaceline-evil-visual nil :background "#fd971f")
   ;;   (spaceline-helm-mode)
   ;;   (setq-default
-  ;;   powerline-height 20
-  ;;   powerline-gui-use-vcs-glyph t
-  ;;   spaceline-minor-modes-separator " ")
-  ;;   ;; :config
-  ;;   ;; (setq powerline-default-separator 'wave)
+  ;;    powerline-height 20
+  ;;    powerline-gui-use-vcs-glyph t
+  ;;    spaceline-minor-modes-separator " ")
   ;;   :pin melpa-stable)
 #+END_SRC
 * Pretty
