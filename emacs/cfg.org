@@ -87,9 +87,8 @@
        (add-hook 'prog-mode-hook 'hl-line-mode))
    #+END_SRC
 ** Show line numbers in fringe
+This is a new native implementation (looks a bit weird |fringe|numbers|)
    #+BEGIN_SRC emacs-lisp
-     ;; (add-hook 'prog-mode-hook 'linum-mode)
-     ;; This is a new native implementation
      ;; (add-hook 'prog-mode-hook 'display-line-numbers-mode)
    #+END_SRC
 ** Show line number in mode line
@@ -165,7 +164,7 @@ Try indent, complete otherwise
 ** Linewrapping
 Lone wrapping after 70
    #+BEGIN_SRC emacs-lisp
-     (setq-default fill-column 70)
+     (setq-default fill-column 80)
    #+END_SRC
 ** Resize mini windows
 #+BEGIN_SRC emacs-lisp
@@ -182,10 +181,14 @@ Lone wrapping after 70
 #+END_SRC
 ** Font
    #+BEGIN_SRC emacs-lisp
-     (when (member "CodeNewRoman Nerd Font" (font-family-list))
+     (when (member "CodeNewRoman Nerd Font Mono" (font-family-list))
        ;; (set-face-attribute 'default nil :font "CodeNewRoman Nerd Font-11")
-       (set-face-attribute 'default nil :font "CodeNewRoman Nerd Font" :height 113)
-       )
+       ;; (set-face-attribute 'default nil
+       ;;                     :font "CodeNewRoman Nerd Font Mono"
+       ;;                     :height 113
+       ;;                     :weight 'normal
+       ;;                     :width 'normal)
+       (set-frame-font "CodeNewRoman Nerd Font Mono-12"))
    #+END_SRC
 ** Theme
 Default
@@ -196,17 +199,12 @@ Solarized
 #+BEGIN_SRC emacs-lisp
   (use-package solarized-theme
     :ensure t
+    :init
+    (setq solarized-high-contrast-mode-line t)  ;; make the modeline high contrast
+    (setq solarized-use-less-bold t)  ;; Use less bolding
+    (setq solarized-use-more-italic t)  ;; Use more italics
     :config
     (load-theme 'solarized-light t)
-    (custom-set-faces
-     '(mode-line ((t (:background "#eee8d5"
-                                  :foreground "#657b83"
-                                  :box (:line-width 1 :color "#eee8d5" :style unspecified)
-                                  :overline nil :underline nil))))
-     '(mode-line-inactive ((t (:background "#fdf6e3"
-                                           :foreground "#93a1a1"
-                                           :box (:line-width 1 :color "#eee8d5" :style unspecified)
-                                           :overline nil :underline nil)))))
     :pin melpa-stable)
 #+END_SRC
 Doneburn (sunburn)
@@ -227,36 +225,27 @@ Common executables path
 #+END_SRC
 Local executables path
 #+BEGIN_SRC emacs-lisp
-  (add-to-list 'exec-path "/Users/valeriy/.local/bin")
+  (add-to-list 'exec-path "~/.local/bin")
 #+END_SRC
 Path to nvim executables
 #+BEGIN_SRC emacs-lisp
   (add-to-list 'exec-path "~/.nvm/versions/node/v8.11.3/bin")
 #+END_SRC
-* Delight
-Change major mode symbol
+* Disable C-z
 #+BEGIN_SRC emacs-lisp
-  (use-package delight
-    :ensure t
-    :delight lisp-interaction-mode "ξ")
-#+END_SRC
-* Diminish
-Change minor mode symbol or hide
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish
-    :ensure t)
+  (global-unset-key (kbd "C-z"))
 #+END_SRC
 * Elisp
 #+BEGIN_SRC emacs-lisp
-  (use-package elisp-mode
-    :ensure nil
-    :delight emacs-lisp-mode "ξ")
+  ;; (use-package elisp-mode
+  ;;   :ensure nil
+  ;;   :delight emacs-lisp-mode "ξ")
 #+END_SRC
 * Eldoc
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
     :diminish " δ")
-  (add-hook 'emacs-lisp-mode-hook 'eldoc-mode)
+  (add-hook 'prog-mode-hook 'eldoc-mode)
 #+END_SRC
 * Flycheck
 #+BEGIN_SRC emacs-lisp
@@ -269,7 +258,6 @@ Change minor mode symbol or hide
 Org mode
 #+BEGIN_SRC emacs-lisp
   (use-package org
-    :delight org-mode "Ø"
     :init
     (setq org-startup-indented t)
     (setq org-log-done t)
@@ -309,15 +297,8 @@ Evil mode
     :ensure t
     :init
     (setq evil-shift-width 2)
-    ;; (setq evil-emacs-state-cursor '("red" box)
-    ;;       evil-normal-state-cursor '("green" box)
-    ;;       evil-visual-state-cursor '("orange" box)
-    ;;       evil-insert-state-cursor '("red" box)
-    ;;       evil-replace-state-cursor '("red" box)
-    ;;       evil-operator-state-cursor '("red" box))
     :config
     (evil-mode t)
-    ;; (evilnc-default-hotkeys)
     :pin melpa-stable)
 #+END_SRC
 Evil leader
@@ -364,7 +345,7 @@ Display key bindings while pressing
 #+BEGIN_SRC emacs-lisp
   (use-package which-key
     :ensure t
-    :diminish which-key-mode
+    :diminish " X"
     :init
     (setq which-key-sort-order 'which-key-key-order-alpha)
     :config
@@ -386,7 +367,7 @@ Display removedd text in popup
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
-    :diminish " α"
+    :diminish " ∑"
     :config
     (setq company-idle-delay 0.3)
     (setq company-show-numbers t)
@@ -404,7 +385,7 @@ Allow to perform undo operation on buffer also visualize the changes as tree
 #+BEGIN_SRC emacs-lisp
   (use-package undo-tree
     :ensure t
-    :diminish (undo-tree-mode . " ζ")
+    :diminish " ∆"
     :bind* (("M-m u" . undo-tree-undo)
             ("M-m r" . undo-tree-redo)
             ("M-m U" . undo-tree-visualize))
@@ -510,7 +491,6 @@ Git support
 #+BEGIN_SRC emacs-lisp
   (use-package projectile
     :ensure t
-    :diminish projectile-mode
     :bind* (("M-m SPC d"   . projectile-find-file)
             ("M-m SPC D"   . projectile-switch-project)
             ("M-m SPC TAB" . projectile-find-other-file))
@@ -577,15 +557,6 @@ Git support
   ;;    powerline-gui-use-vcs-glyph t
   ;;    spaceline-minor-modes-separator " ")
   ;;   :pin melpa-stable)
-#+END_SRC
-* Pretty
-Prettify lambda look and predicates
-#+BEGIN_SRC emacs-lisp
-  ;; (when window-system
-  ;;     (use-package pretty-mode
-  ;;     :ensure t
-  ;;     :config
-  ;;     (global-pretty-mode t)))
 #+END_SRC
 * Json
 #+BEGIN_SRC emacs-lisp
@@ -676,7 +647,6 @@ Intero mode for haskell
   (use-package intero
     :ensure t
     :after (haskell-mode)
-    :diminish " λ"
     :config
     (add-hook 'haskell-mode-hook #'intero-mode)
     :pin melpa)

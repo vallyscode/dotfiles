@@ -8,8 +8,10 @@
                     ("melpa-stable" . "https://stable.melpa.org/packages/"))
  package-archive-priorities '(("melpa-stable" . 1)))
 
-(unless package--initialized
-  (package-initialize t))
+(if (string= system-type "windows-nt")
+    (package-initialize t)
+  (unless package--initialized
+    (package-initialize t)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (when (not package-archive-contents)
@@ -20,4 +22,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (when (file-readable-p "~/.emacs.d/cfg.org")
-  (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
+    (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
+
