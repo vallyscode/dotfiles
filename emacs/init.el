@@ -20,7 +20,7 @@
 
 (require 'use-package)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq-default flycheck-emacs-lisp-load-path 'inherit)
 
 (when (file-readable-p "~/.emacs.d/cfg.org")
     (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
-

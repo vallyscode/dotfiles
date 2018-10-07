@@ -251,7 +251,7 @@ Path to nvim executables
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
-    :diminish " φ"
+    ;; :diminish " φ"
     :pin melpa-stable)
 #+END_SRC
 * Org
