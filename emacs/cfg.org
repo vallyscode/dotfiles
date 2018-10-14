@@ -188,7 +188,7 @@ Lone wrapping after 70
        ;;                     :height 113
        ;;                     :weight 'normal
        ;;                     :width 'normal)
-       (set-frame-font "CodeNewRoman Nerd Font Mono-12"))
+       (set-frame-font "CodeNewRoman Nerd Font Mono-14"))
    #+END_SRC
 ** Theme
 Default
@@ -212,6 +212,13 @@ Doneburn (sunburn)
   ;; (use-package doneburn-theme
   ;;   :ensure t
   ;;   :config (load-theme 'doneburn 'no-confirm))
+#+END_SRC
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package material-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'material-light t)
+  ;;   :pin melpa-stable)
 #+END_SRC
 * Secret
 #+BEGIN_SRC emacs-lisp
@@ -253,6 +260,7 @@ Path to nvim executables
     :ensure t
     ;; :diminish " φ"
     :pin melpa-stable)
+  (add-hook 'prog-mode-hook 'flycheck-mode)
 #+END_SRC
 * Org
 Org mode
@@ -669,6 +677,13 @@ Hindent mode for haskell
 * Rust
 #+BEGIN_SRC emacs-lisp
   (use-package rust-mode
+    :ensure t
+    :pin melpa-stable)
+#+END_SRC
+* Dockerfile
+Docker major mode by Spotify
+#+BEGIN_SRC emacs-lisp
+  (use-package dockerfile-mode
     :ensure t
     :pin melpa-stable)
 #+END_SRC
