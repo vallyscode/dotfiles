@@ -24,4 +24,3 @@
 
 (when (file-readable-p "~/.emacs.d/cfg.org")
     (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
-

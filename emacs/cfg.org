@@ -113,7 +113,7 @@ Delay for paren coloring
 #+END_SRC
 Coloring style
 #+BEGIN_SRC emacs-lisp
-  (setq show-paren-style 'expression)
+  ;; (setq show-paren-style 'expression)
 #+END_SRC
 Blink for matching parens
 #+BEGIN_SRC emacs-lisp
@@ -182,7 +182,7 @@ Font
     ;;                     :height 113
     ;;                     :weight 'normal
     ;;                     :width 'normal)
-    (set-frame-font "CodeNewRoman Nerd Font Mono-12"))
+    (set-frame-font "CodeNewRoman Nerd Font Mono-10"))
 #+END_SRC
 Default theme
 #+BEGIN_SRC emacs-lisp
@@ -190,25 +190,25 @@ Default theme
 #+END_SRC
 Solarized
 #+BEGIN_SRC emacs-lisp
-  (use-package solarized-theme
-    :ensure t
-    :init
-    (setq solarized-high-contrast-mode-line t)
-    (setq solarized-distinct-fringe-background t)
-    (setq solarized-use-variable-pitch t) ;; Don't change the font for some headings and titles
-    (setq solarized-use-less-bold t)  ;; Use less bolding
-    (setq solarized-use-more-italic t)  ;; Use more italics
-    (setq solarized-emphasize-indicators nil) ;; Use less colors for indicators such as git:gutter, flycheck and similar
-    (setq solarized-scale-org-headlines nil) ;; Don't change size of org-mode headlines (but keep other size-changes)
-    ;; Avoid all font-size changes
-    (setq solarized-height-minus-1 1.0)
-    (setq solarized-height-plus-1 1.0)
-    (setq solarized-height-plus-2 1.0)
-    (setq solarized-height-plus-3 1.0)
-    (setq solarized-height-plus-4 1.0)
-    :config
-    (load-theme 'solarized-light t)
-    :pin melpa-stable)
+  ;; (use-package solarized-theme
+  ;;   :ensure t
+  ;;   :init
+  ;;   (setq solarized-high-contrast-mode-line t)
+  ;;   (setq solarized-distinct-fringe-background t)
+  ;;   (setq solarized-use-variable-pitch t) ;; Don't change the font for some headings and titles
+  ;;   (setq solarized-use-less-bold t)  ;; Use less bolding
+  ;;   (setq solarized-use-more-italic t)  ;; Use more italics
+  ;;   (setq solarized-emphasize-indicators nil) ;; Use less colors for indicators such as git:gutter, flycheck and similar
+  ;;   (setq solarized-scale-org-headlines nil) ;; Don't change size of org-mode headlines (but keep other size-changes)
+  ;;   ;; Avoid all font-size changes
+  ;;   (setq solarized-height-minus-1 1.0)
+  ;;   (setq solarized-height-plus-1 1.0)
+  ;;   (setq solarized-height-plus-2 1.0)
+  ;;   (setq solarized-height-plus-3 1.0)
+  ;;   (setq solarized-height-plus-4 1.0)
+  ;;   :config
+  ;;   (load-theme 'solarized-light t)
+  ;;   :pin melpa-stable)
 #+END_SRC
 Doneburn (sunburn) light
 #+BEGIN_SRC emacs-lisp
@@ -246,6 +246,18 @@ Path to nvim executables
 * Disable C-z (ctrl + z)
 #+BEGIN_SRC emacs-lisp
   (global-unset-key (kbd "C-z"))
+#+END_SRC
+* Diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t
+    :pin melpa-stable)
+#+END_SRC
+* Delight
+#+BEGIN_SRC emacs-lisp
+  (use-package delight
+    :ensure t
+    :pin melpa-stable)
 #+END_SRC
 * Elisp
 #+BEGIN_SRC emacs-lisp
@@ -567,15 +579,15 @@ Git support
 #+END_SRC
 * Powerline
 #+BEGIN_SRC emacs-lisp
-  (use-package powerline
-    :ensure t
-    :init
-    (setq-default powerline-default-separator 'slant)
-    (setq-default powerline-gui-use-vcs-glyph t)
-    (setq-default powerline-height 24)
-    (setq-default powerline-default-separator-dir '(right . right))
-    :config
-    (powerline-center-evil-theme))
+  ;; (use-package powerline
+  ;;   :ensure t
+  ;;   :init
+  ;;   (setq-default powerline-default-separator 'slant)
+  ;;   (setq-default powerline-gui-use-vcs-glyph t)
+  ;;   (setq-default powerline-height 24)
+  ;;   (setq-default powerline-default-separator-dir '(right . right))
+  ;;   :config
+  ;;   (powerline-center-evil-theme))
 #+END_SRC
 * Spaceline
 #+BEGIN_SRC emacs-lisp
@@ -732,4 +744,11 @@ Docker major mode by Spotify
   ;; (use-package espresso
   ;;   :load-path "~/workspace/projects/elisp/espresso")
   ;; (require 'espresso)
+#+END_SRC
+Papercolor light
+#+BEGIN_SRC emacs-lisp
+  (use-package papercolor-light-theme
+    :load-path "~/.emacs.d/papercolor-light"
+    :config
+    (load-theme 'papercolor-light t))
 #+END_SRC
