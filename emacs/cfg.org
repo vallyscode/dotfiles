@@ -182,7 +182,7 @@ Font
     ;;                     :height 113
     ;;                     :weight 'normal
     ;;                     :width 'normal)
-    (set-frame-font "CodeNewRoman Nerd Font Mono-10"))
+    (set-frame-font "CodeNewRoman Nerd Font Mono-11"))
 #+END_SRC
 Default theme
 #+BEGIN_SRC emacs-lisp
@@ -256,8 +256,7 @@ Path to nvim executables
 * Delight
 #+BEGIN_SRC emacs-lisp
   (use-package delight
-    :ensure t
-    :pin melpa-stable)
+    :ensure t)
 #+END_SRC
 * Elisp
 #+BEGIN_SRC emacs-lisp
@@ -394,6 +393,12 @@ Display key bindings while pressing
     :config
     (which-key-mode t)
     :pin melpa-stable)
+#+END_SRC
+* vi like tilda
+#+BEGIN_SRC emacs-lisp
+  (use-package vi-tilde-fringe
+    :ensure t)
+  (add-hook 'prog-mode-hook 'vi-tilde-fringe-mode)
 #+END_SRC
 * Popup kill-ring
 Set kill-ring size
