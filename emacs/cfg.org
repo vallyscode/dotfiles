@@ -247,16 +247,10 @@ Path to nvim executables
 #+BEGIN_SRC emacs-lisp
   (global-unset-key (kbd "C-z"))
 #+END_SRC
-* Diminish
-#+BEGIN_SRC emacs-lisp
-  (use-package diminish
-    :ensure t
-    :pin melpa-stable)
-#+END_SRC
 * Delight
 #+BEGIN_SRC emacs-lisp
-  (use-package delight
-    :ensure t)
+  ;; (use-package delight
+  ;;   :ensure t)
 #+END_SRC
 * Elisp
 #+BEGIN_SRC emacs-lisp
@@ -267,15 +261,14 @@ Path to nvim executables
 * Eldoc
 #+BEGIN_SRC emacs-lisp
   (use-package eldoc
-    :diminish "")
-  (add-hook 'prog-mode-hook 'eldoc-mode)
+    :diminish (eldoc-mode . "")
+    :hook (prog-mode . eldoc-mode))
 #+END_SRC
 * Flycheck
 #+BEGIN_SRC emacs-lisp
   (use-package flycheck
     :ensure t
-    :config
-    (add-hook 'prog-mode-hook 'flycheck-mode)
+    :hook (prog-mode . flycheck-mode)
     :pin melpa-stable)
 #+END_SRC
 * Org
@@ -292,15 +285,13 @@ Org mode
 Org indent
 #+BEGIN_SRC emacs-lisp
   (use-package org-indent
-    :config
-    (add-hook 'org-mode-hook (lambda () (diminish 'org-indent-mode ""))))
+    :diminish (org-indent-mode . ""))
 #+END_SRC
 Make org bullets look better
 #+BEGIN_SRC emacs-lisp
   (use-package org-bullets
     :ensure t
-    :config
-    (add-hook 'org-mode-hook (lambda () (org-bullets-mode t))))
+    :hook (org-mode . org-bullets-mode))
 #+END_SRC
 * Hide-show
 Evil mappings
@@ -312,8 +303,7 @@ zr - open all
 #+BEGIN_SRC emacs-lisp
   (use-package hideshow
     :diminish (hs-minor-mode . "")
-    :config
-    (add-hook 'prog-mode-hook 'hs-minor-mode))
+    :hook (prog-mode . hs-minor-mode))
 #+END_SRC
 * Evil
 Evil mode
@@ -376,11 +366,11 @@ Evil numbers
 #+END_SRC
 Evil lion
 #+BEGIN_SRC emacs-lisp
-  (use-package evil-lion
-    :ensure t
-    :after (evil)
-    :config
-    (evil-lion-mode))
+  ;; (use-package evil-lion
+  ;;   :ensure t
+  ;;   :after (evil)
+  ;;   :config
+  ;;   (evil-lion-mode))
 #+END_SRC
 * Which key
 Display key bindings while pressing
@@ -397,8 +387,9 @@ Display key bindings while pressing
 * vi like tilda
 #+BEGIN_SRC emacs-lisp
   (use-package vi-tilde-fringe
-    :ensure t)
-  (add-hook 'prog-mode-hook 'vi-tilde-fringe-mode)
+    :ensure t
+    :diminish (vi-tilde-fringe-mode . "")
+    :hook (prog-mode . vi-tilde-fringe-mode))
 #+END_SRC
 * Popup kill-ring
 Set kill-ring size
@@ -416,15 +407,15 @@ Display removedd text in popup
   (use-package company
     :ensure t
     :diminish " ∑"
+    :hook (prog-mode . company-mode)
     :config
     (setq company-idle-delay 0.3)
     (setq company-show-numbers t)
     (setq company-minimum-prefix-length 2)
-    (add-hook 'prog-mode-hook #'company-mode)
     (define-key company-active-map (kbd "M-n") nil)
     (define-key company-active-map (kbd "M-p") nil)
-    (define-key company-active-map (kbd "C-n") #'company-select-next)
-    (define-key company-active-map (kbd "C-p") #'company-select-previous)
+    (define-key company-active-map (kbd "C-j") #'company-select-next)
+    (define-key company-active-map (kbd "C-k") #'company-select-previous)
     (define-key company-active-map (kbd "SPC") #'company-abort)
     :pin melpa-stable)
 #+END_SRC
@@ -499,16 +490,14 @@ When emacs encounters a hex color, it will auto highlight it
   (use-package rainbow-mode
     :ensure t
     :diminish rainbow-mode
-    :config
-    (add-hook 'prog-mode-hook #'rainbow-mode))
+    :hook (prog-mode . rainbow-mode))
 #+END_SRC
 * Rainbow delimiters
 Display each level of parens with different color
 #+BEGIN_SRC emacs-lisp
   (use-package rainbow-delimiters
     :ensure t
-    :config
-    (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+    :hook (prog-mode . rainbow-delimiters-mode)
     :pin melpa-stable)
 #+END_SRC
 * Highlight symbol
@@ -574,12 +563,13 @@ Git support
     :after (projectile helm)
     :bind* (("M-m SPC p" . helm-projectile))
     :init
-    (setq projectile-completion-systtem 'helm)
+    (setq projectile-completion-system 'helm)
     :config
     (evil-leader/set-key
       "pf" 'helm-projectile-find-file
       "pg" 'helm-projectile-grep
       "pp" 'helm-projectile)
+    (helm-projectile-on)
     :pin melpa-stable)
 #+END_SRC
 * Powerline

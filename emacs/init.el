@@ -19,8 +19,11 @@
   (package-install 'use-package))
 
 (require 'use-package)
+(require 'diminish)
+(require 'bind-key)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq-default use-package-compute-statistics t)
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 
 (when (file-readable-p "~/.emacs.d/cfg.org")
-    (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
+  (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
