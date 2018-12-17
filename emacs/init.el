@@ -19,7 +19,6 @@
   (package-install 'use-package))
 
 (require 'use-package)
-(require 'diminish)
 (require 'bind-key)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq-default use-package-compute-statistics t)
