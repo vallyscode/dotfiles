@@ -46,6 +46,10 @@ Report about package loading and customizing packages
 #+BEGIN_SRC emacs-lisp
   (setq use-package-verbose t)
 #+END_SRC
+Do not load outdated byte code
+#+BEGIN_SRC emacs-lisp
+  (setq load-prefer-newer t)
+#+END_SRC
 * Customize GUI
 No startup screen
 #+BEGIN_SRC emacs-lisp
@@ -225,6 +229,10 @@ Material theme dark/light
   ;;   ;; (load-theme 'material t)
   ;;   :pin melpa-stable)
 #+END_SRC
+Kill ring size
+#+BEGIN_SRC emacs-lisp
+  (setq kill-ring-max 50)
+#+END_SRC
 * Secret
 #+BEGIN_SRC emacs-lisp
   (if (file-exists-p "~/.emacs.secrets")
@@ -247,16 +255,10 @@ Path to nvim executables
 #+BEGIN_SRC emacs-lisp
   (global-unset-key (kbd "C-z"))
 #+END_SRC
-* Delight
+* Diminish
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package delight
-  ;;   :ensure t)
-#+END_SRC
-* Elisp
-#+BEGIN_SRC emacs-lisp
-  ;; (use-package elisp-mode
-  ;;   :ensure nil
-  ;;   :delight emacs-lisp-mode "ξ")
+  (use-package diminish
+    :ensure t)
 #+END_SRC
 * Eldoc
 #+BEGIN_SRC emacs-lisp
@@ -264,12 +266,17 @@ Path to nvim executables
     :diminish (eldoc-mode . "")
     :hook (prog-mode . eldoc-mode))
 #+END_SRC
-* Flycheck
+* Hide-show
+Evil mappings
+za - toggle
+zc - close
+zo - open
+zm - close all
+zr - open all
 #+BEGIN_SRC emacs-lisp
-  (use-package flycheck
-    :ensure t
-    :hook (prog-mode . flycheck-mode)
-    :pin melpa-stable)
+  (use-package hideshow
+    :diminish (hs-minor-mode . "")
+    :hook (prog-mode . hs-minor-mode))
 #+END_SRC
 * Org
 Org mode
@@ -286,24 +293,6 @@ Org indent
 #+BEGIN_SRC emacs-lisp
   (use-package org-indent
     :diminish (org-indent-mode . ""))
-#+END_SRC
-Make org bullets look better
-#+BEGIN_SRC emacs-lisp
-  (use-package org-bullets
-    :ensure t
-    :hook (org-mode . org-bullets-mode))
-#+END_SRC
-* Hide-show
-Evil mappings
-za - toggle
-zc - close
-zo - open
-zm - close all
-zr - open all
-#+BEGIN_SRC emacs-lisp
-  (use-package hideshow
-    :diminish (hs-minor-mode . "")
-    :hook (prog-mode . hs-minor-mode))
 #+END_SRC
 * Evil
 Evil mode
@@ -340,37 +329,65 @@ Nerd commenter
 #+BEGIN_SRC emacs-lisp
   (use-package evil-nerd-commenter
     :ensure t
-    :after (evil)
+    :after (evil-leader)
+    :pin melpa-stable)
+  (evil-leader/set-key
+    "ci" 'evilnc-comment-or-uncomment-lines
+    "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
+    "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
+    "cc" 'evilnc-copy-and-comment-lines
+    "cp" 'evilnc-comment-or-uncomment-paragraphs
+    "cr" 'comment-or-uncomment-region
+    "cv" 'evilnc-toggle-invert-comment-line-by-line
+    "."  'evilnc-copy-and-comment-operator
+    "\\" 'evilnc-comment-operator)
+#+END_SRC
+* Helm
+#+BEGIN_SRC emacs-lisp
+  (use-package helm
+    :ensure t
+    :diminish helm-mode
     :config
+    (require 'helm-config)
+    (global-set-key (kbd "M-x") 'helm-M-x)
+    (global-set-key (kbd "C-x b") 'helm-buffers-list)
+    (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m, C-x r b
+    (helm-mode 1)
     (evil-leader/set-key
-      "ci" 'evilnc-comment-or-uncomment-lines
-      "cl" 'evilnc-quick-comment-or-uncomment-to-the-line
-      "ll" 'evilnc-quick-comment-or-uncomment-to-the-line
-      "cc" 'evilnc-copy-and-comment-lines
-      "cp" 'evilnc-comment-or-uncomment-paragraphs
-      "cr" 'comment-or-uncomment-region
-      "cv" 'evilnc-toggle-invert-comment-line-by-line
-      "."  'evilnc-copy-and-comment-operator
-      "\\" 'evilnc-comment-operator ; if you prefer backslash key
-      )
+      "hr" 'helm-register
+      "ht" 'helm-top
+      "hm" 'helm-mini
+      "hb" 'helm-buffers-list
+      "ho" 'helm-occur
+      "hk" 'helm-show-kill-ring)
     :pin melpa-stable)
 #+END_SRC
-Evil numbers
+* Projectile
 #+BEGIN_SRC emacs-lisp
-  (use-package evil-numbers
+  (use-package projectile
     :ensure t
-    :after (evil)
+    :bind* (("M-m SPC d"   . projectile-find-file)
+            ("M-m SPC D"   . projectile-switch-project)
+            ("M-m SPC TAB" . projectile-find-other-file))
+    :init
+    (setq projectile-file-exists-remote-cache-expire (* 10 60))
     :config
-    (define-key evil-normal-state-map (kbd "C-c +") 'evil-numbers/inc-at-pt)
-    (define-key evil-normal-state-map (kbd "C-c -") 'evil-numbers/dec-at-pt))
+    (projectile-global-mode t))
 #+END_SRC
-Evil lion
+* Helm projectile
 #+BEGIN_SRC emacs-lisp
-  ;; (use-package evil-lion
-  ;;   :ensure t
-  ;;   :after (evil)
-  ;;   :config
-  ;;   (evil-lion-mode))
+  (use-package helm-projectile
+    :ensure t
+    :after (projectile helm)
+    :bind* (("M-m SPC p" . helm-projectile))
+    :init
+    (setq projectile-completion-system 'helm)
+    (helm-projectile-on)
+    :pin melpa-stable)
+  (evil-leader/set-key
+    "pf" 'helm-projectile-find-file
+    "pg" 'helm-projectile-grep
+    "pp" 'helm-projectile)
 #+END_SRC
 * Which key
 Display key bindings while pressing
@@ -384,6 +401,13 @@ Display key bindings while pressing
     (which-key-mode t)
     :pin melpa-stable)
 #+END_SRC
+* Flycheck
+#+BEGIN_SRC emacs-lisp
+  (use-package flycheck
+    :ensure t
+    :hook (prog-mode . flycheck-mode)
+    :pin melpa-stable)
+#+END_SRC
 * vi like tilda
 #+BEGIN_SRC emacs-lisp
   (use-package vi-tilde-fringe
@@ -391,27 +415,20 @@ Display key bindings while pressing
     :diminish (vi-tilde-fringe-mode . "")
     :hook (prog-mode . vi-tilde-fringe-mode))
 #+END_SRC
-* Popup kill-ring
-Set kill-ring size
-#+BEGIN_SRC emacs-lisp
-  (setq kill-ring-max 100)
-#+END_SRC
-Display removedd text in popup
-#+BEGIN_SRC emacs-lisp
-  (use-package popup-kill-ring
-    :ensure t
-    :bind ("M-y" . popup-kill-ring))
-#+END_SRC
 * Company
 #+BEGIN_SRC emacs-lisp
   (use-package company
     :ensure t
-    :diminish " ∑"
+    :diminish " Δ"
+    :commands (company-select-next
+               company-select-previous
+               company-abort)
     :hook (prog-mode . company-mode)
-    :config
+    :init
     (setq company-idle-delay 0.3)
     (setq company-show-numbers t)
-    (setq company-minimum-prefix-length 2)
+    (setq company-minimum-prefix-length 4)
+    :config
     (define-key company-active-map (kbd "M-n") nil)
     (define-key company-active-map (kbd "M-p") nil)
     (define-key company-active-map (kbd "C-j") #'company-select-next)
@@ -428,10 +445,11 @@ Allow to perform undo operation on buffer also visualize the changes as tree
     :bind* (("M-m u" . undo-tree-undo)
             ("M-m r" . undo-tree-redo)
             ("M-m U" . undo-tree-visualize))
-    :config
-    (global-undo-tree-mode t)
+    :init
     (setq undo-tree-visualizer-timestamps t)
     (setq undo-tree-visualizer-diff t)
+    :config
+    (global-undo-tree-mode t)
     :pin melpa)
 #+END_SRC
 * YaSnippet
@@ -439,13 +457,13 @@ Snippet support
 #+BEGIN_SRC emacs-lisp
   (use-package yasnippet
     :ensure t
-    :diminish (yas-minor-mode . " Δ")
+    :diminish (yas-minor-mode . "")
     :config
     (yas-global-mode t)
     (yas-reload-all)
-    (evil-leader/set-key
-      "yi" 'yas-insert-snippet)
     :pin melpa-stable)
+  (evil-leader/set-key
+    "yi" 'yas-insert-snippet)
 #+END_SRC
 * Whitespace
 #+BEGIN_SRC emacs-lisp
@@ -456,33 +474,32 @@ Snippet support
     (dolist (hook '(prog-mode-hook text-mode-hook))
       (add-hook hook 'whitespace-mode))
     (add-hook 'before-save-hook 'whitespace-cleanup)
-    :config
     (setq whitespace-line-column 90) ;; limit line length
     (setq whitespace-style '(face tabs empty trailing lines-tail)))
 #+END_SRC
 * Neo-tree
 Like NerdTree for vim
 #+BEGIN_SRC emacs-lisp
-  (use-package neotree
-    :ensure t
-    :init
-    (setq neo-theme 'ascii)
-    :config
-    (evil-leader/set-key
-      "t" 'neotree-toggle)
-    (add-hook 'neotree-mode-hook
-              (lambda ()
-                (evil-local-set-key 'normal (kbd "q") 'neotree-hide)
-                (evil-local-set-key 'normal (kbd "I") 'neotree-hidden-file-toggle)
-                (evil-local-set-key 'normal (kbd "z") 'neotree-stretch-toggle)
-                (evil-local-set-key 'normal (kbd "RET") 'neotree-enter)
-                (evil-local-set-key 'normal (kbd "g") 'neotree-refresh)
-                (evil-local-set-key 'normal (kbd "c") 'neotree-create-node)
-                (evil-local-set-key 'normal (kbd "d") 'neotree-delete-node)
-                (evil-local-set-key 'normal (kbd "r") 'neotree-rename-node)
-                (evil-local-set-key 'normal (kbd "s") 'neotree-enter-vertical-split)
-                (evil-local-set-key 'normal (kbd "S") 'neotree-enter-horizontal-split)))
-    :pin melpa-stable)
+  ;; (use-package neotree
+  ;;   :ensure t
+  ;;   :init
+  ;;   (setq neo-theme 'ascii)
+  ;;   :config
+  ;;   (evil-leader/set-key
+  ;;     "t" 'neotree-toggle)
+  ;;   (add-hook 'neotree-mode-hook
+  ;;             (lambda ()
+  ;;               (evil-local-set-key 'normal (kbd "q") 'neotree-hide)
+  ;;               (evil-local-set-key 'normal (kbd "I") 'neotree-hidden-file-toggle)
+  ;;               (evil-local-set-key 'normal (kbd "z") 'neotree-stretch-toggle)
+  ;;               (evil-local-set-key 'normal (kbd "RET") 'neotree-enter)
+  ;;               (evil-local-set-key 'normal (kbd "g") 'neotree-refresh)
+  ;;               (evil-local-set-key 'normal (kbd "c") 'neotree-create-node)
+  ;;               (evil-local-set-key 'normal (kbd "d") 'neotree-delete-node)
+  ;;               (evil-local-set-key 'normal (kbd "r") 'neotree-rename-node)
+  ;;               (evil-local-set-key 'normal (kbd "s") 'neotree-enter-vertical-split)
+  ;;               (evil-local-set-key 'normal (kbd "S") 'neotree-enter-horizontal-split)))
+  ;;   :pin melpa-stable)
 #+END_SRC
 * Rainbow
 When emacs encounters a hex color, it will auto highlight it
@@ -505,71 +522,25 @@ Highlight selected symbol, use different color for each
 #+BEGIN_SRC emacs-lisp
   (use-package highlight-symbol
     :ensure t
-    :config
-    (evil-leader/set-key
-      "hl" 'highlight-symbol)
     :pin melpa-stable)
+  (evil-leader/set-key
+    "hl" 'highlight-symbol)
 #+END_SRC
 * Magit
 Git support
 #+BEGIN_SRC emacs-lisp
   (use-package magit
     :ensure t
-    :commands (magit-status magit-blame magit-blame-quit magit-log)
+    :commands (magit-status
+               magit-blame
+               magit-blame-quit
+               magit-log)
     :init
     (evil-leader/set-key
       "gs" 'magit-status
       "gb" 'magit-blame
       "gB" 'magit-blame-quit
       "gl" 'magit-log)
-    :pin melpa-stable)
-#+END_SRC
-* Projectile
-#+BEGIN_SRC emacs-lisp
-  (use-package projectile
-    :ensure t
-    :bind* (("M-m SPC d"   . projectile-find-file)
-            ("M-m SPC D"   . projectile-switch-project)
-            ("M-m SPC TAB" . projectile-find-other-file))
-    :init
-    (setq projectile-file-exists-remote-cache-expire (* 10 60))
-    :config
-    (projectile-global-mode t))
-#+END_SRC
-* Helm
-#+BEGIN_SRC emacs-lisp
-  (use-package helm
-    :ensure t
-    :diminish helm-mode
-    :config
-    (require 'helm-config)
-    (global-set-key (kbd "M-x") 'helm-M-x)
-    (global-set-key (kbd "C-x b") 'helm-buffers-list)
-    (global-set-key (kbd "C-x r b") 'helm-bookmarks);; making: C-x r m, C-x r b
-    (helm-mode 1)
-    (evil-leader/set-key
-      "hr" 'helm-register
-      "ht" 'helm-top
-      "hm" 'helm-mini
-      "hb" 'helm-buffers-list
-      "ho" 'helm-occur
-      "hk" 'helm-show-kill-ring)
-    :pin melpa-stable)
-#+END_SRC
-* Helm projectile
-#+BEGIN_SRC emacs-lisp
-  (use-package helm-projectile
-    :ensure t
-    :after (projectile helm)
-    :bind* (("M-m SPC p" . helm-projectile))
-    :init
-    (setq projectile-completion-system 'helm)
-    :config
-    (evil-leader/set-key
-      "pf" 'helm-projectile-find-file
-      "pg" 'helm-projectile-grep
-      "pp" 'helm-projectile)
-    (helm-projectile-on)
     :pin melpa-stable)
 #+END_SRC
 * Powerline

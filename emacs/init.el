@@ -1,6 +1,12 @@
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; The package manager
-(require 'package)
+;;; init.el --- My emacs config
+;;; -*- lexical-binding: t; -*-
+;;
+;;; Commentary:
+;;
+;; My Emacs configuration.
+;;
+;;; Code:
+
 (setq
  package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
                     ("org" . "https://orgmode.org/elpa/")
@@ -8,22 +14,26 @@
                     ("melpa-stable" . "https://stable.melpa.org/packages/"))
  package-archive-priorities '(("melpa-stable" . 1)))
 
-(if (string= system-type "windows-nt")
-    (package-initialize t)
-  (unless package--initialized
-    (package-initialize t)))
+(let ((package-dir (concat user-emacs-directory "elpa")))
+  (unless (file-directory-p package-dir)
+    (make-directory package-dir)))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when (not package-archive-contents)
-  (package-refresh-contents)
-  (package-install 'use-package))
+(unless (fboundp 'use-package)
+  (require 'package)
+  (package-initialize)
+  (unless (package-installed-p 'use-package)
+    (package-refresh-contents)
+    (package-install 'use-package)))
 
-(require 'use-package)
-(require 'diminish)
 (require 'bind-key)
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; gather statistics for `use-package'
 (setq-default use-package-compute-statistics t)
+
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 
-(when (file-readable-p "~/.emacs.d/cfg.org")
-  (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org")))
+(let ((config-file (concat user-emacs-directory "cfg.org")))
+  (when (file-readable-p config-file)
+    (org-babel-load-file (expand-file-name "~/.emacs.d/cfg.org"))))
+
+;;; init.el ends here
