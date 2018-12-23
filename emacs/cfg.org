@@ -214,6 +214,13 @@ Solarized
   ;;   (load-theme 'solarized-light t)
   ;;   :pin melpa-stable)
 #+END_SRC
+Leuven
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package leuven-theme
+  ;;   :ensure t
+  ;;   :config
+  ;;   (load-theme 'leuven t))
+#+END_SRC
 Doneburn (sunburn) light
 #+BEGIN_SRC emacs-lisp
   ;; (use-package doneburn-theme
@@ -256,6 +263,16 @@ Path to nvim executables
   (global-unset-key (kbd "C-z"))
 #+END_SRC
 * Diminish
+#+BEGIN_SRC emacs-lisp
+  (use-package diminish
+    :ensure t)
+#+END_SRC
+* Delight
+#+BEGIN_SRC emacs-lisp
+  ;; (use-package delight
+  ;;   :ensure t)
+#+END_SRC
+* Elisp
 #+BEGIN_SRC emacs-lisp
   (use-package diminish
     :ensure t)
@@ -713,8 +730,8 @@ Docker major mode by Spotify
 #+END_SRC
 Papercolor light
 #+BEGIN_SRC emacs-lisp
-  (use-package papercolor-light-theme
-    :load-path "~/.emacs.d/papercolor-light"
+  (use-package cloud-theme
+    :load-path "~/.emacs.d/cloud"
     :config
-    (load-theme 'papercolor-light t))
+    (load-theme 'cloud t))
 #+END_SRC

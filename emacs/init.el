@@ -25,8 +25,6 @@
     (package-refresh-contents)
     (package-install 'use-package)))
 
-(require 'bind-key)
-
 ;; gather statistics for `use-package'
 (setq-default use-package-compute-statistics t)
 
