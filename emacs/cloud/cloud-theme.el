@@ -12,6 +12,35 @@
   (custom-theme-set-faces
    'cloud
 
+   `(bold ((,class (:weight bold))))
+   `(bold-italic ((,class (:sant italic :weight bold))))
+   `(underline ((,class (:underline t))))
+   `(italic ((,class (:slant italic))))
+
+   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+   ;;
+   ;; Highlight
+
+   `(default ((,class (:background "#eeeeee" :foreground "#444444"))))
+   `(cursor ((,class (:background "#005f87" :foreground "#eeeeee"))))
+   `(highlight ((,class (:background "#e4e4e4"))))
+   `(fringe ((,class (:background "#eeeeee"))))
+   `(linum ((,class (:background "#eeeeee" :foreground "#878787"))))
+   `(match ((,class (:weight bold :background "#fff59d"))))
+   `(secondary-selection ((,class (:weight bold :background "#fff59d"))))
+   `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
+   `(isearch ((,class (:underline "#444444" :foreground "#eeeeee" :background "#0087af"))))
+   `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
+   `(lazy-highlight ((,class (:foreground "#444444" :background "#fff59d")))) ; Isearch others (see `match').
+   `(query-replace ((,class (:inherit isearch))))
+   `(whitespace-hspace ((,class (:foreground "#d0d0d0"))))
+   `(whitespace-line ((,class (:foreground "#af0000" :background "#eeeeee"))))
+   `(whitespace-indentation ((,class (:background nil :foreground "#444444"))))
+   `(whitespace-tab ((,class (:background nil :foreground "#444444"))))
+   `(whitespace-trailing ((,class (:background nil :foreground "#af0000"))))
+   `(show-paren-match ((,class (:background "#d0d0d0" :foreground "#005f87"))))
+   `(show-paren-mismatch ((,class (:background "#d0d0d0" :foreground "#af0000"))))
+
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;;
    ;; Mode line
@@ -46,11 +75,10 @@
    `(font-lock-preprocessor-face ((,class (:foreground "#878787"))))
    `(font-lock-regexp-grouping-backslash ((,class (:weight bold :inherit nil))))
    `(font-lock-regexp-grouping-construct ((,class (:weight bold :inherit nil))))
-   `(font-lock-string-face ((,class (:foreground "#718c00"))))
+   `(font-lock-string-face ((,class (:foreground "#689f38"))))
    `(font-lock-type-face ((,class (:weight normal :foreground "#6434a3"))))
-   `(font-lock-variable-name-face ((,class (:weight normal :foreground "#BA36a5"))))
+   `(font-lock-variable-name-face ((,class (:weight normal :foreground "#ba36a5"))))
    `(font-lock-warning-face ((,class (:weight bold :foreground "#d75f00"))))
-
 
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;;
@@ -58,27 +86,23 @@
 
    `(link ((,class (:foreground "#0087af"))))
    `(link-visited ((,class (:underline t :foreground "#e5786d"))))
+   `(button ((,class (:underline t :foreground "#006daf"))))
+   `(header-line ((,class (:background "#005f87" :foreground "#eeeeee" :box (:line-width 1 :color "#005f87")))))
 
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   ;;
-   ;; Highlight
+   ;; eldoc
+   `(eldoc-highlight-function-argument ((,class (:foreground "#689f38" :weight bold))))
 
-   `(default ((,class (:background "#eeeeee" :foreground "#444444"))))
-   `(cursor ((,class (:background "#005f87" :foreground "#eeeeee"))))
-   `(highlight ((,class (:background "#e4e4e4"))))
-   `(fringe ((,class (:background "#eeeeee"))))
-   `(match ((,class (:weight bold :background "#fff59d"))))
-   `(secondary-selection ((,class (:weight bold :background "#fff59d"))))
-   `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
-   `(isearch ((,class (:underline "#444444" :foreground "#eeeeee" :background "#0087af"))))
-   `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
-   `(lazy-highlight ((,class (:foreground "#444444" :background "#fff59d")))) ; Isearch others (see `match').
-   `(query-replace ((,class (:inherit isearch))))
-   `(whitespace-hspace ((,class (:foreground "#d0d0d0"))))
-   `(whitespace-line ((,class (:foreground "#af0000" :background "#eeeeee"))))
-   `(whitespace-indentation ((,class (:background nil :foreground "#444444"))))
-   `(whitespace-tab ((,class (:background nil :foreground "#444444"))))
-   `(whitespace-trailing ((,class (:background nil :foreground "#af0000"))))
+   ;; helm
+   `(helm-M-x-key ((,class (:foreground "#008000"))))
+   `(helm-action ((,class (:foreground "#444444"))))
+   `(helm-header ((,class (:foreground "#eeeeee" :background "#0087af"))))
+   `(helm-source-header ((,class (:foreground "#eeeeee" :background "#3e999f"))))
+   `(helm-match ((,class (:foreground "#0087af"))))
+   `(helm-selection ((,class (:background "#e4e4e4"))))
+   `(helm-selection-line ((,class (:background "#e4e4e4"))))
+   `(helm-moccur-buffer ((,class (:foreground "#0087af"))))
+   `(helm-separator ((,class (:foreground "#444444"))))
+   `(helm-visible-mark ((,class (:foreground "#eeeeee" :background "#689f38"))))
    ))
 
 ;;;###autoload
