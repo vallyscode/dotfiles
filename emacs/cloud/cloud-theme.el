@@ -12,11 +12,6 @@
   (custom-theme-set-faces
    'cloud
 
-   `(bold ((,class (:weight bold))))
-   `(bold-italic ((,class (:sant italic :weight bold))))
-   `(underline ((,class (:underline t))))
-   `(italic ((,class (:slant italic))))
-
    ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
    ;;
    ;; Highlight
@@ -26,12 +21,17 @@
    `(highlight ((,class (:background "#e4e4e4"))))
    `(fringe ((,class (:background "#eeeeee"))))
    `(linum ((,class (:background "#eeeeee" :foreground "#878787"))))
+
+   `(hl-line ((,class (:background "#e4e4e4"))));; highlight current line
+
    `(match ((,class (:weight bold :background "#fff59d"))))
    `(secondary-selection ((,class (:weight bold :background "#fff59d"))))
    `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
-   `(isearch ((,class (:underline "#444444" :foreground "#eeeeee" :background "#0087af"))))
+
+   `(isearch ((,class (:foreground "#eeeeee" :background "#0087af"))))
    `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
    `(lazy-highlight ((,class (:foreground "#444444" :background "#fff59d")))) ; Isearch others (see `match').
+
    `(query-replace ((,class (:inherit isearch))))
    `(whitespace-hspace ((,class (:foreground "#d0d0d0"))))
    `(whitespace-line ((,class (:foreground "#af0000" :background "#eeeeee"))))
@@ -95,14 +95,32 @@
    ;; helm
    `(helm-M-x-key ((,class (:foreground "#008000"))))
    `(helm-action ((,class (:foreground "#444444"))))
+
+   ;; helm headers
    `(helm-header ((,class (:foreground "#eeeeee" :background "#0087af"))))
-   `(helm-source-header ((,class (:foreground "#eeeeee" :background "#3e999f"))))
-   `(helm-match ((,class (:foreground "#0087af"))))
+   `(helm-moccur-buffer ((,class (:foreground "#eeeeee" :background "#3e999f"))));;highlight moccur buffer name
+   `(helm-source-header ((,class (:foreground "#eeeeee" :background "#3e999f" :height 1.3 :bold t))))
+
+   `(helm-match ((,class (:foreground "#444444" :background "#fff59d"))))
    `(helm-selection ((,class (:background "#e4e4e4"))))
    `(helm-selection-line ((,class (:background "#e4e4e4"))))
-   `(helm-moccur-buffer ((,class (:foreground "#0087af"))))
    `(helm-separator ((,class (:foreground "#444444"))))
-   `(helm-visible-mark ((,class (:foreground "#eeeeee" :background "#689f38"))))
+   `(helm-visible-mark ((,class (:foreground "#444444" :background "#fff59d"))))
+
+   `(helm-buffer-directory ((,class (:foreground "#0087af" :weight bold))))
+   `(helm-buffer-file ((,class (:foreground "#444444"))))
+   `(helm-buffer-not-saved ((,class (:foreground "#d75f00"))))
+   `(helm-buffer-process ((,class (:foreground "#e5786d"))))
+   `(helm-buffer-saved-out ((,class (:foreground "#af0000"))))
+   `(helm-buffer-size ((,class (:foreground "#d75f00"))))
+
+   `(helm-candidate-number ((,class (:foreground "#eeeeee" :background "#0087af"))))
+
+   `(helm-ff-directory ((,class (:foreground "#0087af" :weight bold))))
+   `(helm-ff-executable ((,class (:foreground "#008000"))))
+   `(helm-ff-file ((,class (:foreground "#444444"))))
+   `(helm-ff-invalid-symlink ((,class (:foreground "#8700af" :background "#af0000"))))
+   `(helm-ff-symlink ((,class (:foreground "#8700af"))))
    ))
 
 ;;;###autoload
