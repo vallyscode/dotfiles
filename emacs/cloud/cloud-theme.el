@@ -6,27 +6,28 @@
 
 ;;; Code:
 
-(deftheme cloud "Cloud light theme")
+(deftheme cloud
+  "Cloud light color theme")
 
 (let ((class '((class color) (min-colors 89))))
+
   (custom-theme-set-faces
    'cloud
 
-   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-   ;;
-   ;; Highlight
+   `(default ((,class (:foreground "#444444" :background "#eeeeee"))))
 
-   `(default ((,class (:background "#eeeeee" :foreground "#444444"))))
-   `(cursor ((,class (:background "#005f87" :foreground "#eeeeee"))))
-   `(highlight ((,class (:background "#e4e4e4"))))
+   ;; Highlighting
    `(fringe ((,class (:background "#eeeeee"))))
-   `(linum ((,class (:background "#eeeeee" :foreground "#878787"))))
+   `(highlight ((,class (:background "#bdbdbd"))))
+   `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
+   `(secondary-selection ((,class (:weight bold :background "#ffff8d"))))
+
+   `(cursor ((,class (:foreground "#eeeeee" :background "#005f87"))))
+   `(linum ((,class (:background "#eeeeee" :foreground "#9E9E9E"))))
 
    `(hl-line ((,class (:background "#e4e4e4"))));; highlight current line
 
    `(match ((,class (:weight bold :background "#fff59d"))))
-   `(secondary-selection ((,class (:weight bold :background "#fff59d"))))
-   `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
 
    `(isearch ((,class (:foreground "#eeeeee" :background "#0087af"))))
    `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
@@ -105,7 +106,7 @@
    `(helm-selection ((,class (:background "#e4e4e4"))))
    `(helm-selection-line ((,class (:background "#e4e4e4"))))
    `(helm-separator ((,class (:foreground "#444444"))))
-   `(helm-visible-mark ((,class (:foreground "#444444" :background "#fff59d"))))
+   `(helm-visible-mark ((,class (:foreground "#aa0000" :background "#ffaaaa"))))
 
    `(helm-buffer-directory ((,class (:foreground "#0087af" :weight bold))))
    `(helm-buffer-file ((,class (:foreground "#444444"))))
