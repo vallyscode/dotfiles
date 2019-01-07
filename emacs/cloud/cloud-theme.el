@@ -21,6 +21,14 @@
    `(highlight ((,class (:background "#bdbdbd"))))
    `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
    `(secondary-selection ((,class (:weight bold :background "#ffff8d"))))
+   `(isearch ((,class (:foreground "#eeeeee" :background "#0087af"))))
+   `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
+   `(lazy-highlight ((,class (:foreground "#444444" :background "#fff59d")))) ; Isearch others (see `match').
+   `(trailing-whitespace ((,class (:foreground "#bdbdbd" :background "#ffff8d"))))
+   `(query-replace ((,class (:inherit isearch))))
+   `(whitespace-hspace ((,class (:foreground "#bdbdbd"))))
+   `(whitespace-indentation ((,class (:background nil :foreground "#444444"))))
+
 
    `(cursor ((,class (:foreground "#eeeeee" :background "#005f87"))))
    `(linum ((,class (:background "#eeeeee" :foreground "#9E9E9E"))))
@@ -29,14 +37,9 @@
 
    `(match ((,class (:weight bold :background "#fff59d"))))
 
-   `(isearch ((,class (:foreground "#eeeeee" :background "#0087af"))))
-   `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
-   `(lazy-highlight ((,class (:foreground "#444444" :background "#fff59d")))) ; Isearch others (see `match').
 
    `(query-replace ((,class (:inherit isearch))))
-   `(whitespace-hspace ((,class (:foreground "#d0d0d0"))))
    `(whitespace-line ((,class (:foreground "#af0000" :background "#eeeeee"))))
-   `(whitespace-indentation ((,class (:background nil :foreground "#444444"))))
    `(whitespace-tab ((,class (:background nil :foreground "#444444"))))
    `(whitespace-trailing ((,class (:background nil :foreground "#af0000"))))
    `(show-paren-match ((,class (:background "#d0d0d0" :foreground "#005f87"))))
