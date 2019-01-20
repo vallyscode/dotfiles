@@ -9,72 +9,116 @@
 (deftheme cloud
   "Cloud light color theme")
 
-;; color palette
-;; #005f87
-;; #006daf
-;; #0087af
-
-(let ((class '((class color) (min-colors 89))))
+(let ((class '((class color) (min-colors 89)))
+      (cloud-teal-0 "#00796b")
+      (cloud-teal-1 "#009688")
+      (cloud-teal-2 "#80cbc4")
+      (cloud-orange-0 "#ff6d00")
+      (cloud-orange-1 "#ff9800")
+      (cloud-orange-2 "#ffb74d")
+      (cloud-green-0 "#1b5e20")
+      (cloud-green-1 "#388e3c")
+      (cloud-green-2 "#81c784")
+      (cloud-bluegray-0 "#607d8b")
+      (cloud-bluegray-2 "#b0bec5")
+      (cloud-bluegray-3 "#cfd8dc")
+      (cloud-yellow-0 "#fdd835")
+      (cloud-yellow-1 "#fff176")
+      (cloud-yellow-2 "#ffff8d")
+      (cloud-gray-0 "#424242")
+      (cloud-gray-1 "#9e9e9e")
+      (cloud-gray-2 "#bdbdbd")
+      (cloud-gray-3 "#e0e0e0")
+      (cloud-gray-4 "#eeeeee")
+      (cloud-red-0 "#b71c1c")
+      (cloud-red-1 "#e57373")
+      (cloud-blue-0 "#005073")
+      (cloud-blue-x "#006699")
+      (cloud-blue-1 "#107dac")
+      (cloud-purple-0 "#673ab7")
+      (cloud-purple-1 "#7e57c2")
+      (cloud-purple-2 "#b39ddb")
+      )
 
   (custom-theme-set-faces
    'cloud
 
-   `(default ((,class (:foreground "#444444" :background "#eeeeee"))))
-
-   `(cursor ((,class (:foreground "#eeeeee" :background "#005f87"))))
-
-   ;; Highlighting
-   `(fringe ((,class (:background "#eeeeee"))))
-   `(highlight ((,class (:background "#bdbdbd"))))
-   `(region ((,class (:background "#0087af" :foreground "#eeeeee"))))
-   `(secondary-selection ((,class (:weight bold :background "#ffff8d"))))
-   `(isearch ((,class (:foreground "#eeeeee" :background "#0087af"))))
-   `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#af0000"))))
-   `(lazy-highlight ((,class (:foreground "#444444" :background "#fff59d")))) ; Isearch others (see `match').
-   `(trailing-whitespace ((,class (:foreground "#bdbdbd" :background "#ffff8d"))))
-   `(query-replace ((,class (:inherit isearch))))
-   `(whitespace-hspace ((,class (:foreground "#bdbdbd"))))
-   `(whitespace-indentation ((,class (:background nil :foreground "#444444"))))
-   `(whitespace-line ((,class (:foreground "#af0000" :background "#eeeeee"))))
-   `(whitespace-tab ((,class (:background nil :foreground "#444444"))))
-   `(whitespace-trailing ((,class (:background nil :foreground "#af0000"))))
-
-   ;; Mode line
-   `(mode-line ((,class (:background "#005f87" :foreground "#eeeeee" :box (:line-width 1 :color "#005f87")))))
-   `(mode-line-inactive ((,class (:background "#d0d0d0" :foreground "#444444" :box (:line-width 1 :color "#d0d0d0")))))
-   `(mode-line-buffer-id ((,class (:weight bold))))
-   `(mode-line-emphasis ((,class (:foreground "#eeeeee" :slant italic))))
-   `(mode-line-highlight ((,class (:foreground "#8700af"))))
-
-   ;; Escape and prompt
-   `(minibuffer-prompt ((,class (:weight bold :foreground "#005f87"))))
-   `(minibuffer-noticeable-prompt ((,class (:weight bold :foreground "#005f87"))))
-   `(escape-glyph ((,class (:weight bold :foreground "#fff59d"))))
-   `(error ((,class (:foreground "#af0000"))))
-   `(warning ((,class (:foreground "#d75f00"))))
-   `(success ((,class (:foreground "#388E3C"))))
-
-   ;; Font lock
-   `(font-lock-builtin-face ((,class (:foreground "#3e999f"))))
-   `(font-lock-comment-delimiter-face ((,class (:foreground "#878787"))))
-   `(font-lock-comment-face ((,class (:slant italic :foreground "#878787"))))
-   `(font-lock-constant-face ((,class (:foreground "#af0000"))))
-   `(font-lock-doc-face ((,class (:foreground "#878787"))))
-   `(font-lock-function-name-face ((,class (:foreground "#005f87"))))
+   ;; Base
+   `(bold ((,class (:weight bold))))
+   `(bold-italic ((,class (:weight bold :slant italic))))
+   `(default ((,class (:foreground "#424242" :background "#eeeeee"))))
+   `(error ((,class (:foreground "#e57373"))))
+   `(warning ((,class (:foreground "#ff9800"))))
+   `(success ((,class (:foreground "#388e3c"))))
+   `(escape-glyph ((,class (:weight bold :foreground "#fdd835"))))
+   `(font-lock-builtin-face ((,class (:foreground "#009688"))))
+   `(font-lock-comment-delimiter-face ((,class (:foreground "#9e9e9e"))))
+   `(font-lock-comment-face ((,class (:slant italic :foreground "#9e9e9e"))))
+   `(font-lock-constant-face ((,class (:foreground "#b71c1c"))))
+   `(font-lock-doc-face ((,class (:foreground "#9e9e9e"))))
+   `(font-lock-function-name-face ((,class (:foreground "#006699"))))
    `(font-lock-keyword-face ((,class (:bold nil :foreground "#df0087"))))
-   `(font-lock-preprocessor-face ((,class (:foreground "#878787"))))
+   `(font-lock-preprocessor-face ((,class (:foreground "#9e9e9e"))))
    `(font-lock-regexp-grouping-backslash ((,class (:weight bold :inherit nil))))
    `(font-lock-regexp-grouping-construct ((,class (:weight bold :inherit nil))))
-   `(font-lock-string-face ((,class (:foreground "#388E3C"))))
-   `(font-lock-type-face ((,class (:weight normal :foreground "#6434a3"))))
-   `(font-lock-variable-name-face ((,class (:weight normal :foreground "#005f87"))))
-   `(font-lock-warning-face ((,class (:weight bold :foreground "#d75f00"))))
+   `(font-lock-string-face ((,class (:foreground "#388e3c"))))
+   `(font-lock-type-face ((,class (:weight normal :foreground "#006699"))))
+   `(font-lock-variable-name-face ((,class (:weight normal :foreground "#006699"))))
+   `(font-lock-warning-face ((,class (:weight bold :foreground "#ff9800"))))
+
+   ;; UI
+   `(button ((,class (:underline t :foreground "#006699"))))
+   `(cursor ((,class (:foreground "#eeeeee" :background "#006699"))))
+   `(fringe ((,class (:background "#eeeeee"))))
+   `(header-line ((,class (:background "#006699" :foreground "#eeeeee" :box (:line-width 1 :color "#006699")))))
+   `(help-argument-name ((,class (:foreground "#006699"))))
+   `(highlight ((,class (:background "#fff176"))))
+   `(hl-line ((,class (:background "#e4e4e4"))));; highlight current line
+   `(info-menu-star ((,class (:foreground "#006699"))))
+   `(isearch ((,class (:foreground "#eeeeee" :background "#107dac"))))
+   `(isearch-fail ((,class (:weight bold :foreground "#eeeeee" :background "#e57373"))))
+   `(link ((,class (:underline t :foreground "#107dac"))))
+   `(link-visited ((,class (:underline t :foreground "#7e57c2"))))
+   `(linum ((,class (:background "#eeeeee" :foreground "#9e9e9e"))))
+   `(match ((,class (:weight bold :background "#fff176"))))
+   `(minibuffer-prompt ((,class (:weight bold :foreground "#006699"))))
+   `(mode-line ((,class (:background "#006699" :foreground "#eeeeee" :box (:line-width 1 :color "#006699")))))
+   `(mode-line-inactive ((,class (:background "#e0e0e0" :foreground "#444444" :box (:line-width 1 :color "#bdbdbd")))))
+   `(mode-line-buffer-id ((,class (:weight bold))))
+   `(mode-line-emphasis ((,class (:foreground "#eeeeee"))))
+   `(mode-line-highlight ((,class (:foreground "#fff176"))))
+   `(next-error ((,class (:inherit error))))
+   `(nobreak-space ((,class (:background "#cfd8dc"))))
+   `(outline-1 ((,class (:height 1.0 :weight bold :foreground "#107dac"))))
+   `(outline-2 ((,class (:inherit outline-1))))
+   `(outline-3 ((,class (:inherit outline-1))))
+   `(outline-4 ((,class (:inherit outline-1))))
+   `(outline-5 ((,class (:inherit outline-1))))
+   `(outline-6 ((,class (:inherit outline-1))))
+   `(outline-7 ((,class (:inherit outline-1))))
+   `(outline-8 ((,class (:inherit outline-1))))
+   `(query-replace ((,class (:inherit isearch))))
+   `(region ((,class (:background "#107dac" :foreground "#eeeeee"))))
+   `(secondary-selection ((,class (:weight bold :background "#fff176"))))
+   `(show-paren-match ((,class (:background "#bdbdbd" :foreground "#006699"))))
+   `(show-paren-mismatch ((,class (:background "#bdbdbd" :foreground "#b71c1c"))))
+   `(trailing-whitespace ((,class (:foreground "#bdbdbd" :background "#fff176"))))
+
+
+
+
+
+   `(lazy-highlight ((,class (:foreground "#424242" :background "#fff176")))) ; Isearch others (see `match').
+   `(whitespace-hspace ((,class (:foreground "#bdbdbd"))))
+   `(whitespace-indentation ((,class (:background nil :foreground "#424242"))))
+   `(whitespace-line ((,class (:foreground "#e57373" :background "#eeeeee"))))
+   `(whitespace-tab ((,class (:background nil :foreground "#424242"))))
+   `(whitespace-trailing ((,class (:background nil :foreground "#e57373"))))
+
+   ;; Escape and prompt
+   `(minibuffer-noticeable-prompt ((,class (:weight bold :foreground "#006699"))))
 
    ;; Button and link
-   `(link ((,class (:foreground "#0087af"))))
-   `(link-visited ((,class (:underline t :foreground "#e5786d"))))
-   `(button ((,class (:underline t :foreground "#006daf"))))
-   `(header-line ((,class (:background "#005f87" :foreground "#eeeeee" :box (:line-width 1 :color "#005f87")))))
 
    `(company-tooltip-common-selection ((,class (:weight normal :foreground "#eeeeee"))))
    `(company-tooltip-selection ((,class (:weight normal :foreground "#eeeeee" :background "#0087af"))))
@@ -118,13 +162,7 @@
    `(flycheck-error-list-line-number ((,class (:foreground "#A535AE"))))
 
 
-   `(linum ((,class (:background "#eeeeee" :foreground "#9E9E9E"))))
-   `(hl-line ((,class (:background "#e4e4e4"))));; highlight current line
-   `(match ((,class (:weight bold :background "#fff59d"))))
 
-
-   `(show-paren-match ((,class (:background "#d0d0d0" :foreground "#005f87"))))
-   `(show-paren-mismatch ((,class (:background "#d0d0d0" :foreground "#af0000"))))
 
    ;; eldoc
 
