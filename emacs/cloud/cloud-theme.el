@@ -1,9 +1,8 @@
 ;;; cloud-theme.el --- A light theme based on Material
 
 ;;; Commentary:
-
 ;; Cloud light theme based on Material
-
+;;
 ;;; Code:
 
 (deftheme cloud
@@ -83,6 +82,7 @@
    `(linum ((,class (:background "#eeeeee" :foreground "#9e9e9e"))))
    `(match ((,class (:weight bold :background "#fff176"))))
    `(minibuffer-prompt ((,class (:weight bold :foreground "#006699"))))
+   `(minibuffer-noticeable-prompt ((,class (:weight bold :foreground "#006699"))))
    `(mode-line ((,class (:background "#006699" :foreground "#eeeeee" :box (:line-width 1 :color "#006699")))))
    `(mode-line-inactive ((,class (:background "#e0e0e0" :foreground "#444444" :box (:line-width 1 :color "#bdbdbd")))))
    `(mode-line-buffer-id ((,class (:weight bold))))
@@ -100,26 +100,22 @@
    `(outline-8 ((,class (:inherit outline-1))))
    `(query-replace ((,class (:inherit isearch))))
    `(region ((,class (:background "#107dac" :foreground "#eeeeee"))))
+   `(lazy-highlight ((,class (:foreground "#424242" :background "#fff176")))) ; Isearch others (see `match').
    `(secondary-selection ((,class (:weight bold :background "#fff176"))))
    `(show-paren-match ((,class (:background "#bdbdbd" :foreground "#006699"))))
    `(show-paren-mismatch ((,class (:background "#bdbdbd" :foreground "#b71c1c"))))
    `(trailing-whitespace ((,class (:foreground "#bdbdbd" :background "#fff176"))))
-
-
-
-
-
-   `(lazy-highlight ((,class (:foreground "#424242" :background "#fff176")))) ; Isearch others (see `match').
+   `(vertical-border ((,class (:foreground "#005073"))))
    `(whitespace-hspace ((,class (:foreground "#bdbdbd"))))
    `(whitespace-indentation ((,class (:background nil :foreground "#424242"))))
    `(whitespace-line ((,class (:foreground "#e57373" :background "#eeeeee"))))
    `(whitespace-tab ((,class (:background nil :foreground "#424242"))))
    `(whitespace-trailing ((,class (:background nil :foreground "#e57373"))))
+   `(window-divider ((,class (:background "#005073"))))
+   `(window-divider-first-pixel ((,class (:background "#005073"))))
+   `(window-divider-last-pixel ((,class (:background "#005073"))))
 
-   ;; Escape and prompt
-   `(minibuffer-noticeable-prompt ((,class (:weight bold :foreground "#006699"))))
-
-
+   ;; company
    `(company-tooltip-common-selection ((,class (:weight normal :foreground "#eeeeee"))))
    `(company-tooltip-selection ((,class (:weight normal :foreground "#eeeeee" :background "#006699"))))
    `(company-tooltip-annotation-selection ((,class (:weight normal :foreground "eeeeee"))))
@@ -130,6 +126,7 @@
    `(company-scrollbar-bg ((,class (:background "#cfd8dc"))))
    `(company-scrollbar-fg ((,class (:background "#607D8B"))))
 
+   ;; dired
    `(dired-directory ((,class (:weight normal :foreground "#005f87" :background "#eeeeee"))))
    `(dired-header ((,class (:weight normal :foreground "#005f87" :background "#eeeeee"))))
    `(dired-ignored ((,class (:strike-through t :foreground "#af0000"))))
@@ -160,11 +157,6 @@
    `(flycheck-fringe-warning ((,class (:foreground "#ff9800"))))
    `(flycheck-fringe-error ((,class (:foreground "#b71c1c"))))
    `(flycheck-error-list-line-number ((,class (:foreground "#7e57c2"))))
-
-
-
-
-   ;; eldoc
 
    ;; helm
    `(helm-M-x-key ((,class (:foreground "#388e3c"))))
