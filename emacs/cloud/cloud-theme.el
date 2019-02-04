@@ -51,7 +51,7 @@
    `(warning ((,class (:foreground "#ff9800"))))
    `(success ((,class (:foreground "#388e3c"))))
    `(escape-glyph ((,class (:weight bold :foreground "#fdd835"))))
-   `(font-lock-builtin-face ((,class (:foreground "#009688"))))
+   `(font-lock-builtin-face ((,class (:foreground "#7e57c2"))))
    `(font-lock-comment-delimiter-face ((,class (:foreground "#9e9e9e"))))
    `(font-lock-comment-face ((,class (:slant italic :foreground "#9e9e9e"))))
    `(font-lock-constant-face ((,class (:foreground "#b71c1c"))))
