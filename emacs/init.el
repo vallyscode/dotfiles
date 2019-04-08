@@ -80,6 +80,7 @@
 
 ;; add line number to mode line
 (line-number-mode t)
+(global-display-line-numbers-mode t)
 
 ;; add column number to mode line
 (column-number-mode t)
