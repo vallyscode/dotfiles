@@ -123,15 +123,12 @@
 (global-unset-key (kbd "C-z"))
 
 ;; set font
-(defun vl-set-font (font-name font-config)
-  "Set `FONT-CONFIG' for `FONT-NAME' or skip."
-  (when (member font-name (font-family-list))
-    (set-frame-font font-config)))
-
-(cond ((string= system-type "windows-nt") (vl-set-font "Iosevka NF" "Iosevka NF-11"))
+(cond ((string= system-type "windows-nt")
+       (add-to-list 'default-frame-alist '(font . "Iosevka NF-11")))
       ((or (string= system-type "gnu/linux")
-           (string= system-type "darwin")) (vl-set-font "Iosevka" "Iosevka Nerd Font Mono-11"))
-      (t (message "WTF")))
+           (string= system-type "darwin"))
+       (add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Mono-11")))
+      (t (message "Failed to set font based on system-type")))
 
 ;; scrolling
 (setq
@@ -144,6 +141,15 @@
 
 ;; change yes-or-no to y-or-n
 (fset 'yes-or-no-p 'y-or-n-p)
+
+;; ---
+(use-package diminish
+  :ensure t
+  :pin melpa-stable)
+
+(use-package delight
+  :ensure t
+  :pin melpa-stable)
 
 ;; built-in packages
 (use-package paren
@@ -346,7 +352,7 @@
     (add-hook hook 'whitespace-mode))
   (add-hook 'before-save-hook 'whitespace-cleanup)
   (setq whitespace-line-column 90) ;; limit line length
-  (setq whitespace-style '(face tabs empty trailing lines-tail)))
+  (setq whitespace-style '(face tabs indentation trailing empty lines-tail)))
 
 (use-package rainbow-mode
   :ensure t
@@ -461,16 +467,3 @@
 ;; (setq-default flycheck-emacs-lisp-load-path 'inherit)
 
 ;;; init.el ends here
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(package-selected-packages
-   '(dockerfile-mode hindent intero haskell-mode jsx-mode tide markdown-mode yaml-mode magit highlight-symbol rainbow-delimiters yasnippet which-key vi-tilde-fringe use-package rainbow-mode json-mode js2-mode helm-projectile flycheck evil-nerd-commenter evil-leader company)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
