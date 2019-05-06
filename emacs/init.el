@@ -80,7 +80,8 @@
 
 ;; add line number to mode line
 (line-number-mode t)
-(global-display-line-numbers-mode t)
+(add-hook 'prog-mode-hook 'display-line-numbers-mode)
+;; (global-display-line-numbers-mode t)
 
 ;; add column number to mode line
 (column-number-mode t)
@@ -98,7 +99,7 @@
 (setq-default tab-width 2)
 
 ;; line wrapping after 90
-(setq-default fill-column 90)
+;; (setq-default fill-column 90)
 
 ;; resize mini-window
 (setq
@@ -124,10 +125,10 @@
 
 ;; set font
 (cond ((string= system-type "windows-nt")
-       (add-to-list 'default-frame-alist '(font . "Iosevka NF-11")))
+       (add-to-list 'default-frame-alist '(font . "Iosevka NF-12")))
       ((or (string= system-type "gnu/linux")
            (string= system-type "darwin"))
-       (add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Mono-11")))
+       (add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Mono-14")))
       (t (message "Failed to set font based on system-type")))
 
 ;; scrolling
@@ -302,6 +303,10 @@
   :diminish (vi-tilde-fringe-mode . "")
   :hook (prog-mode . vi-tilde-fringe-mode))
 
+(use-package highlight-numbers
+  :ensure t
+  :hook (prog-mode . highlight-numbers-mode))
+
 (use-package company
   :ensure t
   :diminish " Δ"
@@ -351,7 +356,7 @@
   (dolist (hook '(prog-mode-hook text-mode-hook))
     (add-hook hook 'whitespace-mode))
   (add-hook 'before-save-hook 'whitespace-cleanup)
-  (setq whitespace-line-column 90) ;; limit line length
+  ;; (setq whitespace-line-column 90) ;; limit line length
   (setq whitespace-style '(face tabs indentation trailing empty lines-tail)))
 
 (use-package rainbow-mode
@@ -404,6 +409,7 @@
   :pin melpa-stable)
 
 (defun setup-tide-mode ()
+  "Set up tide."
   (interactive)
   (tide-setup)
   (flycheck-mode +1)
