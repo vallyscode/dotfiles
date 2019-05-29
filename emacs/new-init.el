@@ -1,0 +1,324 @@
+;;; new-init.el --- Valerii's Emacs config -*- lexical-binding: t; -*-
+;;; Commentary:
+;; My personal Emacs configuration.
+;;; Code:
+
+;; display GC message & collect on 50MB allocation
+(setq garbage-collection-messages t
+      gc-cons-threshold (* 50 1024 1024))
+
+(setq user-full-name "Valerii Lysenko"
+      user-mail-address "vallyscode@gmail.com")
+
+;; disable and remove standard startup messages
+(setq inhibit-startup-screen t
+      inhibit-splash-screen t
+      initial-scratch-message "")
+
+;; disable unneeded widgets
+(when window-system
+  (menu-bar-mode -1)
+  (scroll-bar-mode -1)
+  (tool-bar-mode -1)
+  (tooltip-mode -1))
+
+;; no cursor blink
+(blink-cursor-mode -1)
+
+;; add line number to mode line
+(line-number-mode t)
+
+;; add column number to mode line
+(column-number-mode t)
+
+;; display file size in mode line
+(size-indication-mode t)
+
+;; no cursor blink
+(blink-cursor-mode -1)
+
+;; disable visual notification
+(setq ring-bell-function 'ignore)
+
+;; Wrap lines at 80 characters
+(setq-default fill-column 90)
+
+;; enable y/n answers
+(fset 'yes-or-no-p 'y-or-n-p)
+
+(setq frame-title-format
+      '((:eval (if (buffer-file-name)
+                   (abbreviate-file-name (buffer-file-name))
+                 "%b"))))
+
+;; set utf-8
+(prefer-coding-system 'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+
+;; disable tab indentation
+(setq-default indent-tabs-mode nil
+              tab-width 2)
+
+;; warn when opening files is > 15MB
+(setq large-file-warning-threshold (* 15 1024 1024))
+
+;; auto revert buffer when file changed on disk
+(global-auto-revert-mode t)
+
+;; auto-save
+(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+
+;; backup
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+      backup-by-copying t
+      kept-new-versions 6
+      kept-old-versions 4
+      delete-old-versions t
+      version-control t
+      vc-make-backup-files t)
+
+;; disable C-z
+(global-unset-key (kbd "C-z"))
+
+;; smart tab behavior - indent or complete
+(setq tab-always-indent 'complete)
+
+;; fix scope for multi-file
+(setq-default flycheck-emacs-lisp-load-path 'inherit)
+
+;; set font
+(cond ((string= system-type "windows-nt")
+       (add-to-list 'default-frame-alist '(font . "Iosevka NF-12")))
+      ((or (string= system-type "gnu/linux")
+           (string= system-type "darwin"))
+       (add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Mono-12")))
+      (t (message "Failed to set font based on system-type")))
+
+(setq scroll-margin 0
+      scroll-conservatively 100000
+      scroll-preserve-screen-position 1)
+
+
+;; --------------------------------------------------------------
+
+
+(require 'package)
+
+(setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("melpa-stable" . "https://stable.melpa.org/packages/"))
+      package-archive-priorities '(("melpa-stable" . 1)))
+
+(package-initialize)
+
+;; update the package metadata is the local cache is missing
+(unless package-archive-contents
+  (package-refresh-contents))
+
+;; always load newest byte code
+(setq load-prefer-newer t)
+
+(unless (package-installed-p 'use-package)
+  (package-install 'use-package))
+
+(require 'use-package)
+(setq use-package-verbose t)
+
+
+;; --------------------------------------------------------------
+
+
+;; built-in
+(use-package diminish
+  :ensure t)
+
+(use-package paren
+  :init
+  (setq show-paren-delay 0
+        blink-matching-paren nil)
+  :config
+  (show-paren-mode t))
+
+(use-package elec-pair
+  :config
+  (electric-pair-mode t))
+
+(use-package hl-line
+  :config
+  (global-hl-line-mode t))
+
+(use-package dired
+  :init
+  (setq dired-recursive-deletes 'always
+        dired-recursive-copies 'always)
+  :config
+  (put 'dired-find-alternate-file 'disabled nil))
+
+(use-package eldoc
+  :hook (prog-mode . eldoc-mode))
+
+(use-package hideshow
+  :hook (prog-mode . hs-minor-mode))
+
+(use-package saveplace
+  :config
+  (setq save-place-file "~/.emacs.d/saveplace")
+  ;; activate it for all buffers
+  (setq-default save-place t))
+
+(use-package recentf
+  :config
+  (setq recentf-save-file "~/.emacs.d/recentf"
+        recentf-max-saved-items 500
+        recentf-max-menu-items 15
+        ;; disable recentf-cleanup on Emacs start, because it can cause
+        ;; problems with remote files
+        recentf-auto-cleanup 'never)
+  (recentf-mode t))
+
+(use-package windmove
+  :config
+  ;; use shift + arrow keys to switch between visible buffers
+  (windmove-default-keybindings))
+
+(use-package lisp-mode
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'eldoc-mode)
+  (add-hook 'emacs-lisp-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'lisp-interaction-mode-hook #'eldoc-mode))
+
+(use-package org
+  :init
+  (setq org-startup-indented t)
+  (setq org-log-done t)
+  (setq org-fontify-whole-heading-line t)
+  (setq org-fontify-done-headline t)
+  (setq org-fontify-quote-and-verse-blocks t))
+
+(use-package org-indent
+  :diminish (org-indent-mode . ""))
+
+
+;; --------------------------------------------------------------
+
+
+;; third-party
+(use-package cloud-theme
+  :load-path "~/.emacs.d/cloud"
+  :config
+  (load-theme 'cloud t))
+
+(use-package evil
+  :ensure t
+  :init (setq evil-shift-width 2)
+  :config (evil-mode t)
+  :pin melpa-stable)
+
+(use-package evil-nerd-commenter
+  :ensure t
+  :after (evil)
+  :pin melpa-stable)
+
+(use-package ivy
+  :ensure t
+  :config
+  (ivy-mode t)
+  (setq ivy-use-virtual-buffers t
+        enable-recursive-minibuffers t)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  :pin melpa-stable)
+
+(use-package swiper
+  :ensure t
+  :config
+  (global-set-key "\C-s" 'swiper)
+  :pin melpa-stable)
+
+(use-package counsel
+  :ensure t
+  :config
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-x C-f") 'counsel-find-file)
+  (global-set-key (kbd "<f1> f") 'counsel-describe-function)
+  (global-set-key (kbd "<f1> v") 'counsel-describe-variable)
+  (global-set-key (kbd "<f1> l") 'counsel-find-library)
+  (global-set-key (kbd "<f2> i") 'counsel-info-lookup-symbol)
+  (global-set-key (kbd "<f2> u") 'counsel-unicode-char)
+  (global-set-key (kbd "C-c g") 'counsel-git)
+  (global-set-key (kbd "C-c j") 'counsel-git-grep)
+  (global-set-key (kbd "C-c a") 'counsel-ag)
+  (global-set-key (kbd "C-x l") 'counsel-locate)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history))
+
+(use-package avy
+  :ensure t
+  :bind (("s-." . avy-goto-word-or-subword-1)
+         ("s-," . avy-goto-char))
+  :config
+  (setq avy-background t)
+  :pin melpa-stable)
+
+(use-package undo-tree
+  :ensure t
+  :commands (undo-tree-undo
+             undo-tree-redo
+             undo-tree-visualize)
+  :init
+  (setq undo-tree-visualizer-timestamps t
+        undo-tree-visualizer-diff t)
+  :config
+  (global-undo-tree-mode t))
+
+(use-package projectile
+  :ensure t
+  :init
+  (setq projectile-completion-system 'ivy)
+  :config
+  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+  (projectile-mode +1)
+  :pin melpa-stable)
+
+(use-package company
+  :ensure t
+  :config
+  (setq company-idle-delay 0.5
+        company-show-numbers t
+        company-tooltip-limit 10
+        company-minimum-prefix-length 2
+        company-tooltip-align-annotations t)
+  ;; invert the navigation direction if the the completion popup-isearch-match
+  ;; is displayed on top (happens near the bottom of windows)
+  (setq company-tooltip-flip-when-above t)
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-j") #'company-select-next)
+  (define-key company-active-map (kbd "C-k") #'company-select-previous)
+  (define-key company-active-map (kbd "SPC") #'company-abort)
+  (global-company-mode t)
+  :pin melpa-stable)
+
+(use-package flycheck
+  :ensure t
+  :hook (prog-mode . flycheck-mode)
+  :pin melpa-stable)
+
+(use-package which-key
+  :ensure t
+  :init
+  (setq which-key-sort-order 'which-key-key-order-alpha)
+  :config
+  (which-key-mode t)
+  :pin melpa-stable)
+
+(use-package vi-tilde-fringe
+  :ensure t
+  :hook (prog-mode . vi-tilde-fringe-mode))
+
+(use-package highlight-numbers
+  :ensure t
+  :hook (prog-mode . highlight-numbers-mode))
+
+;;; new-init.el ends here
