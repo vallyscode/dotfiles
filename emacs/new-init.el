@@ -205,6 +205,9 @@
 ;; --------------------------------------------------------------
 
 
+(defvar evil-leader-map (make-sparse-keymap)
+  "Keymap for `leader' key shortcuts.")
+
 ;; third-party
 (use-package cloud-theme
   :load-path "~/.emacs.d/cloud"
@@ -214,12 +217,20 @@
 (use-package evil
   :ensure t
   :init (setq evil-shift-width 2)
-  :config (evil-mode t)
+  :config
+  (evil-mode t)
+  (define-key evil-normal-state-map (kbd "SPC") evil-leader-map)
+  (define-key evil-leader-map (kbd "ff") 'find-file)
+  (define-key evil-leader-map (kbd "b") 'switch-to-buffer)
+  (define-key evil-leader-map (kbd "k") 'kill-buffer)
   :pin melpa-stable)
 
 (use-package evil-nerd-commenter
   :ensure t
   :after (evil)
+  :commands (evilnc-comment-or-uncomment-lines)
+  :config
+  (define-key evil-leader-map (kbd "ci") 'evilnc-comment-or-uncomment-lines)
   :pin melpa-stable)
 
 (use-package ivy
@@ -300,10 +311,47 @@
   (global-company-mode t)
   :pin melpa-stable)
 
+(use-package yasnippet
+  :ensure t
+  :commands (yas-insert-snippet)
+  :config
+  (yas-global-mode t)
+  (yas-reload-all)
+  (define-key evil-leader-map (kbd "yi") 'yas-insert-snippet))
+
+(use-package magit
+  :ensure t
+  :commands (magit-status
+             magit-blame
+             magit-blame-quit
+             magit-log)
+  :config
+  (define-key evil-leader-map (kbd "gs") 'magit-status)
+  (define-key evil-leader-map (kbd "gb") 'magit-blame)
+  (define-key evil-leader-map (kbd "gB") 'magit-blame-quit)
+  (define-key evil-leader-map (kbd "gl") 'magit-log)
+  :pin melpa-stable)
+
 (use-package flycheck
   :ensure t
+  :commands (flycheck-list-errors
+             flycheck-previous-error
+             flycheck-next-error)
   :hook (prog-mode . flycheck-mode)
+  :config
+  (define-key evil-leader-map (kbd "le") 'flycheck-list-errors)
+  (define-key evil-leader-map (kbd "lp") 'flycheck-previous-error)
+  (define-key evil-leader-map (kbd "ln") 'flycheck-next-error)
   :pin melpa-stable)
+
+(use-package whitespace
+  :ensure t
+  :init
+  (dolist (hook '(prog-mode-hook text-mode-hook))
+    (add-hook hook 'whitespace-mode))
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+  (setq whitespace-line-column 90
+        whitespace-style '(face tabs indentation trailing empty lines-trail)))
 
 (use-package which-key
   :ensure t
@@ -320,5 +368,87 @@
 (use-package highlight-numbers
   :ensure t
   :hook (prog-mode . highlight-numbers-mode))
+
+(use-package highlight-symbol
+  :ensure t
+  :commands (highlight-symbol
+             highlight-symbol-next
+             highlight-symbol-prev
+             highlight-symbol-last
+             highlight-symbol-first)
+  :config
+  (define-key evil-leader-map (kbd "hl") 'highlight-symbol))
+
+(use-package rainbow-mode
+  :ensure t
+  :hook (prog-mde . rainbow-mode))
+
+(use-package rainbow-delimiters
+  :ensure t
+  :hook (prog-mode . rainbow-delimiters-mode))
+
+(use-package json-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package yaml-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package markdown-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package tide
+  :ensure t
+  :pin melpa-stable)
+
+(defun setup-tide-mode ()
+  "Set up tide."
+  (interactive)
+  (tide-setup)
+  (flycheck-mode t)
+  (setq flycheck-check-syntax-automatically '(save mode-enabled))
+  (eldoc-mode t)
+  (tide-hl-identifier-mode t)
+  (company-mode t))
+
+(add-hook 'typescript-mode-hook 'setup-tide-mode)
+
+(use-package js2-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package jsx-mode
+  :ensure t
+  :after (js2-mode)
+  :pin melpa-stable)
+
+(use-package dockerfile-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package haskell-mode
+  :ensure t
+  :pin melpa-stable)
+
+(use-package intero
+  :ensure t
+  :after (haskell-mode)
+  :config
+  (add-hook 'haskell-mode-hook #'intero-mode)
+  :pin melpa)
+
+(use-package hindent
+  :ensure t
+  :after (intero)
+  :config
+  (add-hook 'haskell-mode-hook #'hindent-mode)
+  :pin melpa-stable)
+
+(use-package yalsp
+  :load-path "~/workspace/projects/elisp/yalsp")
+(require 'yalsp)
+
 
 ;;; new-init.el ends here
