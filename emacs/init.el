@@ -219,7 +219,8 @@
 
 (use-package evil
   :ensure t
-  :init (setq evil-shift-width 2)
+  :init
+  (setq evil-shift-width 2)
   :config
   (evil-mode t)
   (define-key evil-normal-state-map (kbd "SPC") evil-leader-map))
@@ -228,7 +229,7 @@
   :ensure t
   :after (evil)
   :commands (evilnc-comment-or-uncomment-lines)
-  :config
+  :init
   (define-key evil-leader-map (kbd "ci") 'evilnc-comment-or-uncomment-lines))
 
 (use-package ivy
@@ -280,12 +281,15 @@
 
 (use-package projectile
   :ensure t
+  :commands (projectile-find-file
+             projectile-find-dir
+             projectile-recentf)
   :init
   (setq projectile-completion-system 'ivy)
+  (define-key evil-leader-map (kbd "pf") 'projectile-find-file)
+  (define-key evil-leader-map (kbd "pd") 'projectile-find-dir)
   :config
-  (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-  (projectile-mode +1)
-  :pin melpa-stable)
+  (projectile-mode t))
 
 (use-package company
   :ensure t
@@ -317,15 +321,14 @@
 (use-package magit
   :ensure t
   :commands (magit-status
-             magit-blame
+             magit-blame-addition
              magit-blame-quit
-             magit-log)
-  :config
+             magit-log-other)
+  :init
   (define-key evil-leader-map (kbd "gs") 'magit-status)
-  (define-key evil-leader-map (kbd "gb") 'magit-blame)
+  (define-key evil-leader-map (kbd "gb") 'magit-blame-addition)
   (define-key evil-leader-map (kbd "gB") 'magit-blame-quit)
-  (define-key evil-leader-map (kbd "gl") 'magit-log)
-  :pin melpa-stable)
+  (define-key evil-leader-map (kbd "gl") 'magit-log-other))
 
 (use-package flycheck
   :ensure t
@@ -353,11 +356,26 @@
   :init
   (setq which-key-sort-order 'which-key-key-order-alpha)
   :config
-  (which-key-mode t)
-  :pin melpa-stable)
+  (which-key-mode t))
 
 (use-package neotree
-  :ensure t)
+  :ensure t
+  :init
+  (setq neo-theme 'ascii)
+  (define-key evil-leader-map (kbd "t") 'neotree-toggle)
+  :config
+  (add-hook 'neotree-mode-hook
+            (lambda ()
+              (evil-local-set-key 'normal (kbd "q") 'neotree-hide)
+              (evil-local-set-key 'normal (kbd "I") 'neotree-hidden-file-toggle)
+              (evil-local-set-key 'normal (kbd "z") 'neotree-stretch-toggle)
+              (evil-local-set-key 'normal (kbd "RET") 'neotree-enter)
+              (evil-local-set-key 'normal (kbd "g") 'neotree-refresh)
+              (evil-local-set-key 'normal (kbd "c") 'neotree-create-node)
+              (evil-local-set-key 'normal (kbd "d") 'neotree-delete-node)
+              (evil-local-set-key 'normal (kbd "r") 'neotree-rename-node)
+              (evil-local-set-key 'normal (kbd "s") 'neotree-enter-vertical-split)
+              (evil-local-set-key 'normal (kbd "S") 'neotree-enter-horizontal-split))))
 
 (use-package vi-tilde-fringe
   :ensure t
@@ -374,7 +392,7 @@
              highlight-symbol-prev
              highlight-symbol-last
              highlight-symbol-first)
-  :config
+  :init
   (define-key evil-leader-map (kbd "hl") 'highlight-symbol))
 
 (use-package rainbow-mode
