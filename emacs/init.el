@@ -256,9 +256,11 @@
              counsel-git
              counsel-git-grep)
   :init
-  (define-key evil-leader-map (kbd "cg") 'counsel-git)
-  :config
-  (global-set-key (kbd "M-x") 'counsel-M-x))
+  (setq search-default-mode #'char-fold-to-regexp)
+  (global-set-key (kbd "M-x") 'counsel-M-x)
+  (global-set-key (kbd "C-c C-r") 'ivy-resume)
+  (define-key minibuffer-local-map (kbd "C-r") 'counsel-minibuffer-history)
+  (define-key evil-leader-map (kbd "cg") 'counsel-git))
 
 (use-package avy
   :ensure t
