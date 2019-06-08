@@ -223,7 +223,8 @@
   (setq evil-shift-width 2)
   :config
   (evil-mode t)
-  (define-key evil-normal-state-map (kbd "SPC") evil-leader-map))
+  (define-key evil-normal-state-map (kbd "SPC") evil-leader-map)
+  (define-key evil-visual-state-map (kbd "SPC") evil-leader-map))
 
 (use-package evil-nerd-commenter
   :ensure t
