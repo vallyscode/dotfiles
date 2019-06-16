@@ -316,10 +316,11 @@
 (use-package yasnippet
   :ensure t
   :commands (yas-insert-snippet)
-  :config
+  :init
+  (define-key evil-leader-map (kbd "yi") 'yas-insert-snippet)
   (yas-global-mode t)
-  (yas-reload-all)
-  (define-key evil-leader-map (kbd "yi") 'yas-insert-snippet))
+  :config
+  (yas-reload-all))
 
 (use-package magit
   :ensure t
