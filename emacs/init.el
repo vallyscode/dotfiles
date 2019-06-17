@@ -233,6 +233,11 @@
   :init
   (define-key evil-leader-map (kbd "ci") 'evilnc-comment-or-uncomment-lines))
 
+(use-package evil-surround
+  :ensure t
+  :config
+  (global-evil-surround-mode t))
+
 (use-package ivy
   :ensure t
   :commands (ivy-switch-buffer
@@ -401,7 +406,7 @@
 
 (use-package rainbow-mode
   :ensure t
-  :hook (prog-mde . rainbow-mode))
+  :hook (prog-mode . rainbow-mode))
 
 (use-package rainbow-delimiters
   :ensure t
