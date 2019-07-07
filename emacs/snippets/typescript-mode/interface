@@ -2,5 +2,5 @@
 # key : int
 # --
 interface ${name} {
-    $0
+    $0;
 }

@@ -1,4 +1,4 @@
 # name : expect to be a
 # key : expa
 # --
-expect(${object}).to.be.a('$0');
+expect(${object}).to.be.a("$0");
