@@ -1,4 +1,4 @@
-;;; new-init.el --- Valerii's Emacs config -*- lexical-binding: t; -*-
+;;; init.el --- Valerii's Emacs config -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -213,7 +213,7 @@
 
 ;; third-party
 (use-package cloud-theme
-  :load-path "~/.emacs.d/cloud"
+  :ensure t
   :config
   (load-theme 'cloud t))
 
@@ -471,9 +471,4 @@
   (add-hook 'haskell-mode-hook #'hindent-mode)
   :pin melpa-stable)
 
-(use-package yalsp
-  :load-path "~/workspace/projects/elisp/yalsp")
-(require 'yalsp)
-
-
-;;; new-init.el ends here
+;;; init.el ends here
