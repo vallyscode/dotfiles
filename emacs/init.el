@@ -472,3 +472,16 @@
   :pin melpa-stable)
 
 ;;; init.el ends here
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(cloud-theme yasnippet yaml-mode which-key vi-tilde-fringe use-package tide rainbow-mode rainbow-delimiters projectile neotree markdown-mode magit jsx-mode json-mode js2-mode intero hindent highlight-symbol highlight-numbers evil-surround evil-nerd-commenter dockerfile-mode diminish counsel avy)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
