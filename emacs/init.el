@@ -71,10 +71,10 @@
 (global-auto-revert-mode t)
 
 ;; auto-save
-(setq auto-save-file-name-transforms '((".*" "~/.emacs.d/auto-save-list/" t)))
+(setq auto-save-file-name-transforms '((".*" "~/.config/emacs/auto-save-list/" t)))
 
 ;; backup
-(setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
+(setq backup-directory-alist '(("." . "~/.config/emacs/backups"))
       backup-by-copying t
       kept-new-versions 6
       kept-old-versions 4
@@ -172,13 +172,13 @@
 
 (use-package saveplace
   :config
-  (setq save-place-file "~/.emacs.d/saveplace")
+  (setq save-place-file "~/.config/emacs/saveplace")
   ;; activate it for all buffers
   (setq-default save-place t))
 
 (use-package recentf
   :config
-  (setq recentf-save-file "~/.emacs.d/recentf"
+  (setq recentf-save-file "~/.config/emacs/recentf"
         recentf-max-saved-items 500
         recentf-max-menu-items 15
         ;; disable recentf-cleanup on Emacs start, because it can cause
