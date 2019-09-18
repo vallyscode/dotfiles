@@ -217,9 +217,11 @@
 
 ;; third-party
 (use-package cloud-theme
-  :ensure t
+  ;; :ensure t
+  :load-path "~/workspace/projects/elisp/cloud-theme"
   :config
-  (load-theme 'cloud t))
+  (load-theme 'cloud t)
+  (cloud-theme-mode-line))
 
 (use-package evil
   :ensure t
@@ -416,20 +418,29 @@
   :ensure t
   :hook (prog-mode . rainbow-delimiters-mode))
 
+(use-package python
+  :ensure t
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode))
+
 (use-package json-mode
   :ensure t
+  :mode "\\.json\\'"
   :pin melpa-stable)
 
 (use-package yaml-mode
   :ensure t
+  :mode ("\\.yml\\'" "\\.yaml\\'")
   :pin melpa-stable)
 
 (use-package markdown-mode
   :ensure t
+  :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
 
 (use-package tide
   :ensure t
+  :mode ("\\.ts\\'" "\\.js\\'")
   :pin melpa-stable)
 
 (defun setup-tide-mode ()
@@ -446,11 +457,12 @@
 
 (use-package js2-mode
   :ensure t
+  :mode "\\.js\\'"
   :pin melpa-stable)
 
 (use-package jsx-mode
   :ensure t
-  :after (js2-mode)
+  :mode "\\.jsx\\'"
   :pin melpa-stable)
 
 (use-package dockerfile-mode
@@ -459,6 +471,7 @@
 
 (use-package haskell-mode
   :ensure t
+  :mode "\\.hs\\'"
   :pin melpa-stable)
 
 (use-package intero
@@ -476,6 +489,7 @@
   :pin melpa-stable)
 
 (use-package cypher-mode
-  :ensure t)
+  :ensure t
+  :mode ("\\.cypher\\'" "\\.cyp\\'"))
 
 ;;; init.el ends here

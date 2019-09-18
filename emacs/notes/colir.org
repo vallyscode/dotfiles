@@ -64,6 +64,7 @@ Palette:
 #bf7000
 #c06600
 #cc6d00
+#fa5305
 #f38630
 #f38e00
 #ff9419
@@ -72,6 +73,7 @@ Palette:
 #f0d97a
 #ededed
 #eeeeee
+#efefef
 #f2f2f2
 #f5f5f5
 #e0e0e0
@@ -81,12 +83,16 @@ Palette:
 #d0d0d0
 #d1d1d1
 #d4d4d4
+#d5d5d5
 #c0c0c0
 #a0a0a0
 #8c8c8c
 #4d4d4d
 #444444
 #454545
+#505050
+#646464
+#3f3f3f
 #a8b3ba
 #919aa1
 #838c91
