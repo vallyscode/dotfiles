@@ -8,37 +8,32 @@
 
 ;; display GC message & collect on 50MB allocation
 (setq garbage-collection-messages t
-      gc-cons-threshold (* 50 1024 1024))
+      gc-cons-threshold (* 50 1024 1024)
+      gc-cons-percentage 0.6)
 
 (setq user-full-name "Valerii Lysenko"
       user-mail-address "vallyscode@gmail.com")
 
-;; disable and remove standard startup messages
+;; Disable and remove standard startup messages
 (setq inhibit-startup-screen t
       inhibit-splash-screen t
       initial-scratch-message "")
 
-;; disable unneeded widgets
-(when window-system
-  (menu-bar-mode -1)
-  (scroll-bar-mode -1)
-  (tool-bar-mode -1)
-  (tooltip-mode -1))
+(dolist (mode '(tooltip-mode
+                scroll-bar-mode
+                menu-bar-mode
+                tool-bar-mode
+                blink-cursor-mode
+                blink-cursor-mode))
+  (when (fboundp mode)
+    (funcall mode -1)))
 
-;; no cursor blink
-(blink-cursor-mode -1)
-
-;; add line number to mode line
-(line-number-mode t)
-
-;; add column number to mode line
-(column-number-mode t)
-
-;; display file size in mode line
-(size-indication-mode t)
-
-;; no cursor blink
-(blink-cursor-mode -1)
+(dolist (mode '(line-number-mode ;; Add line number to mode line
+                column-number-mode ;; Add column number to mode line
+                size-indication-mode ;; Display file size in mode line
+                global-auto-revert-mode)) ;; Auto revert buffer when file changed on disk
+  (when (fboundp mode)
+    (funcall mode t)))
 
 ;; disable visual notification
 (setq ring-bell-function 'ignore)
@@ -46,7 +41,7 @@
 ;; Wrap lines at 90 characters
 (setq-default fill-column 90)
 
-;; enable y/n answers
+;; Enable y/n answers
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (setq frame-title-format
@@ -54,7 +49,7 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-;; set utf-8
+;; Set utf-8
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -64,16 +59,13 @@
 (setq-default indent-tabs-mode nil
               tab-width 2)
 
-;; warn when opening files is > 15MB
+;; Warn when opening files is > 15MB
 (setq large-file-warning-threshold (* 15 1024 1024))
 
-;; auto revert buffer when file changed on disk
-(global-auto-revert-mode t)
-
-;; auto-save
+;; Auto-save
 (setq auto-save-file-name-transforms '((".*" "~/.config/emacs/auto-save-list/" t)))
 
-;; backup
+;; Backup
 (setq backup-directory-alist '(("." . "~/.config/emacs/backups"))
       backup-by-copying t
       kept-new-versions 6
@@ -82,16 +74,16 @@
       version-control t
       vc-make-backup-files t)
 
-;; disable C-z
+;; Disable C-z
 (global-unset-key (kbd "C-z"))
 
-;; smart tab behavior - indent or complete
+;; Smart tab behavior - indent or complete
 (setq tab-always-indent 'complete)
 
-;; fix scope for multi-file
+;; Fix scope for multi-file
 (setq-default flycheck-emacs-lisp-load-path 'inherit)
 
-;; set font
+;; Set font
 (cond ((string= system-type "windows-nt")
        (add-to-list 'default-frame-alist '(font . "Iosevka NF-12")))
       ((or (string= system-type "gnu/linux")
@@ -103,13 +95,12 @@
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
-;; set exec path
+;; Set exec path
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.local/bin")
 (add-to-list 'exec-path "~/.nvm/versions/node/v8.11.3/bin")
 
 ;; --------------------------------------------------------------
-
 
 (require 'package)
 
@@ -121,24 +112,25 @@
 
 (package-initialize)
 
-;; update the package metadata is the local cache is missing
+;; Update the package metadata is the local cache is missing
 (unless package-archive-contents
   (package-refresh-contents))
-
-;; always load newest byte code
-(setq load-prefer-newer t)
 
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
 
-(require 'use-package)
-(setq use-package-verbose t)
+;; Always load newest byte code
+(setq load-prefer-newer t)
 
+(require 'use-package)
+
+(setq use-package-verbose t)
 
 ;; --------------------------------------------------------------
 
 
-;; built-in
+;; Built-in packages
+
 (use-package diminish
   :ensure t)
 
@@ -198,6 +190,7 @@
   (add-hook 'lisp-interaction-mode-hook #'eldoc-mode))
 
 (use-package org
+  :defer 5
   :init
   (setq org-startup-indented t)
   (setq org-log-done t)
@@ -206,6 +199,7 @@
   (setq org-fontify-quote-and-verse-blocks t))
 
 (use-package org-indent
+  :defer 5
   :diminish (org-indent-mode . ""))
 
 
@@ -215,10 +209,10 @@
 (defvar evil-leader-map (make-sparse-keymap)
   "Keymap for `leader' key shortcuts.")
 
-;; third-party
+;; Third-party packages
 (use-package cloud-theme
-  ;; :ensure t
-  :load-path "~/workspace/projects/elisp/cloud-theme"
+  :ensure t
+  ;; :load-path "~/workspace/projects/elisp/cloud-theme"
   :config
   (load-theme 'cloud t)
   (cloud-theme-mode-line))
@@ -241,6 +235,7 @@
 
 (use-package evil-surround
   :ensure t
+  :after (evil)
   :config
   (global-evil-surround-mode t))
 
@@ -326,6 +321,7 @@
 
 (use-package yasnippet
   :ensure t
+  :defer 5
   :commands (yas-insert-snippet)
   :init
   (define-key evil-leader-map (kbd "yi") 'yas-insert-snippet)
@@ -335,6 +331,7 @@
 
 (use-package magit
   :ensure t
+  :defer 5
   :commands (magit-status
              magit-blame-addition
              magit-blame-quit
@@ -368,6 +365,7 @@
 
 (use-package which-key
   :ensure t
+  :defer 5
   :init
   (setq which-key-sort-order 'which-key-key-order-alpha)
   :config
@@ -375,6 +373,7 @@
 
 (use-package neotree
   :ensure t
+  :defer 5
   :init
   (setq neo-theme 'ascii)
   (define-key evil-leader-map (kbd "t") 'neotree-toggle)
@@ -467,6 +466,7 @@
 
 (use-package dockerfile-mode
   :ensure t
+  :mode "\\Dockerfile\\"
   :pin melpa-stable)
 
 (use-package haskell-mode
