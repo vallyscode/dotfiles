@@ -14,7 +14,7 @@
 (setq user-full-name "Valerii Lysenko"
       user-mail-address "vallyscode@gmail.com")
 
-;; Disable and remove standard startup messages
+;; disable and remove standard startup messages
 (setq inhibit-startup-screen t
       inhibit-splash-screen t
       initial-scratch-message "")
@@ -23,7 +23,6 @@
                 scroll-bar-mode
                 menu-bar-mode
                 tool-bar-mode
-                blink-cursor-mode
                 blink-cursor-mode))
   (when (fboundp mode)
     (funcall mode -1)))
@@ -38,7 +37,7 @@
 ;; disable visual notification
 (setq ring-bell-function 'ignore)
 
-;; Wrap lines at 90 characters
+;; wrap lines at 90 characters
 (setq-default fill-column 90)
 
 ;; Enable y/n answers
@@ -49,7 +48,7 @@
                    (abbreviate-file-name (buffer-file-name))
                  "%b"))))
 
-;; Set utf-8
+;; set utf-8
 (prefer-coding-system 'utf-8)
 (set-default-coding-systems 'utf-8)
 (set-terminal-coding-system 'utf-8)
@@ -88,17 +87,17 @@
        (add-to-list 'default-frame-alist '(font . "Iosevka NF-12")))
       ((or (string= system-type "gnu/linux")
            (string= system-type "darwin"))
-       (add-to-list 'default-frame-alist '(font . "Iosevka Nerd Font Mono-12")))
+       (add-to-list 'default-frame-alist '(font . "JetBrains Mono-13")))
       (t (message "Failed to set font based on system-type")))
 
 (setq scroll-margin 0
       scroll-conservatively 100000
       scroll-preserve-screen-position 1)
 
-;; Set exec path
+;; set exec path
 (add-to-list 'exec-path "/usr/local/bin")
 (add-to-list 'exec-path "~/.local/bin")
-(add-to-list 'exec-path "~/.nvm/versions/node/v8.11.3/bin")
+(add-to-list 'exec-path "~/.nvm/versions/node/v10.18.1/bin")
 
 ;; --------------------------------------------------------------
 
@@ -112,15 +111,15 @@
 
 (package-initialize)
 
-;; Update the package metadata is the local cache is missing
+;; update the package metadata is the local cache is missing
 (unless package-archive-contents
   (package-refresh-contents))
 
+;; always load newest byte code
+(setq load-prefer-newer t)
+
 (unless (package-installed-p 'use-package)
   (package-install 'use-package))
-
-;; Always load newest byte code
-(setq load-prefer-newer t)
 
 (require 'use-package)
 
@@ -129,7 +128,7 @@
 ;; --------------------------------------------------------------
 
 
-;; Built-in packages
+;; built-in packages
 
 (use-package diminish
   :ensure t)
@@ -190,16 +189,17 @@
   (add-hook 'lisp-interaction-mode-hook #'eldoc-mode))
 
 (use-package org
-  :defer 5
   :init
   (setq org-startup-indented t)
   (setq org-log-done t)
   (setq org-fontify-whole-heading-line t)
   (setq org-fontify-done-headline t)
-  (setq org-fontify-quote-and-verse-blocks t))
+  (setq org-fontify-quote-and-verse-blocks t)
+  :config
+  (when (version<= "9.2" (org-version))
+    (require 'org-tempo)))
 
 (use-package org-indent
-  :defer 5
   :diminish (org-indent-mode . ""))
 
 
@@ -211,8 +211,8 @@
 
 ;; Third-party packages
 (use-package cloud-theme
-  :ensure t
-  ;; :load-path "~/workspace/projects/elisp/cloud-theme"
+  ;; :ensure t
+  :load-path "~/workspace/projects/elisp/cloud-theme"
   :config
   (load-theme 'cloud t)
   (cloud-theme-mode-line))
@@ -321,7 +321,6 @@
 
 (use-package yasnippet
   :ensure t
-  :defer 5
   :commands (yas-insert-snippet)
   :init
   (define-key evil-leader-map (kbd "yi") 'yas-insert-snippet)
@@ -331,7 +330,6 @@
 
 (use-package magit
   :ensure t
-  :defer 5
   :commands (magit-status
              magit-blame-addition
              magit-blame-quit
@@ -365,7 +363,6 @@
 
 (use-package which-key
   :ensure t
-  :defer 5
   :init
   (setq which-key-sort-order 'which-key-key-order-alpha)
   :config
@@ -373,7 +370,6 @@
 
 (use-package neotree
   :ensure t
-  :defer 5
   :init
   (setq neo-theme 'ascii)
   (define-key evil-leader-map (kbd "t") 'neotree-toggle)
@@ -437,9 +433,13 @@
   :mode ("\\.markdown\\'" "\\.mkd\\'" "\\.md\\'")
   :pin melpa-stable)
 
+(use-package typescript-mode
+  :ensure t
+  :mode ("\\.ts\\'"))
+
 (use-package tide
   :ensure t
-  :mode ("\\.ts\\'" "\\.js\\'")
+  :mode ("\\.js\\'")
   :pin melpa-stable)
 
 (defun setup-tide-mode ()
@@ -459,14 +459,9 @@
   :mode "\\.js\\'"
   :pin melpa-stable)
 
-(use-package jsx-mode
-  :ensure t
-  :mode "\\.jsx\\'"
-  :pin melpa-stable)
-
 (use-package dockerfile-mode
   :ensure t
-  :mode "\\Dockerfile\\"
+  :mode "\\Dockerfile\\'"
   :pin melpa-stable)
 
 (use-package haskell-mode
