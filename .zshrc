@@ -14,4 +14,6 @@ autoload -Uz compinit
 compinit
 
 alias ls='ls --color=auto'
+alias pacman='sudo pacman --color=auto'
+alias vim='nvim'
 
