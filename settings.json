@@ -1,0 +1,45 @@
+{
+    "telemetry.enableCrashReporter": false,
+    "telemetry.enableTelemetry": false,
+    "workbench.colorTheme": "Cloud",
+    "editor.fontFamily": "'Victor Mono'",
+    "editor.fontSize": 16,
+    "editor.cursorBlinking": "solid",
+    "editor.renderWhitespace": "all",
+    "editor.codeLens": true,
+    "editor.minimap.enabled": false,
+    "vim.smartRelativeLine": true,
+    "vim.easymotion": true,
+    "vim.incsearch": true,
+    "vim.ignorecase": true,
+    "vim.useSystemClipboard": true,
+    "vim.useCtrlKeys": true,
+    "vim.hlsearch": true,
+    "vim.leader": "<space>",
+    "vim.handleKeys": {
+        "<C-a>": false,
+        "<C-f>": false
+    },
+    "vim.normalModeKeyBindings": [
+        {
+            "before": ["<leader>", "a", "t"],
+            "commands": [
+                "workbench.action.toggleActivityBarVisibility"
+            ]
+        },
+        {
+            "before": ["<leader>", "d", "f"],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
+        },
+    ],
+    "vim.visualModeKeyBindings": [
+        {
+            "before": ["<leader>", "d", "f"],
+            "commands": [
+                "editor.action.formatSelection"
+            ]
+        }
+    ],
+}
