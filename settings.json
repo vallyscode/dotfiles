@@ -4,6 +4,7 @@
     "workbench.colorTheme": "Cloud",
     "editor.fontFamily": "'Victor Mono'",
     "editor.fontSize": 16,
+    "editor.fontLigatures": true,
     "editor.cursorBlinking": "solid",
     "editor.renderWhitespace": "all",
     "editor.codeLens": true,
