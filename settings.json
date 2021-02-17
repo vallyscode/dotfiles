@@ -3,7 +3,7 @@
     "telemetry.enableTelemetry": false,
     "workbench.colorTheme": "Cloud",
     "editor.fontFamily": "'Victor Mono'",
-    "editor.fontSize": 16,
+    "editor.fontSize": 14,
     "editor.fontLigatures": true,
     "editor.cursorBlinking": "solid",
     "editor.renderWhitespace": "all",
@@ -23,24 +23,28 @@
     },
     "vim.normalModeKeyBindings": [
         {
-            "before": ["<leader>", "a", "t"],
-            "commands": [
-                "workbench.action.toggleActivityBarVisibility"
-            ]
+            "before": ["<leader>", "a"],
+            "commands": ["workbench.action.toggleActivityBarVisibility"]
         },
         {
-            "before": ["<leader>", "d", "f"],
-            "commands": [
-                "editor.action.formatDocument"
-            ]
+            "before": ["<leader>", "f"],
+            "commands": ["editor.action.formatDocument"]
         },
+        {
+            "before": ["<tab>"],
+            "commands": ["workbench.action.nextEditor"]
+        },
+        {
+            "before": ["<S-tab>"],
+            "commands": ["workbench.action.previousEditor"]
+        }
     ],
     "vim.visualModeKeyBindings": [
         {
             "before": ["<leader>", "d", "f"],
-            "commands": [
-                "editor.action.formatSelection"
-            ]
+            "commands": ["editor.action.formatSelection"]
         }
     ],
+    "window.menuBarVisibility": "toggle",
+    "workbench.tree.renderIndentGuides": "always",
 }
