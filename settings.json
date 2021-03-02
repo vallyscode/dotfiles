@@ -8,6 +8,8 @@
     "editor.cursorBlinking": "solid",
     "editor.renderWhitespace": "all",
     "editor.codeLens": true,
+    "editor.codeLensFontSize": 14,
+    "diffEditor.codeLens": true,
     "editor.minimap.enabled": false,
     "vim.smartRelativeLine": true,
     "vim.easymotion": true,
