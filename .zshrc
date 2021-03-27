@@ -1,19 +1,36 @@
+# Created by newuser for 5.8
+
+export TERM="xterm-256color"
+export HISTORY_IGNORE="(ls|cd|pwd|exit|history|cd -|cd ..)"
+export EDITOR="vim"
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+
+if [ -d "$HOME/.bin" ] ;
+  then PATH="$HOME/.bin:$PATH"
+fi
+
+if [ -d "$HOME/.local/bin" ] ;
+  then PATH="$HOME/.local/bin:$PATH"
+fi
+
+
 autoload -Uz promptinit
 promptinit
-prompt adam2 # walters # adam1
+prompt adam2
 
 setopt histignorealldups sharehistory
 
-# Keep 1k lines of history within the shell and save it to ~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 HISTFILE=~/.zsh_history
 
-# Use modern completion system
-autoload -Uz compinit
-compinit
 
+alias grep='grep --color=auto'
 alias ls='ls --color=auto'
 alias pacman='sudo pacman --color=auto'
 alias vim='nvim'
+
 
