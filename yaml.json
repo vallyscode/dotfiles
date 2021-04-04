@@ -1,0 +1,55 @@
+{
+    "Cloudformation Base": {
+        "description": "Cloudformation base document.",
+        "prefix": "cft",
+        "body": [
+            "AWSTemplateFormatVersion: \"2010-09-09\"",
+            "Description: >",
+            "\t${1}",
+            "",
+            "Parameters:",
+            "\t${2}",
+            "",
+            "Resources:",
+            "\t${3}",
+            "",
+            "Outputs:",
+            "\t${4}",
+            "$0"
+        ]
+    },
+    "Cloudformation param": {
+        "description": "Cloudformation param",
+        "prefix": "cfp",
+        "body": [
+            "${1:Param}:",
+            "\tType: ${2|String,Number,List<Number>,CommaDelimitedList|}",
+            "\tDescription: \"${3:Param description.}\"",
+            "\tDefault: ${4:default value}",
+            "${0}"
+        ],
+    },
+    "Cloudformation resource": {
+        "description": "Cloudformation resource",
+        "prefix": "cfs3",
+        "body": [
+            "${1:Resource}:",
+            "\tType: \"AWS::S3::Bucket\"",
+            "\tProperties:",
+            "\t\tBucketName: ${2}",
+            "${0}"
+        ],
+    },
+    "Cloudformation output": {
+        "description": "Cloudformation output",
+        "prefix": "cfo",
+        "body": [
+            "${1:Output}",
+            "\tDescription: ${2:Description.}",
+            "\tValue: ${3:Value}",
+            "\tExport:",
+            "\t\tName: ${4:Export name}",
+            "${0}"
+        ],
+    }
+}
