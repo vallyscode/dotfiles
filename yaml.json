@@ -1,54 +1,56 @@
 {
-    "Cloudformation Base": {
-        "description": "Cloudformation base document.",
-        "prefix": "cft",
+    "SAM template": {
+        "description": "SAM template",
+        "prefix": "samt",
         "body": [
             "AWSTemplateFormatVersion: \"2010-09-09\"",
+            "Transform: AWS::Serverless-2016-10-31",
             "Description: >",
-            "\t${1}",
+            "\t ${1}",
             "",
             "Parameters:",
             "\t${2}",
             "",
             "Resources:",
-            "\t${3}",
+            "\t$0",
             "",
-            "Outputs:",
-            "\t${4}",
-            "$0"
+            "Outputs:"
         ]
     },
-    "Cloudformation param": {
-        "description": "Cloudformation param",
-        "prefix": "cfp",
+    "SAM parameter": {
+        "description": "SAM parameter",
+        "prefix": "samp",
         "body": [
-            "${1:Param}:",
-            "\tType: ${2|String,Number,List<Number>,CommaDelimitedList|}",
-            "\tDescription: \"${3:Param description.}\"",
-            "\tDefault: ${4:default value}",
+            "${1:Name}:",
+            "\tDescription: ${2}",
+            "\tType: ${3|String,Number,List<Number>,CommaDelimitedList|}",
+            "\tDefault: ${4}",
+            "\tAllowedValues:",
+            "\t\t- ${5}",
+            "\t\t- ${6}",
             "${0}"
-        ],
+        ]
     },
-    "Cloudformation resource": {
-        "description": "Cloudformation resource",
-        "prefix": "cfs3",
-        "body": [
-            "${1:Resource}:",
-            "\tType: \"AWS::S3::Bucket\"",
-            "\tProperties:",
-            "\t\tBucketName: ${2}",
-            "${0}"
-        ],
-    },
-    "Cloudformation output": {
-        "description": "Cloudformation output",
-        "prefix": "cfo",
+    "SAM template output": {
+        "description": "SAM template output",
+        "prefix": "samo",
         "body": [
             "${1:Output}",
             "\tDescription: ${2:Description.}",
             "\tValue: ${3:Value}",
             "\tExport:",
             "\t\tName: ${4:Export name}",
+            "${0}"
+        ],
+    },
+    "SAM S3": {
+        "description": "SAM S3",
+        "prefix": "sams3",
+        "body": [
+            "${1:Resource}:",
+            "\tType: AWS::S3::Bucket",
+            "\tProperties:",
+            "\t\tBucketName: ${2}",
             "${0}"
         ],
     }
