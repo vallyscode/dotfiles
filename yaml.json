@@ -27,15 +27,14 @@
             "\tDefault: ${4}",
             "\tAllowedValues:",
             "\t\t- ${5}",
-            "\t\t- ${6}",
-            "${0}"
+            "\t\t- ${0}"
         ]
     },
     "SAM template output": {
         "description": "SAM template output",
         "prefix": "samo",
         "body": [
-            "${1:Output}",
+            "${1:Logical ID}:",
             "\tDescription: ${2:Description.}",
             "\tValue: ${3:Value}",
             "\tExport:",
@@ -43,15 +42,71 @@
             "${0}"
         ],
     },
+    "SAM sub": {
+        "description": "!Sub",
+        "prefix": "samsub",
+        "body": "!Sub $0"
+    },
+    "SAM ref": {
+        "description": "!Ref",
+        "prefix": "samref",
+        "body": "!Ref $0"
+    },
+    "SAM getatt": {
+        "description": "!GetAtt",
+        "prefix": "samgetatt",
+        "body": "!GetAtt $0"
+    },
+    "SAM depends": {
+        "description": "DependsOn",
+        "prefix": "samdep",
+        "body": [
+            "DependsOn:",
+            "\t- $0"
+        ]
+    },
     "SAM S3": {
         "description": "SAM S3",
         "prefix": "sams3",
         "body": [
             "${1:Resource}:",
             "\tType: AWS::S3::Bucket",
+            "\tDeletionPolicy: ${2|Retain,Delete|}",
             "\tProperties:",
-            "\t\tBucketName: ${2}",
+            "\t\tBucketName: ${3}",
+            "\t\tVersioningConfiguration:",
+            "\t\t\tStatus: ${4|Enabled,Suspended|}",
+            "\t\tBucketEncryption:",
+            "\t\t\tServerSideEncryptionConfiguration:",
+            "\t\t\t\t- ServerSideEncryptionByDefault:",
+            "\t\t\t\t\tSSEAlgorithm: AES256",
+            "\t\tTags:",
+            "\t\t\t- Key: ${5:Name}",
+            "\t\t\t  Value: ${6:Value}",
             "${0}"
         ],
+    },
+    "SAM sqs": {
+        "description": "SAM SQS",
+        "prefix": "samsqs",
+        "body": [
+            "${1:Resource}:",
+            "\tType: AWS::SQS::Queue",
+            "\tDeletionPolicy: ${2|Retain,Delete|}",
+            "\tProperties:",
+            "\t\tQueueName: $3",
+            "\t\tDelaySeconds: ${4:0 to 900 sec}",
+            "\t\tFifoQueue: ${5|false,true|}",
+            "\t\tMaximumMessageSize: ${6:1,024 bytes (1 KiB) to 262,144 bytes (256 KiB). The default value is 262,144 (256 KiB).}",
+            "\t\tMessageRetentionPeriod: ${7:60 seconds (1 minute) to 1,209,600 seconds (14 days). The default value is 345,600 seconds (4 days).}",
+            "\t\tRedrivePolicy:",
+            "\t\t\tdeadLetterTargetArn: ${8:The Amazon Resource Name (ARN) of the dead-letter queue}",
+            "\t\t\tmaxReceiveCount: ${9:The number of times a message is delivered to the source queue before being moved to the dead-letter queue.}",
+            "\t\tVisibilityTimeout: ${10:0 to 43,200 seconds (12 hours). Default value of 30 seconds}",
+            "\t\tTags:",
+            "\t\t\t- Key: ${11:Name}",
+            "\t\t\t  Value: ${12:Value}",
+            "${0}"
+        ]
     }
 }
