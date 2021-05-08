@@ -1,0 +1,19 @@
+{
+	"JUnit test": {
+		"description": "JUnit test",
+		"prefix": "junittest",
+		"body": [
+			"@Test",
+			"public void $1() {",
+			"\t// given",
+			"\t$2",
+			"",
+			"\t// when",
+			"\t$3",
+			"",
+			"\t// then",
+			"\t$0",
+			"}"
+		]
+	}
+}
