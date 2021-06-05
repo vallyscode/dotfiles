@@ -3,10 +3,10 @@
         "description": "SAM template",
         "prefix": "samt",
         "body": [
-            "AWSTemplateFormatVersion: \"2010-09-09\"",
+            "AWSTemplateFormatVersion: '2010-09-09'",
             "Transform: AWS::Serverless-2016-10-31",
             "Description: >",
-            "\t ${1}",
+            "\t${1}",
             "",
             "Parameters:",
             "\t${2}",
@@ -65,11 +65,21 @@
             "\t- $0"
         ]
     },
+    "SAM globals": {
+        "description": "SAM Globals",
+        "prefix": "samglob",
+        "body": [
+            "Globals:",
+            "\tFunction:",
+            "\t\tTimeout: ${1:Time function can run before stop. Default 3 sec, max 900 (15min)}",
+            "$0"
+        ]
+    },
     "SAM S3": {
         "description": "SAM S3",
         "prefix": "sams3",
         "body": [
-            "${1:Resource}:",
+            "${1:Resource}Bucket:",
             "\tType: AWS::S3::Bucket",
             "\tDeletionPolicy: ${2|Retain,Delete|}",
             "\tProperties:",
@@ -90,7 +100,7 @@
         "description": "SAM SQS",
         "prefix": "samsqs",
         "body": [
-            "${1:Resource}:",
+            "${1:Resource}Queue:",
             "\tType: AWS::SQS::Queue",
             "\tDeletionPolicy: ${2|Retain,Delete|}",
             "\tProperties:",
@@ -107,6 +117,27 @@
             "\t\t\t- Key: ${11:Name}",
             "\t\t\t  Value: ${12:Value}",
             "${0}"
+        ]
+    },
+    "SAM lambda": {
+        "description": "SAM Lambda",
+        "prefix": "samlam",
+        "body": [
+            "${1:Resource}Function:",
+            "\tType: AWS::Serverless::Function",
+            "\tProperties:",
+            "\t\tDescription: ${2:Description}",
+            "\t\tCodeUri: echo-service/",
+            "\t\tHandler: handler",
+            "\t\tTracing: ${3|Active,PassThrough|}",
+            "\t\tTimeout: ${5:Time function can run before stop. Default 3 sec, max 900 (15min)}",
+            "\t\tMemorySize: ${4:128}",
+            "\t\tEnvironment:",
+            "\t\t\tVariables:",
+            "\t\t\t\t${6:PARAM}: ${7:VALUE}",
+            "\t\tTags:",
+            "\t\t\t${8:Tag}: ${9:Value}",
+            "$0"
         ]
     }
 }
