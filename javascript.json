@@ -1,0 +1,21 @@
+{
+    "class": {
+        "description": "class declaration",
+        "prefix": "class",
+        "body": [
+            "class ${1:Class} {",
+            "\t${2:constructor(${3:arg})} {",
+            "\t\t$4",
+            "\t}",
+            "\t$0",
+            "}"
+        ]
+    },
+    "const": {
+        "description": "const declaration",
+        "prefix": "const",
+        "body": [
+            "const ${1:name} = ${2:init};"
+        ]
+    }
+}
