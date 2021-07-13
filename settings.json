@@ -3,20 +3,33 @@
     "telemetry.enableTelemetry": false,
     "window.zoomLevel": 1,
     "workbench.colorTheme": "Cloud",
-    "editor.fontFamily": "'mononoki Nerd Font Mono'",
-    "editor.fontSize": 13,
+    "workbench.editor.decorations.badges": true,
+    "workbench.editor.decorations.colors": true,
+    "editor.fontFamily": "'mononoki NF','mononoki Nerd Font Mono'",
+    "editor.fontSize": 14,
     "editor.fontLigatures": true,
+    "editor.lineHeight": 17,
     "editor.cursorBlinking": "solid",
+    "editor.cursorSmoothCaretAnimation": false,
     "editor.renderWhitespace": "all",
+    "editor.renderControlCharacters": true,
+    "editor.renderLineHighlight": "all",
+    "editor.renderFinalNewline": true,
+    "editor.renderIndentGuides": true,
     "editor.codeLens": true,
-    "editor.codeLensFontSize": 13,
-    "editor.codeLensFontFamily": "'mononoki Nerd Font Mono'",
+    "editor.codeLensFontSize": 14,
+    "editor.codeLensFontFamily": "'mononoki NF','mononoki Nerd Font Mono'",
     "editor.minimap.enabled": false,
     "editor.tabCompletion": "on",
+    "editor.tabSize": 2,
+    "editor.wordWrap": "off",
     "editor.snippetSuggestions": "top",
+    "editor.showFoldingControls": "always",
+    "editor.foldingHighlight": true,
+    "editor.foldingStrategy": "auto",
     "diffEditor.codeLens": true,
-    "terminal.integrated.fontFamily": "'mononoki Nerd Font Mono'",
-    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.fontFamily": "'mononoki NF','mononoki Nerd Font Mono'",
+    "terminal.integrated.fontSize": 14,
     "vim.smartRelativeLine": true,
     "vim.easymotion": true,
     "vim.incsearch": true,
@@ -31,26 +44,50 @@
     },
     "vim.normalModeKeyBindings": [
         {
-            "before": ["<leader>", "a"],
-            "commands": ["workbench.action.toggleActivityBarVisibility"]
+            "before": [
+                "<leader>",
+                "a"
+            ],
+            "commands": [
+                "workbench.action.toggleActivityBarVisibility"
+            ]
         },
         {
-            "before": ["<leader>", "f"],
-            "commands": ["editor.action.formatDocument"]
+            "before": [
+                "<leader>",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatDocument"
+            ]
         },
         {
-            "before": ["<tab>"],
-            "commands": ["workbench.action.nextEditor"]
+            "before": [
+                "<tab>"
+            ],
+            "commands": [
+                "workbench.action.nextEditor"
+            ]
         },
         {
-            "before": ["<S-tab>"],
-            "commands": ["workbench.action.previousEditor"]
+            "before": [
+                "<S-tab>"
+            ],
+            "commands": [
+                "workbench.action.previousEditor"
+            ]
         }
     ],
     "vim.visualModeKeyBindings": [
         {
-            "before": ["<leader>", "d", "f"],
-            "commands": ["editor.action.formatSelection"]
+            "before": [
+                "<leader>",
+                "d",
+                "f"
+            ],
+            "commands": [
+                "editor.action.formatSelection"
+            ]
         }
     ],
     "window.menuBarVisibility": "toggle",
