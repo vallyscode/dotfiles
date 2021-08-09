@@ -1,6 +1,7 @@
 [Appearance]
 ColorScheme=cloud
-Font=Victor Mono,11,-1,5,50,0,0,0,0,0
+Font=Cascadia Code SemiLight,12,-1,5,29,0,0,0,0,0,Regular
+UseFontLineChararacters=true
 
 [General]
 Name=user
