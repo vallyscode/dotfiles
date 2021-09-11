@@ -27,6 +27,7 @@
     "editor.showFoldingControls": "always",
     "editor.foldingHighlight": true,
     "editor.foldingStrategy": "auto",
+    "editor.bracketPairColorization.enabled": true,
     "diffEditor.codeLens": true,
     "terminal.integrated.fontFamily": "'Cascadia Code SemiLight','mononoki NF','mononoki Nerd Font Mono'",
     "terminal.integrated.fontSize": 12,
@@ -108,4 +109,7 @@
     "rust-analyzer.lens.methodReferences": true,
     "rust-analyzer.lens.references": true,
     "xml.codeLens.enabled": true,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter.notebook.ipynb"
+    },
 }
