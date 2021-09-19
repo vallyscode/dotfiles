@@ -1,15 +1,13 @@
 {
-    "class": {
-        "description": "class declaration",
-        "prefix": "class",
-        "body": [
-            "class ${1:Class} {",
-            "\t${2:constructor(${3:arg})} {",
-            "\t\t$4",
-            "\t}",
-            "\t$0",
-            "}"
-        ]
+    "req": {
+        "description": "require",
+        "prefix": "req",
+        "body": "const ${1:pkg} = require('${1:pkg}');$0"
+    },
+    "exp": {
+        "description": "module exports for CommonJS",
+        "prefix": "exp",
+        "body": "module.exports = {$0};"
     },
     "const": {
         "description": "const declaration",
@@ -17,5 +15,25 @@
         "body": [
             "const ${1:name} = ${2:init};"
         ]
+    },
+    "promise": {
+        "description": "promise declaration",
+        "prefix": "promise",
+        "body": "new Promise((resolve, reject) => {$0});"
+    },
+    "describe": {
+        "description": "describe declaration",
+        "prefix": "describe",
+        "body": "describe(\"$1\", () => {$0});"
+    },
+    "test": {
+        "description": "test case declaration",
+        "prefix": "test",
+        "body": "test(\"$1\", () => {$0});"
+    },
+    "expect": {
+        "description": "expectations",
+        "prefix": "expect",
+        "body": "expect($1).$0"
     }
 }
