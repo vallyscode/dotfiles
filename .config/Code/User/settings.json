@@ -9,8 +9,8 @@
     "workbench.editor.decorations.colors": true,
     "workbench.tree.indent": 18,
     "workbench.tree.renderIndentGuides": "always",
-    "editor.fontFamily": "'mononoki NF'",
-    "editor.fontSize": 14,
+    "editor.fontFamily": "'DaddyTimeMono NF','mononoki NF'",
+    "editor.fontSize": 16,
     "editor.fontLigatures": true,
     "editor.lineHeight": 26,
     "editor.cursorBlinking": "solid",
@@ -127,7 +127,10 @@
                 "editor.action.formatSelection"
             ]
         }
-    ]
+    ],
+    "workbench.sideBar.location": "right"
 }
+
+
 
 
