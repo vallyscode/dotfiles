@@ -9,18 +9,21 @@
     "workbench.editor.decorations.colors": true,
     "workbench.tree.indent": 18,
     "workbench.tree.renderIndentGuides": "always",
-    "editor.fontFamily": "'DaddyTimeMono NF','mononoki NF'",
-    "editor.fontSize": 16,
-    "editor.fontLigatures": true,
+    "workbench.editor.tabCloseButton": "right",
+    "workbench.editor.showIcons": true,
+    "workbench.sideBar.location": "right",
+    "editor.fontFamily": "'Monofur NF','DaddyTimeMono NF','mononoki NF'",
+    "editor.fontSize": 18,
     "editor.lineHeight": 26,
+    "editor.fontLigatures": false,
     "editor.cursorBlinking": "solid",
     "editor.renderWhitespace": "all",
     "editor.renderControlCharacters": true,
     "editor.renderLineHighlight": "all",
     "editor.renderFinalNewline": true,
     "editor.codeLens": true,
-    "editor.codeLensFontSize": 14,
-    "editor.codeLensFontFamily": "'DaddyTimeMono NF','mononoki NF'",
+    "editor.codeLensFontSize": 18,
+    "editor.codeLensFontFamily": "'Monofur NF','DaddyTimeMono NF','mononoki NF'",
     "editor.tabCompletion": "on",
     "editor.tabSize": 2,
     "editor.wordWrap": "off",
@@ -28,24 +31,28 @@
     "editor.showFoldingControls": "always",
     "editor.foldingHighlight": true,
     "editor.foldingStrategy": "auto",
+    "editor.foldingImportsByDefault": true,
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": true,
     "editor.guides.indentation": true,
     "editor.guides.highlightActiveIndentation": true,
-    "editor.suggestFontSize": 14,
-    "editor.inlayHints.fontFamily": "'DaddyTimeMono NF','mononoki NF'",
-    "editor.inlayHints.fontSize": 14,
+    "editor.suggestFontSize": 18,
+    "editor.inlayHints.fontFamily": "'Monofur NF','DaddyTimeMono NF','mononoki NF'",
+    "editor.inlayHints.fontSize": 18,
     "editor.inlayHints.enabled": "on",
     "editor.minimap.enabled": false,
     "editor.mouseWheelZoom": true,
+    "editor.rulers": [90],
+    "editor.roundedSelection": true,
     "diffEditor.codeLens": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "git.mergeEditor": true,
-    "terminal.integrated.fontFamily": "'DaddyTimeMono NF','mononoki NF'",
-    "terminal.integrated.fontSize": 14,
+    "terminal.integrated.fontFamily": "'Monofur NF','DaddyTimeMono NF','mononoki NF'",
+    "terminal.integrated.fontSize": 18,
     "terminal.integrated.cursorStyle": "block",
     "terminal.integrated.cursorBlinking": false,
     "terminal.integrated.shellIntegration.enabled": true,
+    "terminal.integrated.defaultLocation": "editor",
     "files.autoSave": "afterDelay",
     "files.simpleDialog.enable": true,
     "files.exclude": {
@@ -55,8 +62,8 @@
         "**/.factorypath": true
     },
     "npm.enableRunFromFolder": true,
-    "debug.console.fontSize": 14,
-    "scm.inputFontSize": 14,
+    "debug.console.fontSize": 18,
+    "scm.inputFontSize": 18,
     "typescript.implementationsCodeLens.enabled": true,
     "typescript.referencesCodeLens.enabled": true,
     "typescript.referencesCodeLens.showOnAllFunctions": true,
@@ -127,9 +134,10 @@
                 "editor.action.formatSelection"
             ]
         }
-    ],
-    "workbench.sideBar.location": "right"
+    ]
 }
+
+
 
 
 
