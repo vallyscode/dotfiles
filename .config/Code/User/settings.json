@@ -13,7 +13,7 @@
     "workbench.editor.showIcons": true,
     "workbench.sideBar.location": "right",
     "editor.fontFamily": "'Monofur Nerd Font','DaddyTimeMono Nerd Font','mononoki Nerd Font','Monofur NF','DaddyTimeMono NF','mononoki NF'",
-    "editor.fontSize": 18,
+    "editor.fontSize": 16,
     "editor.lineHeight": 26,
     "editor.fontLigatures": false,
     "editor.cursorBlinking": "solid",
@@ -22,7 +22,7 @@
     "editor.renderLineHighlight": "all",
     "editor.renderFinalNewline": true,
     "editor.codeLens": true,
-    "editor.codeLensFontSize": 18,
+    "editor.codeLensFontSize": 16,
     "editor.codeLensFontFamily": "'Monofur Nerd Font','DaddyTimeMono Nerd Font','mononoki Nerd Font','Monofur NF','DaddyTimeMono NF','mononoki NF'",
     "editor.tabCompletion": "on",
     "editor.tabSize": 2,
@@ -36,20 +36,21 @@
     "editor.guides.bracketPairs": true,
     "editor.guides.indentation": true,
     "editor.guides.highlightActiveIndentation": true,
-    "editor.suggestFontSize": 18,
+    "editor.suggestFontSize": 16,
     "editor.inlayHints.fontFamily": "'Monofur Nerd Font','DaddyTimeMono Nerd Font','mononoki Nerd Font','Monofur NF','DaddyTimeMono NF','mononoki NF'",
-    "editor.inlayHints.fontSize": 18,
+    "editor.inlayHints.fontSize": 16,
     "editor.inlayHints.enabled": "on",
-    "editor.minimap.enabled": false,
+    "editor.minimap.enabled": true,
     "editor.mouseWheelZoom": true,
     "editor.rulers": [90],
     "editor.roundedSelection": true,
     "editor.stickyScroll.enabled": true,
+    "breadcrumbs.enabled": true,
     "diffEditor.codeLens": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "git.mergeEditor": true,
     "terminal.integrated.fontFamily": "'Monofur Nerd Font','DaddyTimeMono Nerd Font','mononoki Nerd Font','Monofur NF','DaddyTimeMono NF','mononoki NF'",
-    "terminal.integrated.fontSize": 18,
+    "terminal.integrated.fontSize": 16,
     "terminal.integrated.cursorStyle": "block",
     "terminal.integrated.cursorBlinking": false,
     "terminal.integrated.shellIntegration.enabled": true,
@@ -64,8 +65,8 @@
         "**/.factorypath": true
     },
     "npm.enableRunFromFolder": true,
-    "debug.console.fontSize": 18,
-    "scm.inputFontSize": 18,
+    "debug.console.fontSize": 16,
+    "scm.inputFontSize": 16,
     "typescript.implementationsCodeLens.enabled": true,
     "typescript.referencesCodeLens.enabled": true,
     "typescript.referencesCodeLens.showOnAllFunctions": true,
@@ -138,9 +139,3 @@
         }
     ]
 }
-
-
-
-
-
-
